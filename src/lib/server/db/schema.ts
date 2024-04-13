@@ -26,6 +26,7 @@ export const user = pgTable('user', {
 
 export const userRelations = relations(user, ({ many }) => ({
     sessions: many(session)
+
 }))
 
 export const session = pgTable('session', {
@@ -44,9 +45,11 @@ export const sessionRelations = relations(session, ({ one }) => ({
     user: one(user, {
         fields: [session.userId],
         references: [user.id],
-        relationName: "user"
     })
 }))
+
+
+
 
 export const graph = pgTable('graph', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
@@ -65,13 +68,16 @@ export const node = pgTable('node', {
 
 export const nodesRelations = relations(node, ({ many, one }) => ({
 
-    outgoingEdges: many(edge),
-    incomingEdges: many(edge),
+    tailEdges: many(edge, {
+        relationName: "head"
+    }),
+    headEdges: many(edge, {
+        relationName: "tail"
+    }),
 
     parentGraph: one(graph, {
         fields: [node.parentGraphId],
         references: [graph.id],
-        relationName: "parent_graph"
     })
 
 }))
