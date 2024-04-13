@@ -51,11 +51,19 @@ export async function GET(event: RequestEvent): Promise<Response> {
             const primary = githubEmail.find((entry) => entry.primary);
 
             if (primary) {
-                const nameParts = githubUser.name.split(' ') ?? ["unknown", "unknown"];
+
+                var nameParts: string[];
+
+                // crazy edge case if someone doesnt have their name on github
+                if (!githubUser.name) {
+                    nameParts = [githubUser.login, '']
+                } else {
+                    nameParts = githubUser.name.split(' ') ?? ["unknown", "unknown"];
+                }
+
                 const userId = generateId(40);
 
                 await db.insert(user).values({
-
                     id: userId,
                     provider: 'github',
                     providerId: githubUser.id,
