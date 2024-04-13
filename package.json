@@ -13,7 +13,6 @@
     "format": "prettier --write .",
     "test:integration": "playwright test",
     "test:unit": "vitest",
-
     "db:push": "drizzle-kit push:pg",
     "db:studio": "drizzle-kit studio"
   },
@@ -35,6 +34,7 @@
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.35.1",
+    "lucia": "^3.1.1",
     "postcss": "8.4.38",
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
@@ -50,9 +50,11 @@
   "type": "module",
   "dependencies": {
     "@floating-ui/dom": "1.6.3",
+    "@lucia-auth/adapter-drizzle": "^1.0.7",
     "drizzle-orm": "^0.30.8",
     "highlight.js": "11.9.0",
     "neo4j-driver": "^5.19.0",
+    "oslo": "^1.2.0",
     "pg": "^8.11.5",
     "postgres": "^3.4.4"
   }
