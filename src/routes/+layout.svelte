@@ -12,7 +12,8 @@
 	import { initializeStores } from '@skeletonlabs/skeleton';
 	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
 	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton';
-	
+	import { AppShell } from '@skeletonlabs/skeleton';
+	import Sidebar from '$lib/components/Sidebar.svelte';
 	initializeStores();
 
 	hljs.registerLanguage('xml', xml); // for HTML
@@ -30,7 +31,14 @@
 </script>
 
 <div class="flex space-x-0">
-	<Navbar/>
-	<Modal />
+	<AppShell>
+		<svelte:fragment slot="header"><Navbar/></svelte:fragment>
+		<svelte:fragment slot="sidebarLeft"><Sidebar/></svelte:fragment>
+		<Modal />
+		<slot />
+	</AppShell>
+	
+	
+	
 	<slot />
 </div>
