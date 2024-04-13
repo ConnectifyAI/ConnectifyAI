@@ -1,4 +1,3 @@
-
 //NOTE: this is what a modelID looks like "albert/albert-base-v1"
 export const fetchModel = async (modelId: string) => {
 
@@ -16,6 +15,6 @@ export const fetchModel = async (modelId: string) => {
         }
     )
 
-    console.log(response)
+    console.log(await response.json())
 
 }
