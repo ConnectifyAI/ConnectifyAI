@@ -6,4 +6,7 @@
 	onMount(async () => {
 		await fetchModel('djoaidjwoi');
 	});
+
+
+
 </script>
