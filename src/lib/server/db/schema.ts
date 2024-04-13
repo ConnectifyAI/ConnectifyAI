@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, serial, uuid } from "drizzle-orm/pg-core";
+import { pgTable, uuid } from "drizzle-orm/pg-core";
 
 export const graphs = pgTable('graphs', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
@@ -9,6 +9,7 @@ export const graphs = pgTable('graphs', {
 export const nodes = pgTable('nodes', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
     parentGraphId: uuid('parent_graph_id').notNull().references(() => graphs.id)
+    //TODO: everything else lmfao
 
 })
 
