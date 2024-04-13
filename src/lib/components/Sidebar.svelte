@@ -5,7 +5,7 @@
     import { Settings } from 'lucide-svelte';
 
     let tag1: boolean=false;
-    let tag2: boolean=false;
+    let tag2: boolean=true;
     let tag3: boolean=false;
     
     function change( x:string )
