@@ -1,29 +1,51 @@
 import { relations } from "drizzle-orm";
 import { pgTable, serial, uuid } from "drizzle-orm/pg-core";
 
-export const users = pgTable('users', {
+export const graphs = pgTable('graphs', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
 
 })
 
 export const nodes = pgTable('nodes', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
+    parentGraphId: uuid('parent_graph_id').notNull().references(() => graphs.id)
 
 })
 
 export const edges = pgTable('edges', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
+    tailId: uuid('tail_id').notNull().references(() => nodes.id),
+    headId: uuid('head_id').notNull().references(() => nodes.id),
 })
 
-export const nodesRelations = relations(nodes, ({many}) => ({
-    edges: many(edges)
+export const graphRelations = relations(graphs, ({ many }) => ({
+    nodes: many(nodes)
 }))
 
-export const edgesRelations = relations(edges, ({one}) =>({
-    tail: one(nodes),
-    head: one(nodes),
+export const nodesRelations = relations(nodes, ({ many, one }) => ({
+
+    outgoingEdges: many(edges),
+    incomingEdges: many(edges),
+
+    parentGraph: one(graphs, {
+        fields: [nodes.parentGraphId],
+        references: [graphs.id]
+    })
 
 }))
+
+export const edgesRelations = relations(edges, ({ one }) => ({
+    tail: one(nodes, {
+        fields: [edges.tailId],
+        references: [nodes.id]
+    }),
+    head: one(nodes, {
+        fields: [edges.tailId],
+        references: [nodes.id]
+    }),
+}))
+
+
 
 
 // export const userRelations = relations(users, ({ many }) => ({
