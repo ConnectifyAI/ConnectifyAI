@@ -34,8 +34,8 @@
     
 </script>
 
-<AppRail width="w-52" background="bg-slate-100" height="h-screen" spacing="space-y-1"  aspectRatio="aspect-[8/3]" class="py-10" active="bg-blue-500 text-white" hover="hover:bg-blue-200" shadow="shadow-md">
-	<AppRailAnchor href=""  title="Create" selected={tag1} on:click={()=>{change("tag1")}}>
+<AppRail width="w-52" background="bg-slate-100" height="h-screen" spacing="space-y-1"  aspectRatio="aspect-[8/3]" class="py-10" active="bg-blue-500 hover text-white " hover="" shadow="shadow-md" >
+	<AppRailAnchor href=""  title="Create" selected={tag1} on:click={()=>{change("tag1")}} >
 		<svelte:fragment slot="lead">
             <div class="flex space-x-3">
                 <Zap/>

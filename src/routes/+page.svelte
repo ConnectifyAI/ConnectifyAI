@@ -4,4 +4,7 @@
 </script>
 
 
-<Card modelType="Speech Recognition" author="OpenAI" name="sussy"/>
+<Card modelType="Speech Recognition" author="OpenAI" name="sussy" in1="money" out="food"/>
+<Card modelType="Speech Recognition" author="OpenAI" name="sussy" in1="money" out="food"/>
+<Card modelType="Speech Recognition" author="OpenAI" name="sussy" in1="money" out="food"/>
+<Card modelType="Speech Recognition" author="OpenAI" name="sussy" in1="money" out="food"/>
