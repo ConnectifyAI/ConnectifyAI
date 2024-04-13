@@ -13,6 +13,7 @@
     "format": "prettier --write .",
     "test:integration": "playwright test",
     "test:unit": "vitest",
+
     "db:push": "drizzle-kit push:pg",
     "db:studio": "drizzle-kit studio"
   },
