@@ -1,48 +1,49 @@
 import { relations } from "drizzle-orm";
 import { pgTable, uuid } from "drizzle-orm/pg-core";
 
-export const graphs = pgTable('graphs', {
+//TODO: everything else lmfao
+//
+export const graph = pgTable('graph', {
     id: uuid('id').defaultRandom().primaryKey().notNull(),
 
 })
 
-export const nodes = pgTable('nodes', {
-    id: uuid('id').defaultRandom().primaryKey().notNull(),
-    parentGraphId: uuid('parent_graph_id').notNull().references(() => graphs.id)
-    //TODO: everything else lmfao
+export const node = pgTable('node', {
+    id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
+    parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id)
 
 })
 
-export const edges = pgTable('edges', {
-    id: uuid('id').defaultRandom().primaryKey().notNull(),
-    tailId: uuid('tail_id').notNull().references(() => nodes.id),
-    headId: uuid('head_id').notNull().references(() => nodes.id),
+export const edge = pgTable('edge', {
+    id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
+    tailId: uuid('tail_id').notNull().references(() => node.id),
+    headId: uuid('head_id').notNull().references(() => node.id),
 })
 
-export const graphRelations = relations(graphs, ({ many }) => ({
-    nodes: many(nodes)
+export const graphRelations = relations(graph, ({ many }) => ({
+    nodes: many(node)
 }))
 
-export const nodesRelations = relations(nodes, ({ many, one }) => ({
+export const nodesRelations = relations(node, ({ many, one }) => ({
 
-    outgoingEdges: many(edges),
-    incomingEdges: many(edges),
+    outgoingEdges: many(edge),
+    incomingEdges: many(edge),
 
-    parentGraph: one(graphs, {
-        fields: [nodes.parentGraphId],
-        references: [graphs.id]
+    parentGraph: one(graph, {
+        fields: [node.parentGraphId],
+        references: [graph.id]
     })
 
 }))
 
-export const edgesRelations = relations(edges, ({ one }) => ({
-    tail: one(nodes, {
-        fields: [edges.tailId],
-        references: [nodes.id]
+export const edgeRelations = relations(edge, ({ one }) => ({
+    tail: one(node, {
+        fields: [edge.tailId],
+        references: [node.id]
     }),
-    head: one(nodes, {
-        fields: [edges.tailId],
-        references: [nodes.id]
+    head: one(node, {
+        fields: [edge.tailId],
+        references: [node.id]
     }),
 }))
 
