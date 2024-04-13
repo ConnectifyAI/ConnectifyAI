@@ -3,7 +3,7 @@ import { dev } from '$app/environment'
 import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
 import { db } from './db';
 import { session, user } from './db/schema';
-import { Github, Google } from 'artic';
+import { GitHub, Google } from 'arctic';
 
 import {
     GITHUB_CLIENT_ID,
@@ -18,7 +18,7 @@ import { redirect } from '@sveltejs/kit';
 const adapter = new DrizzlePostgreSQLAdapter(db, session, user);
 //https://github.com/bmdavis419/SvelteKit-Ecommerce/blob/main/src/lib/server/auth.ts
 
-export const github = new Github(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)
+export const github = new GitHub(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)
 
 //TODO: place of failure i think for google oauth
 const baseUrl = process.env.VERCEL_URL
@@ -63,6 +63,6 @@ export function ensureAdmin(locals: App.Locals){
     }
 
     if (!locals.user.isAdmin){
-        redirect('303', '/')
+        redirect(303, '/')
     }
 }

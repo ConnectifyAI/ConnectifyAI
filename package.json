@@ -51,7 +51,7 @@
   "dependencies": {
     "@floating-ui/dom": "1.6.3",
     "@lucia-auth/adapter-drizzle": "^1.0.7",
-    "artic": "^2.2.5",
+    "arctic": "^1.5.0",
     "drizzle-orm": "^0.30.8",
     "highlight.js": "11.9.0",
     "neo4j-driver": "^5.19.0",
