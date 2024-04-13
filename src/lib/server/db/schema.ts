@@ -7,7 +7,8 @@ import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp } from "dri
 export const providerEnum = pgEnum('provider', ['google', 'github']);
 
 export const user = pgTable('user', {
-    id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
+    //this isnt primary key, going to use composite for data
+    id: text('id').notNull().unique(),
     provider: providerEnum('provider').notNull(),
     providerId: text('provider_id').notNull(),
     firstName: text('first_name').notNull(),
@@ -42,7 +43,8 @@ export const session = pgTable('session', {
 export const sessionRelations = relations(session, ({ one }) => ({
     user: one(user, {
         fields: [session.userId],
-        references: [user.id]
+        references: [user.id],
+        relationName: "user"
     })
 }))
 
@@ -68,7 +70,8 @@ export const nodesRelations = relations(node, ({ many, one }) => ({
 
     parentGraph: one(graph, {
         fields: [node.parentGraphId],
-        references: [graph.id]
+        references: [graph.id],
+        relationName: "parent_graph"
     })
 
 }))
@@ -82,11 +85,13 @@ export const edge = pgTable('edge', {
 export const edgeRelations = relations(edge, ({ one }) => ({
     tail: one(node, {
         fields: [edge.tailId],
-        references: [node.id]
+        references: [node.id],
+        relationName: "tail"
     }),
     head: one(node, {
-        fields: [edge.tailId],
-        references: [node.id]
+        fields: [edge.headId],
+        references: [node.id],
+        relationName: "head"
     }),
 }))
 
