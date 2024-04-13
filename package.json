@@ -51,6 +51,7 @@
     "@floating-ui/dom": "1.6.3",
     "drizzle-orm": "^0.30.8",
     "highlight.js": "11.9.0",
+    "lucide-svelte": "^0.368.0",
     "neo4j-driver": "^5.19.0",
     "pg": "^8.11.5",
     "postgres": "^3.4.4"

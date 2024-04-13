@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.postcss';
-
+	import Navbar from '$lib/components/Navbar.svelte';
 	// Highlight JS
 	import hljs from 'highlight.js/lib/core';
 	import 'highlight.js/styles/github-dark.css';
@@ -22,4 +22,7 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 </script>
 
-<slot />
+<div class="flex space-x-0">
+	<Navbar/>
+	<slot />
+</div>
