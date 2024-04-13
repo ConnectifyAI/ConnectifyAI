@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db'
-import { graph, graphRelations } from '$lib/server/db/schema'
+import { graph } from '$lib/server/db/schema'
 import { eq } from 'drizzle-orm'
 
 //NOTE: low level interactions with the database happen here
@@ -45,8 +45,8 @@ export const updateGraph = async (data: {
 }
 
 export const deleteGraph = async (id: string) => {
-    const err = await db.delete(graph).where(eq(graph.id, id)).returning()
-    if (err.length == 0) {
+    const deleted = await db.delete(graph).where(eq(graph.id, id)).returning()
+    if (deleted.length == 0) {
         throw new Error("invalid id to delete graph")
     }
 }
