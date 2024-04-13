@@ -1,13 +1,22 @@
 <script lang="ts">
+    console.log("Gaming Console");
     import { TreeView, TreeViewItem, RecursiveTreeView, type TreeViewNode, type ModalSettings } from '@skeletonlabs/skeleton';
     import { Blend } from 'lucide-svelte';
     import { getModalStore } from '@skeletonlabs/skeleton';
-	import { getSystemErrorMap } from 'util';
-    
-    function handleClick() {
-        console.log("pls");
+	
+    const modalStore = getModalStore();
+    const modal: ModalSettings = {
+	type: 'alert',
+	// Data
+	title: 'Example Alert',
+	body: 'This is an example modal.',
+	image: 'https://i.imgur.com/WOgTG96.gif',
+    };
+
+    function newModel()
+    {    
+        modalStore.trigger(modal);
     }
-    
  </script>
  
  
@@ -21,7 +30,7 @@
         <TreeViewItem>
             <span>Create</span>
             <svelte:fragment slot="children">
-                <TreeViewItem on:click={handleClick}>
+                <TreeViewItem on:click={newModel}>
                     <span>New Model</span>
                 </TreeViewItem>
                 <TreeViewItem>
