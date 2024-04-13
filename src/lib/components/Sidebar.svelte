@@ -1,14 +1,41 @@
-<script lang="ts">
+<script lang="ts">;
     import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
     import { Zap } from 'lucide-svelte';
     import { Users } from 'lucide-svelte';
     import { Settings } from 'lucide-svelte';
-    let currentTile: number = 0;
 
+    let tag1: boolean=false;
+    let tag2: boolean=false;
+    let tag3: boolean=false;
+    
+    function change( x:string )
+    {
+        if (x == "tag1")
+        {
+            tag1=true;
+            tag2=false;
+            tag3=false;
+        }
+        if (x == "tag2")
+        {
+            tag1=false;
+            tag2=true;
+            tag3=false;
+        }
+        if (x == "tag3")
+        {
+            tag1=false;
+            tag2=false;
+            tag3=true;
+        }
+
+    }
+    
+    
 </script>
 
-<AppRail width="w-52" background="bg-slate-100" height="h-screen" spacing="space-y-1"  aspectRatio="aspect-[8/3]" class="py-10" active="bg-blue-200" hover="bg-blue-100">
-	<AppRailAnchor href="/" target="_blank" title="Create" selected={false}>
+<AppRail width="w-52" background="bg-slate-100" height="h-screen" spacing="space-y-1"  aspectRatio="aspect-[8/3]" class="py-10" active="bg-blue-500 text-white" hover="hover:bg-blue-200">
+	<AppRailAnchor href=""  title="Create" selected={tag1} on:click={()=>{change("tag1")}}>
 		<svelte:fragment slot="lead">
             <div class="flex space-x-3">
                 <Zap/>
@@ -16,7 +43,7 @@
             </div>
         </svelte:fragment>
 	</AppRailAnchor>
-<AppRailAnchor href="/" target="_blank" title="Communtiy" selected={false}>
+<AppRailAnchor href=""  title="Communtiy" selected={tag2} on:click={()=>{change("tag2")}}> 
 		<svelte:fragment slot="lead">
             <div class="flex space-x-3">
                 <Users/>
@@ -25,7 +52,7 @@
         </svelte:fragment>
 
 	</AppRailAnchor>
-	<AppRailAnchor href="/" target="_blank" title="Account" selected={true}>
+	<AppRailAnchor href=""  title="Account" selected={tag3} on:click={()=>{change("tag3")}}>
 		<svelte:fragment slot="lead">
             <div class="flex space-x-3">
             <Settings/>
