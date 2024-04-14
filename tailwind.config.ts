@@ -12,7 +12,11 @@ export default {
 			fontFamily: {
 				"poppins": ['Poppins'],
 				"dmMono": ['DM Mono']
-			}
+			},
+			colors: {
+				'blu': '#1B59F8',
+				'gris': "#666666",
+			},
 		},
 	},
 	plugins: [

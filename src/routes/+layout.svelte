@@ -32,11 +32,11 @@
 	
 </script>
 
-<div class="flex space-x-0">
+
 	<AppShell>
 		<svelte:fragment slot="header"><Navbar/></svelte:fragment>
 		<svelte:fragment slot="sidebarLeft"><Sidebar/></svelte:fragment>
 		<Modal />
 		<slot />
-	</AppShell>
-</div>
+	</AppShell>	
+

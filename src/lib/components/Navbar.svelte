@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
     import { AppBar } from '@skeletonlabs/skeleton';
     import { SendToBack } from 'lucide-svelte';
     import { SquareUserRound } from 'lucide-svelte';
     import { Download } from 'lucide-svelte';
+    
+
 </script>
 <div >
-<!-- shadow not working -->
 <AppBar gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end" background="bg-slate-200" shadow="shadow-xl">
 	<svelte:fragment slot="lead">
         <div class="flex text-3xl px-10 py-3 h-13 ">
