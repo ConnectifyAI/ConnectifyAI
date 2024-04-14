@@ -51,8 +51,10 @@
 		</Panel>
 		<Panel>
 			<form
+				action="?/search"
 				on:submit={() => {
 					addNode(nodeText);
+
 					nodeText = '';
 				}}
 				class="bg-slate-100 p-5"

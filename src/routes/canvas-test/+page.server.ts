@@ -20,16 +20,19 @@
 //         )
 
 
-//         datasets.push(await response.json())
+export const actions = {
+    search: async ({ locals, request }) => {
+        //search lmfao
+        const formData = await request.formData()
+        const query = formData.get('query')
 
-//         // downloadFile({
-//         //     repo: dataset.name,
-//         //     path: "datase"
-//         // })
-        
+        if (!query) {
+            throw new Error("query not provided")
+        }
 
-//     }
-//     return {
-//         datasets
-//     }
-// };
+        let datasets = await searchDatasets(query.toString())
+
+        return { datasets }
+    },
+} satisfies Actions;
+
