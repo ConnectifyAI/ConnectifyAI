@@ -17,6 +17,9 @@
 	import ModelNode from '$components/Node/ModelNode.svelte';
 	import { nodes, edges, addNode, bgColor } from '$components/Node/Dataset';
 
+	export let form;
+	$: console.log(form);
+
 	const nodeTypes = {
 		datasetNode: DatasetNode,
 		modelNode: ModelNode
@@ -109,6 +112,12 @@
 				<span>(icon)</span>
 				<span>Add Node</span>
 			</button>
+		</form>
+
+		<form method="POST" action="?/searchForDataset">
+			<label class="bg-slate-300">
+				<input name="query" type="search" />
+			</label>
 		</form>
 	</Panel>
 	<Controls />
