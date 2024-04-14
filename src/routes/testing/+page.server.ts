@@ -1,15 +1,15 @@
-
-import { searchDatasets } from '$lib/server/hf/';
-
-import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { downloadFile } from '@huggingface/hub';
+import type { Actions } from './$types';
+import { searchModels } from '$lib/server/hf/model';
+import { getDatasetInfo, searchDatasets } from '$lib/server/hf/dataset';
 
 export const load: PageServerLoad = async ({ params }) => {
+	const datasetInfo = await getDatasetInfo("change later")
 
-};
+	return { datasetInfo }
+}
 
-import type { Actions } from './$types';
 
 export const actions = {
 	search: async ({ locals, request }) => {
@@ -21,11 +21,20 @@ export const actions = {
 			throw new Error("query not provided")
 		}
 
+
+
 		let datasets = await searchDatasets(query.toString())
+		// const datasets = "something";
 
-		console.log("datasets", datasets)
+		let models = await searchModels(query.toString())
 
-		return { datasets }
+
+
+		return {
+			datasets,
+			models
+		}
+
 	},
 } satisfies Actions;
 
