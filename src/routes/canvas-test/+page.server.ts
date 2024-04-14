@@ -1,21 +1,36 @@
-// import { searchDatasets } from '$lib/server/hf/';
+import type { PageServerLoad } from './$types';
+import { downloadFile } from '@huggingface/hub';
+import type { Actions } from './$types';
+import { searchModels } from '$lib/server/hf/model';
+import { getDatasetInfo, searchDatasets } from '$lib/server/hf/dataset';
 
-// import { error } from '@sveltejs/kit';
-// import type { PageServerLoad } from './$types';
-// import { downloadFile } from '@huggingface/hub';
 
-// export const load: PageServerLoad = async ({ params }) => {
-//     const asyncDatasets = await searchDatasets("bert")
-//     const datasets = []
+export const load: PageServerLoad = async ({ params }) => {
+    //TODO: load their latest
 
-//     for await (const dataset of asyncDatasets) {
+}
 
-//         console.log(dataset)
-//         const response = await fetch(
-//             `https://huggingface.co/api/datasets/${dataset.name}?full=true`,
-//             {
-//                 method: "GET",
-//                 headers: { "Authorization": "Bearer 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" }
-//             }
-//         )
+export const actions = {
+	searchForDataset: async ({ locals, request }) => {
+		//search lmfao
+		const formData = await request.formData()
+		const query = formData.get('query')
+
+		if (!query) {
+			throw new Error("query not provided")
+		}
+
+		let datasets = await searchDatasets(query.toString())
+
+
+        //TODO: do the filtering here
+
+		return {
+			datasets,
+		}
+
+	},
+} satisfies Actions;
+
+
 
