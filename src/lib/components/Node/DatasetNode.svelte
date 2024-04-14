@@ -1,18 +1,38 @@
 <script lang="ts">
 	// @ts-nocheck
 	import type { Writable } from 'svelte/store';
-	import { Handle, Position, type NodeProps, useEdges } from '@xyflow/svelte';
-	import { Sun, X } from 'lucide-svelte';
+	import {
+		Handle,
+		Position,
+		type NodeProps,
+		useEdges,
+		useConnection,
+		useNodes
+	} from '@xyflow/svelte';
+	import { Database, X } from 'lucide-svelte';
 	import OutputField from '$components/Node/OutputField.svelte';
+	import { deleteNode } from '$components/Node/Dataset';
 
 	type $$Props = NodeProps;
 
 	export let data: { color: Writable<string>; text: string } | $$Props['data'];
 
 	const { color, text } = data;
-	
-	const edges = useEdges();
-	edges.subscribe((v) => console.log(v));
+
+	// const edges = useEdges();
+	// edges.subscribe((v) => console.log(v));
+	const nodes = useNodes();
+
+	let selectedNodeId = '';
+	nodes.subscribe((v) => {
+		v.forEach((node) => {
+			if (node.selected) {
+				selectedNodeId = node.id;
+			}
+		});
+	});
+	// const connection = useConnection();
+	// connection.subscribe((v) => console.log(v));
 </script>
 
 <!-- dimension of card -->
@@ -37,11 +57,16 @@
 		<!-- title -->
 		<section class="flex justify-between items-center">
 			<span class="flex gap-1 py-1 items-center">
-				<Sun size={23} />
+				<Database size={23} />
 				<h1 class="text-lg">Dataset 1</h1>
 			</span>
 
-			<button class="btn-icon hover:bg-blue-50 rounded-md nodrag">
+			<button
+				class="btn-icon hover:bg-blue-50 rounded-md nodrag"
+				on:click={() => {
+					deleteNode(selectedNodeId);
+				}}
+			>
 				<X size={25} />
 			</button>
 		</section>
