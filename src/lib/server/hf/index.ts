@@ -17,14 +17,22 @@ export async function searchDatasets(query: string) {
         search: {
             query,
         },
-        limit: 20,
+        limit: 10,
 
 
     })
 
-    console.log(results)
+    const datasets = []
 
-    return results
+    for await (const result of results) {
+        datasets.push(result)
+    }
+
+    console.log(datasets)
+    return datasets
+}
+
+export async function getDatasetInfo(id: string) {
 }
 
 export async function searchModels(query: string) {
