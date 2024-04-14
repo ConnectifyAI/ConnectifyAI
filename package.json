@@ -52,6 +52,7 @@
     "@floating-ui/dom": "1.6.3",
     "@huggingface/hub": "^0.14.7",
     "@lucia-auth/adapter-drizzle": "^1.0.7",
+    "@xyflow/svelte": "^0.0.40",
     "arctic": "^1.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
