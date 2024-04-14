@@ -10,7 +10,6 @@ if (!token) {
 }
 
 export async function searchDatasets(query: string) {
-    console.log("query", query)
     const results = listDatasets({
         credentials: {
             accessToken: token
@@ -26,14 +25,14 @@ export async function searchDatasets(query: string) {
     const datasets = []
 
     for await (const result of results) {
-
         datasets.push(result)
-
     }
 
     console.log(datasets)
-
     return datasets
+}
+
+export async function getDatasetInfo(id: string) {
 }
 
 export async function searchModels(query: string) {
