@@ -3,7 +3,6 @@
 	import { writable } from 'svelte/store';
 	import '@xyflow/svelte/dist/style.css';
 	import { SvelteFlow, Background, Controls, MiniMap, Panel } from '@xyflow/svelte';
-	import BasicCard from '$components/BasicCard.svelte';
 
 	const nodeTypes = {
 		basicCard: BasicCard
