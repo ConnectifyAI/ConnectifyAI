@@ -14,11 +14,12 @@
 	import Toolbar from '$components/Toolbar/Toolbar.svelte';
 
 	import DatasetNode from '$components/Node/DatasetNode.svelte';
+	import ModelNode from '$components/Node/ModelNode.svelte';
 	import { nodes, edges, addNode, bgColor } from '$components/Node/Dataset';
 
 	const nodeTypes = {
-		datasetNode: DatasetNode
-		// modelNode: ModelCard
+		datasetNode: DatasetNode,
+		modelNode: ModelNode
 	};
 
 	const defaultNodeOptions = {
@@ -37,7 +38,6 @@
 		animated: true,
 		interactionWidth: 30
 	};
-
 
 	let nodeText = '';
 

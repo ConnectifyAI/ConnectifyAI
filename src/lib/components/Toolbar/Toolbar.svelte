@@ -4,6 +4,6 @@
 </script>
 
 <div class="flex flex-col bg-slate-50 p-3 gap-3 rounded-md">
-	<IconButton icon={Boxes} text="Add Model" />
-	<IconButton icon={Database} text="Add Dataset" />
+	<IconButton icon={Boxes} type="Model" />
+	<IconButton icon={Database} type="Dataset" />
 </div>
