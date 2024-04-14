@@ -54,7 +54,7 @@ export const sessionRelations = relations(session, ({ one }) => ({
 
 export const graph = pgTable('graph', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
-    authorId: uuid('author_id').notNull().references(() => user.id)
+    authorId: text('author_id').notNull().references(() => user.id)
 })
 
 export const graphRelations = relations(graph, ({ many, one }) => ({
