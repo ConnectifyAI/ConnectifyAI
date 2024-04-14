@@ -36,10 +36,7 @@ export async function searchDatasets(query: string) {
     console.log(chosen_one)
 
     // chosen_one.replace("/", "%2F")
-
-
     // return await chosen_response.json()
-
     return datasets
 }
 
