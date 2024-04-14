@@ -32,46 +32,24 @@ export async function searchDatasets(query: string) {
 
 
 // // need to fetch indepth data of dataset
-// export async function getDatasetInfo(id: string) {
-//
-//     let repo = "Baidicoot/adverserial_training_evil_mistral"
-//
-//     const chosen_response = await fetch(
-//         // `https://huggingface.co/api/datasets/${chosen_one}`,
-//         `https://huggingface.co/api/datasets/${repo}`,
-//         {
-//             method: "GET",
-//             headers: { "Authorization": `Bearer ${HF_TOKEN}` }
-//         }
-//
-//     )
-//
-//
-//
-//     // let files = listFiles({
-//     //     repo, 
-//     //     credentials: {
-//     //         accessToken: HF_TOKEN
-//     //     }
-//     // })
-//     //
-//     // for await ( const file of files){
-//     //     console.log(file)
-//     // }
-//     //
-//     // let file = await downloadFile({
-//     //     repo: repo,
-//     //     path: "dataset_infos.json",
-//     //     credentials: {
-//     //         accessToken: HF_TOKEN
-//     //     }
-//     // })
-//     //
-//     // console.log(file)
-//
-//     const datasetInfo = await chosen_response.json()
-//
-//
-//     return datasetInfo
-// }
-//
+export async function getDatasetInfo(id: string) {
+
+    let repo = "Baidicoot/adverserial_training_evil_mistral"
+
+    const chosen_response = await fetch(
+        // `https://huggingface.co/api/datasets/${chosen_one}`,
+        `https://huggingface.co/api/datasets/${repo}`,
+        {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${HF_TOKEN}` }
+        }
+
+    )
+
+
+    const datasetInfo = await chosen_response.json()
+
+
+    return datasetInfo
+}
+

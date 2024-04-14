@@ -22,11 +22,13 @@ export const actions = {
 
 		let datasets = await searchDatasets(query.toString())
 
+        let specialOne = await getDatasetInfo("soemthing")
 
-        //TODO: do the filtering here
+
+        //TODO: do the creation of nodes that you need?
 
 		return {
-			datasets,
+            datasets: [specialOne]
 		}
 
 	},
