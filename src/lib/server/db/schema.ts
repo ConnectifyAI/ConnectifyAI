@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, json } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, json, integer } from "drizzle-orm/pg-core";
 
 //TODO: everything else lmfao
 //
@@ -54,7 +54,10 @@ export const sessionRelations = relations(session, ({ one }) => ({
 
 export const graph = pgTable('graph', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
-    authorId: text('author_id').notNull().references(() => user.id)
+    authorId: text('author_id').notNull().references(() => user.id),
+    likes: integer('likes').notNull(),
+    forks: integer('forks').notNull(),
+    name: text('name').notNull()
 })
 
 export const graphRelations = relations(graph, ({ many, one }) => ({

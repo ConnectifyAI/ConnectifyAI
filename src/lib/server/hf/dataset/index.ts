@@ -14,8 +14,7 @@ export async function searchDatasets(query: string): Promise<Dataset[]> {
     const limit = 20;
 
     const response = await fetch(
-        `https://huggingface.co/api/datasets?search=${query}&limit=${limit}&full=full&config=true`,
-        {
+        `https://huggingface.co/api/datasets?search=${query}&limit=${limit}&full=full&config=true`, {
             method: "GET",
             headers: { "Authorization": `Bearer ${HF_TOKEN}` }
         }

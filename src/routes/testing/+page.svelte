@@ -5,8 +5,8 @@
 
 	// your script goes here
 
-console.log(data.datasetInfo.features)
 
+console.log(data)
 
 
 </script>
@@ -17,3 +17,4 @@ console.log(data.datasetInfo.features)
 	</label>
 	<button> send query </button>
 </form>
+
