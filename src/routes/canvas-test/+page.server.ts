@@ -1,4 +1,5 @@
 import type { Actions } from './$types';
+import type { PageServerLoad } from './$types';
 import { getDatasetInfo } from '$lib/server/hf/dataset';
 
 export const load: PageServerLoad = async ({ params }) => {
