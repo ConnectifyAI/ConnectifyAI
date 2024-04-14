@@ -1,32 +1,15 @@
 <script lang="ts">
-	let bgColor = '#bbb';
-	let isSelected = false;
-
-	let buttonConfig = {
-		// Colors
-		primary: {
-			bgColor: 'bg-primary-500',
-			color: 'text-white',
-			outline: 'border-primary-500 text-primary-500 bg-opacity-0 hover:bg-opacity-10'
-		},
-		secondary: {
-			bgColor: 'bg-secondary-500',
-			color: 'text-white',
-			outline: 'border-secondary-500 text-secondary-500 bg-opacity-0 hover:bg-opacity-10'
-		},
-
-		// Sizes
-		small: 'px-3 py-2',
-		medium: 'px-4 py-2 hover:bg-slate-500',
-		large: 'px-5 py-2'
-	};
+	import { writable, type Writable } from 'svelte/store';
+	// export let isSelected: Writable<boolean> = writable(false);
+	export let isSelected = false;
 </script>
 
+<!-- on button toggle, get dataset id and field name -->
 <div class="relative inline-block my-2">
 	<button
 		type="button"
-		class="border-[#bbb] active:bg-slate-300
-		{isSelected ? 'bg-slate-200' : 'bg-white'}"
+		class="border-[#bbb] active:bg-slate-200
+		{isSelected ? 'bg-slate-300' : 'bg-white'}"
 		on:click={() => {
 			isSelected = !isSelected;
 		}}

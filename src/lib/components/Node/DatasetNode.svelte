@@ -19,8 +19,8 @@
 
 	const { color, text } = data;
 
-	// const edges = useEdges();
-	// edges.subscribe((v) => console.log(v));
+	const edges = useEdges();
+	edges.subscribe((v) => console.log(v));
 	const nodes = useNodes();
 
 	let selectedNodeId = '';
@@ -33,6 +33,7 @@
 	});
 	// const connection = useConnection();
 	// connection.subscribe((v) => console.log(v));
+
 </script>
 
 <!-- dimension of card -->
@@ -78,6 +79,7 @@
 		<h2>Outputs (4)</h2>
 
 		<section class="flex gap-3 overflow-x-auto nowheel">
+			<OutputField />
 			<OutputField />
 			<OutputField />
 			<OutputField />
