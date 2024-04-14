@@ -2,15 +2,24 @@
 	// @ts-nocheck
 	import { writable } from 'svelte/store';
 	import '@xyflow/svelte/dist/style.css';
-	import { SvelteFlow, Background, Controls, MiniMap, Panel } from '@xyflow/svelte';
+	import {
+		SvelteFlow,
+		Controls,
+		Background,
+		BackgroundVariant,
+		useSvelteFlow,
+		Panel,
+		type Node
+	} from '@xyflow/svelte';
+	import Toolbar from '$components/Toolbar/Toolbar.svelte';
 
 	import DatasetNode from '$components/Node/DatasetNode.svelte';
-	import Toolbar from '$components/Toolbar/Toolbar.svelte';
+	import ModelNode from '$components/Node/ModelNode.svelte';
 	import { nodes, edges, addNode, bgColor } from '$components/Node/Dataset';
 
 	const nodeTypes = {
-		datasetNode: DatasetNode
-		// modelNode: ModelCard
+		datasetNode: DatasetNode,
+		modelNode: ModelNode
 	};
 
 	const defaultNodeOptions = {
@@ -30,46 +39,77 @@
 		interactionWidth: 30
 	};
 
-
 	let nodeText = '';
+
+	const { screenToFlowPosition } = useSvelteFlow();
+	const onDragOver = (event: DragEvent) => {
+		event.preventDefault();
+
+		if (event.dataTransfer) {
+			event.dataTransfer.dropEffect = 'move';
+		}
+	};
+
+	const onDrop = (event: DragEvent) => {
+		event.preventDefault();
+
+		if (!event.dataTransfer) {
+			return null;
+		}
+
+		const type = event.dataTransfer.getData('application/svelteflow');
+
+		const position = screenToFlowPosition({
+			x: event.clientX,
+			y: event.clientY
+		});
+
+		const newNode = {
+			id: `${Math.random()}`,
+			type,
+			position,
+			data: { label: `${type} node` },
+			origin: [0.5, 0.0]
+		} satisfies Node;
+
+		$nodes.push(newNode);
+		$nodes = $nodes;
+	};
 </script>
 
-<div style="height:100vh;">
-	<SvelteFlow
-		{nodes}
-		{edges}
-		{nodeTypes}
-		{defaultEdgeOptions}
-		{defaultNodeOptions}
-		style="background: {$bgColor}"
-		fitView
-	>
-		<Background />
-		
-		<!-- Toolbar -->
-		<Panel position="top-left">
-			<Toolbar />
-		</Panel>
-		<Panel>
-			<form
-				action="?/search"
-				on:submit={() => {
-					addNode(nodeText);
+<SvelteFlow
+	{nodes}
+	{edges}
+	{nodeTypes}
+	{defaultEdgeOptions}
+	{defaultNodeOptions}
+	style="background: {$bgColor}"
+	fitView
+	on:dragover={onDragOver}
+	on:drop={onDrop}
+>
+	<Background />
 
-					nodeText = '';
-				}}
-				class="bg-slate-100 p-5"
-			>
-				<label class="label">
-					Test input
-					<input bind:value={nodeText} class="input" type="text" placeholder="Node Text Here!" />
-				</label>
-				<button type="submit" class="btn variant-filled">
-					<span>(icon)</span>
-					<span>Add Node</span>
-				</button>
-			</form>
-		</Panel>
-		<Controls />
-	</SvelteFlow>
-</div>
+	<Panel position="top-left">
+		<Toolbar />
+	</Panel>
+	<Panel>
+		<form
+			on:submit={() => {
+				addNode(nodeText);
+				nodeText = '';
+			}}
+			class="bg-slate-100 p-5"
+		>
+			<label class="label">
+				Test input
+				<input bind:value={nodeText} class="input" type="text" placeholder="Node Text Here!" />
+			</label>
+			<button type="submit" class="btn variant-filled">
+				<span>(icon)</span>
+				<span>Add Node</span>
+			</button>
+		</form>
+	</Panel>
+	<Controls />
+</SvelteFlow>
