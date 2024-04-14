@@ -38,6 +38,7 @@
 		interactionWidth: 30
 	};
 
+
 	let nodeText = '';
 
 	const { screenToFlowPosition } = useSvelteFlow();
