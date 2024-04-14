@@ -12,6 +12,10 @@
 		// modelNode: ModelCard
 	};
 
+	export let data;
+
+	console.log(data)
+
 	let nodeText = '';
 	let ig = false;
 </script>
