@@ -1,10 +1,16 @@
 import type { Actions } from './$types';
 import { getDatasetInfo } from '$lib/server/hf/dataset';
 
-// export const load: PageServerLoad = async ({ params }) => {
-//     //TODO: load their latest
-//
-// }
+export const load: PageServerLoad = async ({ params }) => {
+    //TODO: load their latest
+
+	const datasetInfo = await getDatasetInfo("change later")
+
+	return { datasetInfo }
+}
+
+
+
 
 export const actions = {
 	searchForDataset: async ({ request }) => {

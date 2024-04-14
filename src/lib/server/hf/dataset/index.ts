@@ -72,10 +72,6 @@ export async function getDatasetInfo(id: string) {
         features: dataset.cardData.dataset_info.features,
         ...dataset
     }
-
-
-
-
     return cleanDataset
 }
 
