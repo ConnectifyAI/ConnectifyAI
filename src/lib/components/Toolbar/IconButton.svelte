@@ -15,7 +15,6 @@
 </script>
 
 <div
-	class="input-node node"
 	on:dragstart={(event) => onDragStart(event, type.toLowerCase() + 'Node')}
 	draggable={true}
 	role="button"

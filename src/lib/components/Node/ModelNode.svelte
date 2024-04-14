@@ -3,7 +3,7 @@
 	import type { Writable } from 'svelte/store';
 	import { Handle, Position, type NodeProps, useEdges, useNodes } from '@xyflow/svelte';
 	import { Boxes, X } from 'lucide-svelte';
-	import OutputField from '$components/Node/OutputField.svelte';
+	import OutputFeatures from '$components/Node/OutputFeatures.svelte';
 	import { deleteNode } from '$components/Node/Dataset';
 
 	type $$Props = NodeProps;
@@ -60,10 +60,10 @@
 		<h2>Outputs (4)</h2>
 
 		<section class="flex gap-3 overflow-x-auto nowheel">
-			<OutputField />
-			<OutputField />
-			<OutputField />
-			<OutputField />
+			<OutputFeatures />
+			<OutputFeatures />
+			<OutputFeatures />
+			<OutputFeatures />
 		</section>
 	</div>
 </div>
