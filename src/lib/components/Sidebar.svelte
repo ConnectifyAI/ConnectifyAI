@@ -35,7 +35,7 @@
 </script>
 
 <AppRail width="w-52" background="bg-slate-100" height="h-screen" spacing="space-y-1"  aspectRatio="aspect-[8/3]" class="py-10" active="bg-blue-500 hover text-white " hover="" shadow="shadow-md" >
-	<AppRailAnchor href=""  title="Create" selected={tag1} on:click={()=>{change("tag1")}} >
+	<AppRailAnchor href="/create"  title="Create" selected={tag1} on:click={()=>{change("tag1")}} >
 		<svelte:fragment slot="lead">
             <div class="flex space-x-3">
                 <Zap/>
@@ -43,7 +43,7 @@
             </div>
         </svelte:fragment>
 	</AppRailAnchor>
-<AppRailAnchor href=""  title="Communtiy" selected={tag2} on:click={()=>{change("tag2")}}> 
+<AppRailAnchor href="/community"  title="Communtiy" selected={tag2} on:click={()=>{change("tag2")}}> 
 		<svelte:fragment slot="lead">
             <div class="flex space-x-3">
                 <Users/>
@@ -52,7 +52,7 @@
         </svelte:fragment>
 
 	</AppRailAnchor>
-	<AppRailAnchor href=""  title="Account" selected={tag3} on:click={()=>{change("tag3")}}>
+	<AppRailAnchor href="/auth/account"  title="Account" selected={tag3} on:click={()=>{change("tag3")}}>
 		<svelte:fragment slot="lead">
             <div class="flex space-x-3">
             <Settings/>
