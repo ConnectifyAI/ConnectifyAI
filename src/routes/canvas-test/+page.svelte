@@ -19,15 +19,16 @@
 	<SvelteFlow {nodes} {edges} {nodeTypes} style="background: {$bgColor}" fitView>
 		<Background />
 		<Panel>
-			<form on:submit={() => addNode(nodeText)} class="bg-slate-100 p-5">
+			<form
+				on:submit={() => {
+					addNode(nodeText);
+					nodeText = '';
+				}}
+				class="bg-slate-100 p-5"
+			>
 				<label class="label">
 					Test input
-					<input
-						bind:value={nodeText}
-						class="input text-slate-50"
-						type="text"
-						placeholder="Input"
-					/>
+					<input bind:value={nodeText} class="input" type="text" placeholder="Node Text Here!" />
 				</label>
 				<button type="submit" class="btn variant-filled">
 					<span>(icon)</span>
@@ -36,6 +37,5 @@
 			</form>
 		</Panel>
 		<Controls />
-		<MiniMap />
 	</SvelteFlow>
 </div>

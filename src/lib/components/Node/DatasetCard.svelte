@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Writable } from 'svelte/store';
 	import { Handle, Position, type NodeProps } from '@xyflow/svelte';
+	import { Sun, X } from 'lucide-svelte';
+	import OutputField from '$components/Node/OutputField.svelte';
 
 	export let data: {
 		color: Writable<string>;
@@ -10,9 +12,12 @@
 	const { color, text } = data;
 </script>
 
-<div class="colorpicker">
+<!-- dimension of card -->
+<div class="bg-[#eee] p-5 rounded-md w-[25rem]">
 	<Handle type="target" position={Position.Left} />
-	<div>
+	<Handle type="source" position={Position.Right} />
+
+	<!-- <div>
 		mix color: <strong>{$color}</strong>
 	</div>
 	<input
@@ -23,8 +28,32 @@
 	/>
 	{#if data.text}
 		<div>{data.text}</div>
-	{/if}
-	<Handle type="source" position={Position.Right} />
+	{/if} -->
+	<div class="container">
+		<!-- title -->
+		<section class="flex justify-between items-center">
+			<span class="flex gap-1 py-1 items-center">
+				<Sun size={23} />
+				<h1 class="text-lg">Dataset 1</h1>
+			</span>
+
+			<button class="btn-icon hover:bg-blue-50 rounded-md nodrag">
+				<X size={25} />
+			</button>
+		</section>
+		<hr class="opacity-30" />
+
+		<!-- source/dataset name -->
+		<h2 class="py-2">openai/text_library</h2>
+
+		<h2>Outputs (4)</h2>
+
+		<section class="flex gap-3 overflow-x-auto nowheel">
+			<OutputField />
+			<OutputField />
+			<OutputField />
+		</section>
+	</div>
 </div>
 
 <style>

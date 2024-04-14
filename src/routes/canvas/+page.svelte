@@ -3,16 +3,16 @@
 	import { writable } from 'svelte/store';
 	import '@xyflow/svelte/dist/style.css';
 	import { SvelteFlow, Background, Controls, MiniMap, Panel } from '@xyflow/svelte';
-	import AddCard from '$components/AddCard.svelte';
+	import BasicCard from '$components/BasicCard.svelte';
 
 	const nodeTypes = {
-		addCard: AddCard
+		basicCard: BasicCard
 	};
 
 	const nodes = writable<Node[]>([
 		{
 			id: '1',
-			type: 'addCard',
+			type: 'basicCard',
 			position: { x: 0, y: 50 }
 		},
 		{
