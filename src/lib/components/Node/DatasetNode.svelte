@@ -1,34 +1,38 @@
 <script lang="ts">
+	// @ts-nocheck
 	import type { Writable } from 'svelte/store';
-	import { Handle, Position, type NodeProps } from '@xyflow/svelte';
+	import { Handle, Position, type NodeProps, useEdges } from '@xyflow/svelte';
 	import { Sun, X } from 'lucide-svelte';
 	import OutputField from '$components/Node/OutputField.svelte';
 
-	export let data: {
-		color: Writable<string>;
-		text?: string;
-	};
+	type $$Props = NodeProps;
+
+	export let data: { color: Writable<string>; text: string } | $$Props['data'];
 
 	const { color, text } = data;
+	
+	const edges = useEdges();
+	edges.subscribe((v) => console.log(v));
 </script>
 
 <!-- dimension of card -->
 <div class="bg-[#eee] p-5 rounded-md w-[25rem]">
+	<!-- style="background: {$color} -->
+
 	<Handle type="target" position={Position.Left} />
 	<Handle type="source" position={Position.Right} />
 
-	<!-- <div>
+	<div>
 		mix color: <strong>{$color}</strong>
 	</div>
 	<input
 		class="nodrag"
 		type="color"
-		on:input={(evt) => data.color.set(evt.target?.value)}
+		on:input={(e) => {
+			$color = e.target?.value;
+		}}
 		value={$color}
 	/>
-	{#if data.text}
-		<div>{data.text}</div>
-	{/if} -->
 	<div class="container">
 		<!-- title -->
 		<section class="flex justify-between items-center">
@@ -44,7 +48,7 @@
 		<hr class="opacity-30" />
 
 		<!-- source/dataset name -->
-		<h2 class="py-2">openai/text_library</h2>
+		<h2 class="py-2">{text ? text : 'dataset not found'}</h2>
 
 		<h2>Outputs (4)</h2>
 
@@ -55,12 +59,3 @@
 		</section>
 	</div>
 </div>
-
-<style>
-	.colorpicker {
-		padding: 1rem;
-		background: #eee;
-		border-radius: 0.125rem;
-		font-size: 0.7rem;
-	}
-</style>

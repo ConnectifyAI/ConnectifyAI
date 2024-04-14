@@ -15,7 +15,7 @@ const initialNodes: Node[] = [
 	{
 		id: '2',
 		type: 'datasetNode',
-		data: { color: bgColor, text: 'hi' },
+		data: { color: bgColor, text: 'library name here' },
 		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 300, y: 50 }
 	}
@@ -32,7 +32,7 @@ const initialEdges: Edge[] = [
 ];
 
 // NODE AND EDGES FUNCTION
-export const addNode = (text) => {
+export const addNode = (text: string) => {
 	nodes.update((nodes) => [
 		...nodes,
 		{

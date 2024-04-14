@@ -4,15 +4,16 @@
 	import '@xyflow/svelte/dist/style.css';
 	import { SvelteFlow, Background, Controls, MiniMap, Panel } from '@xyflow/svelte';
 
-	import DatasetCard from '$components/Node/DatasetCard.svelte';
+	import DatasetNode from '$components/Node/DatasetNode.svelte';
 	import { nodes, edges, addNode, bgColor } from '$components/Node/Dataset';
 
 	const nodeTypes = {
-		datasetNode: DatasetCard
+		datasetNode: DatasetNode
 		// modelNode: ModelCard
 	};
 
 	let nodeText = '';
+	let ig = false;
 </script>
 
 <div style="height:100vh;">
