@@ -3,11 +3,13 @@
 	import { Zap } from 'lucide-svelte';
 	import { Users } from 'lucide-svelte';
 	import { Settings } from 'lucide-svelte';
+	import { MoveHorizontal } from 'lucide-svelte';
 
         //NOTE: surely theres a better way to do this
 	let tag1: boolean = false;
 	let tag2: boolean = true;
 	let tag3: boolean = false;
+	let abc: string= "w-52"
 
 	function change(x: string) {
 		if (x == 'tag1') {
@@ -26,18 +28,24 @@
 			tag3 = true;
 		}
 	}
+
+	function minimize()
+	{
+		
+	}
 </script>
 
+
 <AppRail
-	width="w-52"
+	width={abc}
 	background="bg-slate-100"
-	height="h-screen"
+	height="h-full"
 	spacing="space-y-1"
 	aspectRatio="aspect-[8/3]"
 	class="py-10"
 	active="bg-blue-500 hover text-white "
-	hover=""
 	shadow="shadow-md"
+	border="border-r "
 >
 	<AppRailAnchor
 		href="/create"
@@ -84,4 +92,13 @@
 			</div>
 		</svelte:fragment>
 	</AppRailAnchor>
+	<svelte:fragment slot="trail">
+		<AppRailAnchor href="/" target="_blank" title="Account">
+			<div class="flex justify-end">
+			<button class="bg-blue-500 px-2 py-2 mr-4 rounded-xl w-16 flex justify-center" on:click={minimize}>
+				<MoveHorizontal size=30 color="white"/>
+			</button>
+			</div>
+		</AppRailAnchor>
+	</svelte:fragment>
 </AppRail>

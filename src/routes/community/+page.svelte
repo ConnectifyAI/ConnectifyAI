@@ -29,7 +29,7 @@
             <Dropdown title="Upload Date" contents={["asdfd","adfsdf"]}/>
         </div>
     </div>
-    <div class="h-4/5 w-full flex">
+    <div class="h-3/4 w-full flex">
         <div class="flex-col w-1/3">
         <Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
         <Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
