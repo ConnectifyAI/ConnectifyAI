@@ -14,7 +14,11 @@
 
 	export let data;
 
-	console.log(data)
+	export let form;
+
+	console.log("form data", form)
+
+	console.log(data);
 
 	let nodeText = '';
 </script>
@@ -24,8 +28,10 @@
 		<Background />
 		<Panel>
 			<form
+				action="?/search"
 				on:submit={() => {
 					addNode(nodeText);
+
 					nodeText = '';
 				}}
 				class="bg-slate-100 p-5"
