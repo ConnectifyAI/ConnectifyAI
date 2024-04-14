@@ -9,9 +9,9 @@
 	let tag1: boolean = false;
 	let tag2: boolean = true;
 	let tag3: boolean = false;
-	let abc: string= "w-52"
+	let abc: string= "w-32"
 	let flipflop: boolean= true;
-	let visblity: string= "visible"
+	let visblity: string= "hidden"
 	
 	function change(x: string) {
 		if (x == 'tag1') {
@@ -33,24 +33,25 @@
 
 	function minimize()
 	{
-		if(flipflop){
-			abc="w-30";
+			abc="w-32";
 			flipflop=false;
 			visblity="hidden"
-		}
-		else{
-			abc="w-52";
+	}
+
+	function maxmize()
+	{
+		abc="w-52";
 			flipflop=true;
 			visblity="block"
-		}
 	}
 </script>
 
-
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div on:mouseenter={maxmize} on:mouseleave={minimize}>
 <AppRail
 	width={abc}
 	background="bg-slate-100"
-	height="h-full"
+	height="h-screen"
 	spacing="space-y-1"
 	aspectRatio="aspect-[8/3]"
 	class="py-10"
@@ -104,13 +105,5 @@
 			</div>
 		</svelte:fragment>
 	</AppRailAnchor>
-	<svelte:fragment slot="trail">
-		<AppRailAnchor target="_blank" title="Account">
-			<div class="flex justify-end">
-			<button class="bg-blue-500 px-2 py-2 mr-4 rounded-xl w-16 flex justify-center" on:click={minimize}>
-				<MoveHorizontal size=30 color="white"/>
-			</button>
-			</div>
-		</AppRailAnchor>
-	</svelte:fragment>
 </AppRail>
+</div>
