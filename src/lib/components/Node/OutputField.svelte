@@ -1,11 +1,21 @@
 <script lang="ts">
-	let bgColor = '#bbb';
+	import { writable, type Writable } from 'svelte/store';
+	// export let isSelected: Writable<boolean> = writable(false);
+	export let isSelected = false;
 </script>
 
+<!-- on button toggle, get dataset id and field name -->
 <div class="relative inline-block my-2">
-	<span class="badge-icon bg-blue-50 absolute -top-2 -right-2 z-10">2</span>
+	<button
+		type="button"
+		class="border-[#bbb] active:bg-slate-200
+		{isSelected ? 'bg-slate-300' : 'bg-white'}"
+		on:click={() => {
+			isSelected = !isSelected;
+		}}
+	>
+		<span class="badge-icon bg-blue-50 absolute -top-2 -right-2 z-10">2</span>
 
-	<button type="button" class={`border-[#bbb] hover:bg-[${bgColor}]`}>
 		<h1>MedlineCitation</h1>
 		<p class="text-sm text-left opacity-70">dict • etc</p>
 	</button>

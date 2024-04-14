@@ -15,7 +15,7 @@ const initialNodes: Node[] = [
 	{
 		id: '2',
 		type: 'datasetNode',
-		data: { color: bgColor, text: 'hi' },
+		data: { color: bgColor, text: 'library name here' },
 		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 300, y: 50 }
 	}
@@ -24,6 +24,7 @@ const initialNodes: Node[] = [
 const initialEdges: Edge[] = [
 	{
 		id: 'e1-2',
+		type: 'smoothstep',
 		source: '1',
 		target: '2',
 		animated: true,
@@ -32,17 +33,21 @@ const initialEdges: Edge[] = [
 ];
 
 // NODE AND EDGES FUNCTION
-export const addNode = (text) => {
+export const addNode = (text: string) => {
 	nodes.update((nodes) => [
 		...nodes,
 		{
-			id: Math.random().toString(),
+			id: Date.now().toString(),
 			type: 'datasetNode',
 			data: { color: bgColor, text },
 			style: 'border: 1px solid #777; padding: 10px;',
 			position: { x: 300, y: 200 }
 		}
 	]);
+};
+
+export const deleteNode = (id: string) => {
+	nodes.update((nodes) => nodes.filter((node) => node.id !== id));
 };
 
 export const nodes = writable<Node[]>(initialNodes);
