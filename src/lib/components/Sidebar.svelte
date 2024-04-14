@@ -10,7 +10,9 @@
 	let tag2: boolean = true;
 	let tag3: boolean = false;
 	let abc: string= "w-52"
-
+	let flipflop: boolean= true;
+	let visblity: string= "visible"
+	
 	function change(x: string) {
 		if (x == 'tag1') {
 			tag1 = true;
@@ -31,7 +33,16 @@
 
 	function minimize()
 	{
-		
+		if(flipflop){
+			abc="w-30";
+			flipflop=false;
+			visblity="hidden"
+		}
+		else{
+			abc="w-52";
+			flipflop=true;
+			visblity="block"
+		}
 	}
 </script>
 
@@ -46,6 +57,7 @@
 	active="bg-blue-500 hover text-white "
 	shadow="shadow-md"
 	border="border-r "
+	hover="bg"	
 >
 	<AppRailAnchor
 		href="/create"
@@ -58,7 +70,7 @@
 		<svelte:fragment slot="lead">
 			<div class="flex space-x-3">
 				<Zap />
-				<span>Create</span>
+				<span class={visblity}>Create</span>
 			</div>
 		</svelte:fragment>
 	</AppRailAnchor>
@@ -73,7 +85,7 @@
 		<svelte:fragment slot="lead">
 			<div class="flex space-x-3">
 				<Users />
-				<span>Communtiy</span>
+				<span class={visblity}>Communtiy</span>
 			</div>
 		</svelte:fragment>
 	</AppRailAnchor>
@@ -88,12 +100,12 @@
 		<svelte:fragment slot="lead">
 			<div class="flex space-x-3">
 				<Settings />
-				<span>Account</span>
+				<span class={visblity}>Account</span>
 			</div>
 		</svelte:fragment>
 	</AppRailAnchor>
 	<svelte:fragment slot="trail">
-		<AppRailAnchor href="/" target="_blank" title="Account">
+		<AppRailAnchor target="_blank" title="Account">
 			<div class="flex justify-end">
 			<button class="bg-blue-500 px-2 py-2 mr-4 rounded-xl w-16 flex justify-center" on:click={minimize}>
 				<MoveHorizontal size=30 color="white"/>
