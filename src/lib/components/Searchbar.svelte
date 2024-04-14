@@ -14,3 +14,5 @@
         <input type="search" id="default-search" class="text-[18] block w-full p-4 ps-10 text-sm text-gris border border-[#CFCFCF] rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue" placeholder={presearch} required />
     </div>
 </form>
+
+
