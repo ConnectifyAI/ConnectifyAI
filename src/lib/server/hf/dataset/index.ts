@@ -9,7 +9,7 @@ if (!token) {
     throw new Error("need hf token ")
 }
 
-export async function searchDatasets(query: string) {
+export async function searchDatasets(query: string): Promise<Dataset[]> {
 
     const limit = 20;
 
@@ -23,11 +23,32 @@ export async function searchDatasets(query: string) {
 
     let datasets = await response.json() as Array<any>
 
-
     //TODO: filter out based on what is availible
-    let filtered_datasets = datasets.filter((dataset) => dataset?.cardData?.dataset_info?.features)
+    let filtered = datasets.filter((dataset) => dataset?.cardData?.dataset_info?.features)
 
-    return datasets
+    var cleaned: Dataset[] = [];
+    for (const dataset of filtered) {
+        const cleanDataset: Dataset = {
+            features: dataset.cardData.dataset_info.features,
+            ...dataset
+        }
+
+        cleaned.push(cleanDataset)
+    }
+
+    return cleaned
+}
+
+export type Dataset = {
+    author: string,
+    id: string,
+    downloads: number,
+    likes: number,
+    features: {
+        name: string,
+        dtype: string
+    }[]
+
 }
 
 
@@ -45,11 +66,16 @@ export async function getDatasetInfo(id: string) {
         }
 
     )
+    const dataset = await chosen_response.json()
+
+    const cleanDataset: Dataset = {
+        features: dataset.cardData.dataset_info.features,
+        ...dataset
+    }
 
 
-    const datasetInfo = await chosen_response.json()
 
 
-    return datasetInfo
+    return cleanDataset
 }
 

@@ -40,7 +40,7 @@
 	shadow="shadow-md"
 >
 	<AppRailAnchor
-		href="/create"
+		href="/canvas-test"
 		title="Create"
 		selected={tag1}
 		on:click={() => {

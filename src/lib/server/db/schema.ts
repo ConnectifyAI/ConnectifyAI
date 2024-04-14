@@ -51,6 +51,7 @@ export const sessionRelations = relations(session, ({ one }) => ({
 
 
 
+
 export const graph = pgTable('graph', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
 
@@ -60,9 +61,15 @@ export const graphRelations = relations(graph, ({ many }) => ({
     nodes: many(node)
 }))
 
+export const nodeTypeEnum = pgEnum('node_type', ['dataset', 'model'])
+
 export const node = pgTable('node', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
+    // repo_id: 
     parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id)
+    
+
+
 
 })
 

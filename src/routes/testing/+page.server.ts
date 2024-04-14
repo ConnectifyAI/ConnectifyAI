@@ -25,9 +25,14 @@ export const actions = {
 
 		let datasets = await searchDatasets(query.toString())
 		// const datasets = "something";
+		//
+		
+		let x = datasets[0]
+		// x.
 
 		let models = await searchModels(query.toString())
 
+		
 
 
 		return {
