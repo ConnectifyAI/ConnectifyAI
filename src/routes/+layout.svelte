@@ -26,16 +26,12 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-
-
-
-	
 </script>
 
 <div class="flex space-x-0">
 	<AppShell>
-		<svelte:fragment slot="header"><Navbar/></svelte:fragment>
-		<svelte:fragment slot="sidebarLeft"><Sidebar/></svelte:fragment>
+		<svelte:fragment slot="header"><Navbar /></svelte:fragment>
+		<svelte:fragment slot="sidebarLeft"><Sidebar /></svelte:fragment>
 		<Modal />
 		<slot />
 	</AppShell>
