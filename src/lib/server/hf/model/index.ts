@@ -85,7 +85,9 @@ export async function getModelByRepoId(repo_id: string) {
 
 
 // need to fetch indepth data of model
-export async function getModelInfo(repo_id: string) {
+export async function getModelInfo(something: string) {
+
+    let repo_id = "NexaAIDev/Octopus-v2"
 
     const response = await fetch(
         // `https://huggingface.co/api/datasets/${chosen_one}`,
