@@ -1,4 +1,6 @@
 
+
+
 export const modelTypes = {
     "audio-classification": {
         inputs: [
@@ -50,7 +52,7 @@ export const modelTypes = {
         outputs: [
             {
                 label: "Transcript",
-                type: "string",
+                type: "text",
             },
         ],
     },
@@ -77,7 +79,7 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Question",
-                type: "string",
+                type: "text",
             },
             {
                 label: "Input Image",
@@ -88,7 +90,7 @@ export const modelTypes = {
             {
                 label: "Answer",
                 content: "Balance cost efficiency with quality customer service",
-                type: "string",
+                type: "text",
             },
         ],
     },
@@ -98,7 +100,7 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "Input",
-    //             type: "string",
+    //             type: "text",
     //         },
     //     ],
     //     outputs: [
@@ -120,7 +122,7 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "Input",
-    //             type: "string",
+    //             type: "text",
     //         },
     //     ],
     //     outputs: [
@@ -153,7 +155,7 @@ export const modelTypes = {
     //         {
     //             label: "Input",
     //             content: "The <mask> barked at me",
-    //             type: "string",
+    //             type: "text",
     //         },
     //     ],
     //     outputs: [
@@ -266,7 +268,7 @@ export const modelTypes = {
         ],
     },
 
-    "image-to-string": {
+    "image-to-text": {
         inputs: [
             {
                 label: "Input Image",
@@ -277,7 +279,7 @@ export const modelTypes = {
         outputs: [
             {
                 label: "Detailed description",
-                type: "string",
+                type: "text",
             },
         ],
     },
@@ -330,17 +332,17 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Question",
-                type: "string",
+                type: "text",
             },
             {
                 label: "Context",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
             {
                 label: "Answer",
-                type: "string",
+                type: "text",
             },
         ],
     },
@@ -348,17 +350,17 @@ export const modelTypes = {
         inputs: [
             {
                 label: "State",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
             {
                 label: "Action",
-                type: "string",
+                type: "text",
             },
             {
                 label: "Next State",
-                type: "string",
+                type: "text",
             },
         ],
     },
@@ -367,19 +369,19 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Source sentence",
-                type: "string",
+                type: "text",
             },
             {
                 label: "Sentences to compare to",
-                type: "string",
+                type: "text",
             },
             {
                 label: "",
-                type: "string",
+                type: "text",
             },
             {
                 label: "",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
@@ -406,13 +408,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
             {
                 label: "Output",
-                type: "string",
+                type: "text",
             },
         ],
     },
@@ -429,9 +431,9 @@ export const modelTypes = {
                 type: "tabular",
             },
 
-            { label: "Question", content: "What is the number of reigns for Harley Race?", type: "string" },
+            { label: "Question", content: "What is the number of reigns for Harley Race?", type: "text" },
         ],
-        outputs: [{ label: "Result", content: "7", type: "string" }],
+        outputs: [{ label: "Result", content: "7", type: "text" }],
     },
 
     //TODO: weird tables again
@@ -476,11 +478,11 @@ export const modelTypes = {
         ],
     },
     //TODO: chart type again
-    "string-classifiction": {
+    "text-classifiction": {
         inputs: [
             {
                 label: "Input",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
@@ -503,25 +505,25 @@ export const modelTypes = {
             },
         ],
     },
-    "string-generation": {
+    "text-generation": {
         inputs: [
             {
                 label: "Input",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
             {
                 label: "Output",
-                type: "string",
+                type: "text",
             },
         ],
     },
-    "string-to-audio": {
+    "text-to-audio": {
         inputs: [
             {
                 label: "Input",
-                type: "string"
+                type: "text"
             }
         ],
         outputs: [
@@ -531,11 +533,11 @@ export const modelTypes = {
             }
         ]
     },
-    "string-to-image": {
+    "text-to-image": {
         inputs: [
             {
                 label: "Input",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
@@ -545,11 +547,11 @@ export const modelTypes = {
             },
         ],
     },
-    "string-to-speech": {
+    "text-to-speech": {
         inputs: [
             {
                 label: "Input",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
@@ -559,31 +561,51 @@ export const modelTypes = {
             },
         ],
     },
-    "string-to-video": {
+    "text-to-video": {
         inputs: [
             {
                 label: "Input",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
             {
-                label: "string-to-video-output.gif",
+                label: "text-to-video-output.gif",
                 type: "img",
             },
         ],
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "text2text-generation": {
         inputs: [
             {
                 label: "Input Text",
-                type: "string"
+                type: "text"
             }
         ],
         outputs: [
             {
                 label: "Generated Text",
-                type: "string"
+                type: "text"
             }
         ]
     },
@@ -593,12 +615,12 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
             {
-                string: "My name is Omar and I live in Zürich.",
+                text: "My name is Omar and I live in Zürich.",
                 tokens: [
                     {
                         type: "PERSON",
@@ -611,7 +633,7 @@ export const modelTypes = {
                         end: 36,
                     },
                 ],
-                type: "string-with-tokens",
+                type: "text-with-tokens",
             },
         ],
     },
@@ -619,13 +641,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
             {
                 label: "Output",
-                type: "string",
+                type: "text",
             },
         ],
     },
@@ -633,11 +655,11 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Seed",
-                type: "string",
+                type: "text",
             },
             {
                 label: "Number of images to generate:",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
@@ -684,7 +706,7 @@ export const modelTypes = {
             },
             {
                 label: "Question",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
@@ -707,16 +729,17 @@ export const modelTypes = {
             },
         ],
     },
+
     //TODO: Another chart thing
     "zero-shot-classification": {
         inputs: [
             {
                 label: "Text Input",
-                type: "string",
+                type: "text",
             },
             {
                 label: "Candidate Labels",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
@@ -749,7 +772,7 @@ export const modelTypes = {
             },
             {
                 label: "Classes",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
@@ -781,7 +804,7 @@ export const modelTypes = {
             },
             {
                 label: "Classes",
-                type: "string",
+                type: "text",
             },
         ],
         outputs: [
@@ -791,10 +814,6 @@ export const modelTypes = {
             },
         ],
     }
-
-
-
-
 
 }
 
