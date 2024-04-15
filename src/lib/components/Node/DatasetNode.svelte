@@ -14,7 +14,6 @@
 	import OutputFeatures from '$components/Node/OutputFeatures.svelte';
 	import { onMount } from 'svelte';
 	import Accordion from '$components/Accordion.svelte';
-	// import { deleteNode } from '$components/Node/Dataset';
 
 	export let data: {
 		datasetInfo: {

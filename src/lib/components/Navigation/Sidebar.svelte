@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
 	import { Zap, Users, Settings, MoveHorizontal } from 'lucide-svelte';
-	
+
 	//NOTE: surely theres a better way to do this
 	let tag1: boolean = false;
 	let tag2: boolean = true;
@@ -43,15 +43,16 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:mouseenter={maxmize} on:mouseleave={minimize}>
+<!-- <div> -->
 	<AppRail
 		width={abc}
 		spacing="space-y-1"
 		aspectRatio="aspect-[8/3]"
 		class=" bg-slate-100 h-screen"
-		active="bg-blue-500 hover text-white "
+		active="bg-blue-500 hover text-white"
 		shadow="shadow-md"
 		border="border-r "
-		hover="bg"
+		hover=""
 	>
 		<AppRailAnchor
 			href="/canvas-test"

@@ -4,7 +4,6 @@
 	import { Handle, Position, type NodeProps, useEdges, useNodes } from '@xyflow/svelte';
 	import { Boxes, X } from 'lucide-svelte';
 	import OutputFeatures from '$components/Node/OutputFeatures.svelte';
-	import { deleteNode } from '$components/Node/Dataset';
 
 	type $$Props = NodeProps;
 
