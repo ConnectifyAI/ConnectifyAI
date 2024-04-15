@@ -42,10 +42,7 @@ export const nodeTypes = {
 
 export const defaultNodeOptions = {
 	type: 'datasetNode',
-	data: {
-		color: writable('#f00'),
-		text: 'default text'
-	},
+	data: {},
 
 	style: 'border: 1px solid #777; padding: 10px;',
 	position: { x: 300, y: 200 }
@@ -54,7 +51,7 @@ export const defaultNodeOptions = {
 export const defaultEdgeOptions = {
 	type: 'smoothstep',
 	animated: true,
-	interactionWidth: 30
+	interactionWidth: 50
 }
 
 // UTIL FUNCTIONS

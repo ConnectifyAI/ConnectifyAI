@@ -1,30 +1,32 @@
 <script lang="ts">
 	// @ts-nocheck
-	import type { Writable } from 'svelte/store';
-	import { Handle, Position, type NodeProps, useEdges, useNodes } from '@xyflow/svelte';
-	import { Boxes, X } from 'lucide-svelte';
-	import OutputFeatures from '$components/Node/OutputFeatures.svelte';
+	import type { Writable } from 'svelte/store'
+	import { Handle, Position, type NodeProps, useEdges, useNodes } from '@xyflow/svelte'
+	import { Boxes, X } from 'lucide-svelte'
+	import OutputFeatures from '$components/Node/OutputFeatures.svelte'
 
-	type $$Props = NodeProps;
+	type $$Props = NodeProps
 
-	export let data: { color: Writable<string>; text: string } | $$Props['data'];
+	export let data: { color: Writable<string>; text: string } | $$Props['data']
 
-	const { text } = data;
+	const { text } = data
 
-	const edges = useEdges();
+	const edges = useEdges()
 	// edges.subscribe((v) => console.log(v));
-	const nodes = useNodes();
+	const nodes = useNodes()
 
-	let selectedNodeId = '';
+	let selectedNodeId = ''
 	nodes.subscribe((v) => {
 		v.forEach((node) => {
 			if (node.selected) {
-				selectedNodeId = node.id;
+				selectedNodeId = node.id
 			}
-		});
-	});
+		})
+	})
 	// const connection = useConnection();
 	// connection.subscribe((v) => console.log(v));
+
+	const DEFAULT_HANDLE_STYLE = 'width: 10px; height: 10px; bottom: -5px;'
 </script>
 
 <!-- dimension of card -->
@@ -34,6 +36,19 @@
 	<Handle type="target" position={Position.Left} />
 	<Handle type="source" position={Position.Right} />
 
+	<Handle
+		id="red"
+		type="source"
+		position={Position.Bottom}
+		style="{DEFAULT_HANDLE_STYLE}; left: 15%; background: red;"
+	/>
+	<Handle
+		id="blue"
+		type="source"
+		position={Position.Bottom}
+		style="{DEFAULT_HANDLE_STYLE}; left: 50%; background: blue;"
+	/>
+
 	<div class="container">
 		<!-- title -->
 		<section class="flex justify-between items-center">
@@ -42,14 +57,14 @@
 				<h1 class="text-lg">Model 1</h1>
 			</span>
 
-			<button
+			<!-- <button
 				class="btn-icon hover:bg-blue-50 rounded-md nodrag"
 				on:click={() => {
 					deleteNode(selectedNodeId);
 				}}
 			>
 				<X size={25} />
-			</button>
+			</button> -->
 		</section>
 		<hr class="opacity-30" />
 
@@ -66,3 +81,9 @@
 		</section>
 	</div>
 </div>
+
+<style>
+	.default {
+		@apply w-10 h-10 right-[-1.5rem];
+	}
+</style>
