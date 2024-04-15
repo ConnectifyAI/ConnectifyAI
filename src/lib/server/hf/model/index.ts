@@ -20,12 +20,35 @@ export async function searchModels(query: string) {
             headers: { "Authorization": `Bearer ${HF_TOKEN}` }
         }
     )
+    let modelInfos = await response.json()
+
+    let cleaned: Model[] = []
+
+    for (const modelInfo of modelInfos) {
+
+        let pipeline_tag = ""
+
+        try {
+            pipeline_tag = modelInfo.pipeline_tag;
+            console.log(pipeline_tag);
+        } catch (e) {
+            //TODO: handle here
+            console.log(e)
+        }
+
+        const io = getIo(pipeline_tag);
+
+        const model: Model = {
+            ...modelInfo,
+            input: io['inputs'],
+            output: io['outputs'],
+        }
+
+        cleaned.push(model)
+    }
 
 
-    let models = await response.json()
-
-
-    return models
+    return cleaned
 
 }
 
@@ -53,6 +76,7 @@ export async function getModelInfo(id: string) {
         pipeline_tag = modelInfo.pipeline_tag;
         console.log(pipeline_tag);
     } catch (e) {
+        //TODO: handle here
         console.log(e)
     }
 

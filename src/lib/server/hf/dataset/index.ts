@@ -36,6 +36,7 @@ export async function searchDatasets(query: string): Promise<Dataset[]> {
     }
 
     return cleaned
+
 }
 
 export type Dataset = {

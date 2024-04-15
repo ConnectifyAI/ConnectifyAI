@@ -22,15 +22,6 @@ export const actions = {
 			throw new Error("query not provided")
 		}
 
-		// let datasets = await searchDatasets(query.toString())
-		// const datasets = "something";
-		//
-
-		// let x = datasets[0]
-		// x.
-
-		// let models = await searchModels(query.toString())
-
 		const models = await getModelInfo('a');
 
 		return {

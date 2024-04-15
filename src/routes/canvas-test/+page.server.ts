@@ -22,8 +22,6 @@ export const actions = {
 			throw new Error('query not provided');
 		}
 
-		// let datasets = await searchDatasets(query.toString())
-
 		const specialOne = await getDatasetInfo('soemthing');
 
 		//TODO: do the creation of nodes that you need?
@@ -44,8 +42,6 @@ export const actions = {
 
 		let datasets = await searchDatasets(query.toString())
 
-		// const specialOne = await getDatasetInfo('soemthing');
-		//
 		// //TODO: do the creation of nodes that you need?
 
 		return {
