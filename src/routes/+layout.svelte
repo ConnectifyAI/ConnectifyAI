@@ -13,7 +13,7 @@
 	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
 	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton';
 	import { AppShell } from '@skeletonlabs/skeleton';
-	import Sidebar from '$lib/components/Sidebar.svelte';
+	import Sidebar from '$components/Navigation/Sidebar.svelte';
 	initializeStores();
 
 	hljs.registerLanguage('xml', xml); // for HTML
@@ -28,11 +28,9 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 </script>
 
-
-	<AppShell>
-		<svelte:fragment slot="header"><Navbar /></svelte:fragment>
-		<svelte:fragment slot="sidebarLeft"><Sidebar /></svelte:fragment>
-		<Modal />
-		<slot />
-	</AppShell>	
-
+<AppShell>
+	<svelte:fragment slot="header"><Navbar /></svelte:fragment>
+	<svelte:fragment slot="sidebarLeft"><Sidebar /></svelte:fragment>
+	<Modal />
+	<slot />
+</AppShell>

@@ -45,11 +45,9 @@
 <div on:mouseenter={maxmize} on:mouseleave={minimize}>
 	<AppRail
 		width={abc}
-		background="bg-slate-100"
-		height="h-screen"
 		spacing="space-y-1"
 		aspectRatio="aspect-[8/3]"
-		class="py-10"
+		class=" bg-slate-100 h-screen"
 		active="bg-blue-500 hover text-white "
 		shadow="shadow-md"
 		border="border-r "
