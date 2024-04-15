@@ -1,6 +1,7 @@
 <!-- Page where Communtiy is going for now -->
 <script lang="ts">
     import Card from "$components/Card.svelte";
+    import DatasetCard from "$components/DatasetCard.svelte";
     import Dropdown from "$components/Dropdown.svelte";
     import { ChevronDown } from 'lucide-svelte';
     import Searchbar from '$components/Searchbar.svelte';
@@ -29,16 +30,14 @@
             <Dropdown title="Upload Date" contents={["asdfd","adfsdf"]}/>
         </div>
     </div>
-    <div class="h-4/5 w-full flex">
+    <div class="h-3/4 w-full flex">
         <div class="flex-col w-1/3">
         <Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
         <Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
         <Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
         </div>
         <div class="flex-col w-1/3">
-        <Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
-        <Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
-        <Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
+        <DatasetCard author="albert" id="Chipolte" downloads=123 likes=123/>
         </div>
         <div class="flex-col w-1/3">
             <Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />

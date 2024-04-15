@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, json, integer } from "drizzle-orm/pg-core";
 
 //TODO: everything else lmfao
 //
@@ -54,32 +54,38 @@ export const sessionRelations = relations(session, ({ one }) => ({
 
 export const graph = pgTable('graph', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
-
+    authorId: text('author_id').notNull().references(() => user.id),
+    likes: integer('likes').notNull(),
+    forks: integer('forks').notNull(),
+    name: text('name').notNull()
 })
 
-export const graphRelations = relations(graph, ({ many }) => ({
-    nodes: many(node)
+export const graphRelations = relations(graph, ({ many, one }) => ({
+    nodes: many(node),
+    author: one(user, {
+        fields: [graph.authorId],
+        references: [user.id]
+    })
+
 }))
 
 export const nodeTypeEnum = pgEnum('node_type', ['dataset', 'model'])
 
 export const node = pgTable('node', {
-    id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
-    // repo_id: 
-    parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id)
-    
-
-
-
+    id: uuid('id').primaryKey().notNull().unique(),
+    repoId: text('repo_id').notNull(),
+    parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id),
+    nodeType: nodeTypeEnum('node_type').notNull(),
+    position: json('position').notNull(),
 })
 
 export const nodesRelations = relations(node, ({ many, one }) => ({
 
-    tailEdges: many(edge, {
-        relationName: "head"
+    outgoingEdges: many(edge, {
+        relationName: "source"
     }),
-    headEdges: many(edge, {
-        relationName: "tail"
+    incomingEdges: many(edge, {
+        relationName: "target"
     }),
 
     parentGraph: one(graph, {
@@ -91,20 +97,20 @@ export const nodesRelations = relations(node, ({ many, one }) => ({
 
 export const edge = pgTable('edge', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
-    tailId: uuid('tail_id').notNull().references(() => node.id),
-    headId: uuid('head_id').notNull().references(() => node.id),
+    sourceId: uuid('source_id').notNull().references(() => node.id),
+    targetId: uuid('target_id').notNull().references(() => node.id),
 })
 
 export const edgeRelations = relations(edge, ({ one }) => ({
-    tail: one(node, {
-        fields: [edge.tailId],
+    source: one(node, {
+        fields: [edge.sourceId],
         references: [node.id],
-        relationName: "tail"
+        relationName: "source"
     }),
-    head: one(node, {
-        fields: [edge.headId],
+    target: one(node, {
+        fields: [edge.targetId],
         references: [node.id],
-        relationName: "head"
+        relationName: "target"
     }),
 }))
 

@@ -1,13 +1,13 @@
 import type { PageServerLoad } from './$types';
 import { downloadFile } from '@huggingface/hub';
 import type { Actions } from './$types';
-import { searchModels } from '$lib/server/hf/model';
+import { getModelInfo, searchModels } from '$lib/server/hf/model';
 import { getDatasetInfo, searchDatasets } from '$lib/server/hf/dataset';
 
 export const load: PageServerLoad = async ({ params }) => {
-	const datasetInfo = await getDatasetInfo("change later")
+	const modelInfo = await getModelInfo("change later")
 
-	return { datasetInfo }
+	return { modelInfo }
 }
 
 
