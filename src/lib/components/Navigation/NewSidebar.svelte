@@ -1,4 +1,4 @@
-<!-- variation 1 -->
+<!-- variation 1: with AppRail -->
 <!-- <script lang="ts">
 	import { AppRail, AppRailAnchor } from '@skeletonlabs/skeleton'
 	import { Zap, Users, Settings } from 'lucide-svelte'
@@ -40,46 +40,37 @@
 	}
 </style> -->
 
-
-
-<!-- variation 2 -->
-<!-- <script lang="ts">
-	import { AppRail, AppRailAnchor } from '@skeletonlabs/skeleton'
+<!-- variation 2: without AppRail -->
+<script lang="ts">
 	import { Zap, Users, Settings } from 'lucide-svelte'
 
 	import { page } from '$app/stores'
 	$: url = $page.url.pathname
 </script>
 
-<AppRail aspectRatio="aspect-[7/3]" class="bg-slate-100 w-full border-r">
-	<AppRailAnchor href="/canvas-test">
-		<section class={url === '/canvas-test' ? 'lit' : ''}>
-			<Zap />
-			Create
-		</section>
-	</AppRailAnchor>
+<div class="bg-slate-100 w-full border-r">
+	<a href="/canvas-test" class={url === '/canvas-test' ? 'lit' : ''}>
+		<Zap />
+		Create
+	</a>
 
-	<AppRailAnchor href="/community">
-		<section class={$page.url.pathname === '/community' ? 'lit' : ''}>
-			<Users />
-			Community
-		</section>
-	</AppRailAnchor>
+	<a href="/community" class={$page.url.pathname === '/community' ? 'lit' : ''}>
+		<Users />
+		Community
+	</a>
 
-	<AppRailAnchor href="/auth/account">
-		<section class={url === '/auth/account' ? 'lit' : ''}>
-			<Settings />
-			Account
-		</section>
-	</AppRailAnchor></AppRail
->
+	<a href="/auth/account" class={url === '/auth/account' ? 'lit' : ''}>
+		<Settings />
+		Account
+	</a>
+</div>
 
 <style>
 	.lit {
 		@apply bg-blue-100 border-blue-500 border-2;
 	}
 
-	section {
+	a {
 		@apply flex justify-center items-center gap-2 text-base p-7 m-2 border-b border-2 rounded-md font-normal shadow-blue-300 shadow-md active:translate-y-1 active:shadow-none transition-all;
 	}
-</style> -->
+</style>
