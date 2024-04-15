@@ -1,5 +1,4 @@
 import { Lucia } from 'lucia'
-import { dev } from '$app/environment'
 import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
 import { db } from './db';
 import { session, user } from './db/schema';
@@ -20,6 +19,7 @@ const adapter = new DrizzlePostgreSQLAdapter(db, session, user);
 
 export const github = new GitHub(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET)
 
+//
 //TODO: place of failure i think for google oauth
 const baseUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
@@ -28,6 +28,7 @@ const baseUrl = process.env.VERCEL_URL
 const redirectUrl = `${baseUrl}/auth/callback/google`
 
 export const google = new Google(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, redirectUrl)
+
 
 export const lucia = new Lucia(adapter, {
     sessionCookie: {

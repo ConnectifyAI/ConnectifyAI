@@ -1,8 +1,9 @@
 import { db } from '$lib/server/db'
 import { graph } from '$lib/server/db/schema'
+import { getDatasetByRepoId, type Dataset } from '$lib/server/hf/dataset'
+import { getModelByRepoId, getModelInfo, type Model } from '$lib/server/hf/model'
 import { eq } from 'drizzle-orm'
 
-//NOTE: low level interactions with the database happen here
 
 export const createGraph = async (data: {
     //TODO: figure out shape
@@ -10,22 +11,24 @@ export const createGraph = async (data: {
 
 }
 
+// the id should be our id inside database
 export const getGraph = async (id: string) => {
-    const returnedGraph = await db.query.graph.findFirst({
+
+    const dbGraph = await db.query.graph.findFirst({
         where: eq(graph.id, id),
         with: {
             nodes: {
                 with: {
                     outgoingEdges: {
                         with: {
-                            head: true,
-                            tail: true
+                            source: true,
+                            target: true
                         }
                     },
                     incomingEdges: {
                         with: {
-                            head: true,
-                            tail: true
+                            source: true,
+                            target: true
                         }
                     }
                 }
@@ -33,7 +36,37 @@ export const getGraph = async (id: string) => {
         }
     })
 
-    return returnedGraph
+    //TODO: for each node, we need to grab information for that node
+    //ask kenny for help
+    if (!dbGraph) {
+        throw new Error("invalid id")
+    }
+
+    //TODO: think about dataset / model id and how kenric wants it to be done
+
+    let datasets: Dataset[] = []
+    let models: Model[] = []
+
+    for (const node of dbGraph.nodes) {
+        // how are edges being represented? are they constructed seperately?
+        switch (node.nodeType) {
+
+            case 'dataset': {
+
+                let dataset = await getDatasetByRepoId(node.repoId)
+                datasets.push(dataset)
+
+            }
+
+            case 'model': {
+                let model = await getModelByRepoId(node.repoId)
+                models.push(model)
+
+            }
+
+        }
+    }
+
 
 }
 

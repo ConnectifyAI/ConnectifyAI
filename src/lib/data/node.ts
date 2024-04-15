@@ -9,6 +9,7 @@ export const createNode = async (data: {
 }
 
 export const getNode = async (id: string) => {
+
     const returnedNode = await db.query.node.findFirst({
         where: eq(node.id, id),
         with: {
@@ -26,8 +27,8 @@ export const getNode = async (id: string) => {
             }
         }
     })
-
     return returnedNode
+
 }
 
 export const updateNode = async (data: {
