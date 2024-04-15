@@ -12,7 +12,7 @@
 		</div>
 
 		{#if open}
-			<button on:click={handleClick}><ChevronUp /> </button>
+			<button on:click={handleClick}><ChevronUp /></button>
 		{:else}
 			<button on:click={handleClick}><ChevronDown /></button>
 		{/if}
@@ -24,3 +24,9 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	button {
+		@apply p-1 hover:bg-slate-200 rounded-md;
+	}
+</style>
