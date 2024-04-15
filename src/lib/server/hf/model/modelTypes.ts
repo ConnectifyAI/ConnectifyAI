@@ -13,7 +13,8 @@ export const modelTypes = {
                 type: "number"
             },
             {
-                //TODO: fix this later
+                //TODO: fix this later {this is very wrong
+                //}
                 label: "Down",
                 type: "number"
             },

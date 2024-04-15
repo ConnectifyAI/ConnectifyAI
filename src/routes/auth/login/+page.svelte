@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { LucideGithub } from 'lucide-svelte';
 
-	import Login
+	import Login from "$lib/assets/Login.png"
 </script>
 
 <!-- <div>
@@ -22,5 +22,5 @@
 			</a>
 		</button>
 	</div>
-	<img src="../lib/assets/Login.png" alt='plz work'>
+	<img src={Login} alt='plz work'>
 </div>
