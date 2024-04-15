@@ -7,7 +7,8 @@ import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, json, inte
 export const providerEnum = pgEnum('provider', ['google', 'github']);
 
 export const user = pgTable('user', {
-    //this isnt primary key, going to use composite for data
+
+    //just to make relations easier
     id: text('id').notNull().unique(),
     provider: providerEnum('provider').notNull(),
     providerId: text('provider_id').notNull(),
@@ -16,7 +17,7 @@ export const user = pgTable('user', {
     isAdmin: boolean('is_admin').notNull(),
     email: text('email').notNull(),
 },
-    //NOTE: in all honesty, i dont really know why you would want to do this
+    // composite primary key
     (table) => {
         return {
             pk: primaryKey({ columns: [table.provider, table.providerId] })
@@ -42,10 +43,12 @@ export const session = pgTable('session', {
 })
 
 export const sessionRelations = relations(session, ({ one }) => ({
+
     user: one(user, {
         fields: [session.userId],
         references: [user.id],
     })
+
 }))
 
 
@@ -53,11 +56,13 @@ export const sessionRelations = relations(session, ({ one }) => ({
 
 
 export const graph = pgTable('graph', {
+
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
     authorId: text('author_id').notNull().references(() => user.id),
     likes: integer('likes').notNull(),
     forks: integer('forks').notNull(),
     name: text('name').notNull()
+
 })
 
 export const graphRelations = relations(graph, ({ many, one }) => ({
@@ -81,11 +86,11 @@ export const node = pgTable('node', {
 
 export const nodesRelations = relations(node, ({ many, one }) => ({
 
-    outgoingEdges: many(edge, {
-        relationName: "source"
+    outputs: many(output, {
+        relationName: "outgoing"
     }),
-    incomingEdges: many(edge, {
-        relationName: "target"
+    inputs: many(input, {
+        relationName: "incoming"
     }),
 
     parentGraph: one(graph, {
@@ -95,22 +100,62 @@ export const nodesRelations = relations(node, ({ many, one }) => ({
 
 }))
 
+export const output = pgTable('output', {
+    id: uuid('id').primaryKey().notNull().unique(),
+    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+})
+
+export const outputRelations = relations(output, ({ one }) => ({
+
+    parentNode: one(node, {
+        fields: [output.parentNodeId],
+        references: [node.id],
+        relationName: "outgoing"
+    }),
+
+    edge: one(edge)
+
+}))
+
+export const input = pgTable('input', {
+    id: uuid('id').primaryKey().notNull().unique(),
+    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+})
+
+export const inputRelations = relations(output, ({ one }) => ({
+
+    parentNode: one(node, {
+        fields: [output.parentNodeId],
+        references: [node.id],
+        relationName: "incoming"
+    }),
+
+    edge: one(edge)
+
+}))
+
 export const edge = pgTable('edge', {
-    id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
-    sourceId: uuid('source_id').notNull().references(() => node.id),
-    targetId: uuid('target_id').notNull().references(() => node.id),
+
+    id: uuid('id').defaultRandom().primaryKey().unique().notNull(),
+
+    sourceId: uuid('source_id').notNull().references(() => output.id),
+    targetId: uuid('target_id').notNull().references(() => input.id)
+
 })
 
 export const edgeRelations = relations(edge, ({ one }) => ({
-    source: one(node, {
+
+    source: one(output, {
         fields: [edge.sourceId],
-        references: [node.id],
+        references: [output.id],
         relationName: "source"
     }),
-    target: one(node, {
+
+    target: one(input, {
         fields: [edge.targetId],
-        references: [node.id],
+        references: [input.id],
         relationName: "target"
     }),
+
 }))
 

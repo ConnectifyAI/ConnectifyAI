@@ -13,24 +13,11 @@ export const createGraph = async (data: {
 
 // the id should be our id inside database
 export const getGraph = async (id: string) => {
-
     const dbGraph = await db.query.graph.findFirst({
         where: eq(graph.id, id),
         with: {
             nodes: {
                 with: {
-                    outgoingEdges: {
-                        with: {
-                            source: true,
-                            target: true
-                        }
-                    },
-                    incomingEdges: {
-                        with: {
-                            source: true,
-                            target: true
-                        }
-                    }
                 }
             }
         }
@@ -65,9 +52,15 @@ export const getGraph = async (id: string) => {
             }
 
         }
+
+        //TODO: what if a node has multiple inputs? how would we differentiate
+
+         
+
+        node.incomingEdges
+        node.outgoingEdges
     }
-
-
+    
 }
 
 export const updateGraph = async (data: {
