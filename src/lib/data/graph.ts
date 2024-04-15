@@ -18,6 +18,16 @@ export const getGraph = async (id: string) => {
         with: {
             nodes: {
                 with: {
+                    outputs: {
+                        with: {
+                            edge: true
+                        }
+                    },
+                    inputs: {
+                        with: {
+                            edge: true
+                        }
+                    }
                 }
             }
         }
@@ -46,6 +56,14 @@ export const getGraph = async (id: string) => {
             }
 
             case 'model': {
+
+                // TODO: ask kenny what he wants , also ask him for how the 
+                // "state" of the application looks like
+                //
+                // maybe this isnt necessary?, just needed upon creating a dataset.
+                // what about source of truth though, wouldnt we want that to be huggingface
+                // i think it would be easier to just create different tables maybe? 
+
                 let model = await getModelByRepoId(node.repoId)
                 models.push(model)
 
@@ -53,14 +71,11 @@ export const getGraph = async (id: string) => {
 
         }
 
-        //TODO: what if a node has multiple inputs? how would we differentiate
+        //TODO: how would we bind the value of an output to the 
+        //name associated with the model / dataset output
 
-         
-
-        node.incomingEdges
-        node.outgoingEdges
     }
-    
+
 }
 
 export const updateGraph = async (data: {

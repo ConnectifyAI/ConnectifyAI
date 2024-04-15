@@ -149,6 +149,7 @@ export type Model = {
 
 export type ioInfo = {
 
+    id: string, //needs to be created if we are going to store it inside the databse
     label: string,
     type: string,
 

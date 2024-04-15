@@ -56,6 +56,7 @@ export async function getDatasetByRepoId(repo_id: string){
         features: dataset.cardData.dataset_info.features,
         ...dataset
     }
+
     return cleanDataset
 }
 
@@ -66,6 +67,7 @@ export type Dataset = {
     downloads: number,
     likes: number,
     features: {
+        id: string, // just match it with the id?
         name: string,
         dtype: string
     }[]
