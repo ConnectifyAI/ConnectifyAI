@@ -39,6 +39,27 @@ export async function searchDatasets(query: string): Promise<Dataset[]> {
 
 }
 
+export async function getDatasetByRepoId(repo_id: string){
+
+    const response = await fetch(
+        // `https://huggingface.co/api/datasets/${chosen_one}`,
+        `https://huggingface.co/api/datasets/${repo_id}`,
+        {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${HF_TOKEN}` }
+        }
+
+    )
+    const dataset = await response.json()
+
+    const cleanDataset: Dataset = {
+        features: dataset.cardData.dataset_info.features,
+        ...dataset
+    }
+    return cleanDataset
+}
+
+
 export type Dataset = {
     author: string,
     id: string,
@@ -57,7 +78,7 @@ export async function getDatasetInfo(id: string) {
 
     let repo = "Baidicoot/adverserial_training_evil_mistral"
 
-    const chosen_response = await fetch(
+    const response = await fetch(
         // `https://huggingface.co/api/datasets/${chosen_one}`,
         `https://huggingface.co/api/datasets/${repo}`,
         {
@@ -66,7 +87,7 @@ export async function getDatasetInfo(id: string) {
         }
 
     )
-    const dataset = await chosen_response.json()
+    const dataset = await response.json()
 
     const cleanDataset: Dataset = {
         features: dataset.cardData.dataset_info.features,
