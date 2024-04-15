@@ -96,7 +96,7 @@
 
 		<Accordion>
 			<span slot="head">
-				<h2 class="flex items-center gap-3">
+				<h2 class="flex items-centerp p-1 gap-3">
 					<MoveRight size={20} />
 					Outputs ({feature_len})
 				</h2>
