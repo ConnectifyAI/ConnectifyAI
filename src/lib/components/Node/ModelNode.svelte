@@ -13,7 +13,7 @@
 	const { text } = data;
 
 	const edges = useEdges();
-	edges.subscribe((v) => console.log(v));
+	// edges.subscribe((v) => console.log(v));
 	const nodes = useNodes();
 
 	let selectedNodeId = '';

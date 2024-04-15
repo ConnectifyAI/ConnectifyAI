@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import { Position, type Node, type Edge } from '@xyflow/svelte';
+import type { Dataset } from '$lib/server/hf/dataset';
 
 export const bgColor = writable('#1A192B');
 
@@ -7,7 +8,7 @@ export const bgColor = writable('#1A192B');
 const initialNodes: Node[] = [
 	{
 		id: '1',
-		type: 'input',
+		type: 'modelNode',
 		data: { label: 'An input node' },
 		position: { x: 0, y: 50 },
 		sourcePosition: Position.Right
@@ -15,7 +16,7 @@ const initialNodes: Node[] = [
 	{
 		id: '2',
 		type: 'datasetNode',
-		data: { color: bgColor, text: 'library name here' },
+		data: { },
 		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 300, y: 50 }
 	}
@@ -33,13 +34,13 @@ const initialEdges: Edge[] = [
 ];
 
 // NODE AND EDGES FUNCTION
-export const addNode = (text: string) => {
+export const addNode = (datasetInfo: Dataset) => {
 	nodes.update((nodes) => [
 		...nodes,
 		{
 			id: Date.now().toString(),
 			type: 'datasetNode',
-			data: { color: bgColor, text },
+			data: { datasetInfo },
 			style: 'border: 1px solid #777; padding: 10px;',
 			position: { x: 300, y: 200 }
 		}
