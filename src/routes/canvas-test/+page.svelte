@@ -16,9 +16,13 @@
 	import DatasetNode from '$components/Node/DatasetNode.svelte';
 	import ModelNode from '$components/Node/ModelNode.svelte';
 	import { nodes, edges, addNode, bgColor } from '$components/Node/Dataset';
+	import type { Dataset } from '$components/Node/Dataset';
 
-	export let form;
-	$: console.log(form);
+	export let data: Dataset;
+	$: console.log(data.datasetInfo)
+	
+	// export let form;
+	// $: console.log(form);
 
 	const nodeTypes = {
 		datasetNode: DatasetNode,
@@ -99,7 +103,7 @@
 	<Panel>
 		<form
 			on:submit={() => {
-				addNode(nodeText);
+				addNode(data.datasetInfo);
 				nodeText = '';
 			}}
 			class="bg-slate-100 p-5"

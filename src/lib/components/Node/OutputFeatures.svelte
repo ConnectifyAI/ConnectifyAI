@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { writable, type Writable } from 'svelte/store';
-	// export let isSelected: Writable<boolean> = writable(false);
+	export let name: string;
+	export let type: string;
+	// export let badgeNum: number;
 	export let isSelected = false;
 </script>
 
@@ -14,10 +16,10 @@
 			isSelected = !isSelected;
 		}}
 	>
-		<span class="badge-icon bg-blue-50 absolute -top-2 -right-2 z-10">2</span>
+		<!-- <span class="badge-icon bg-blue-50 absolute -top-2 -right-2 z-10">{badgeNum}</span> -->
 
-		<h1>MedlineCitation</h1>
-		<p class="text-sm text-left opacity-70">dict • etc</p>
+		<h1>{name}</h1>
+		<p class="text-sm text-left opacity-70">{type} • etc</p>
 	</button>
 </div>
 

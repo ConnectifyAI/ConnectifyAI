@@ -9,18 +9,41 @@
 		useConnection,
 		useNodes
 	} from '@xyflow/svelte';
-	import { Database, X } from 'lucide-svelte';
+	import { Database, X, MoveRight } from 'lucide-svelte';
+
 	import OutputFeatures from '$components/Node/OutputFeatures.svelte';
-	import { deleteNode } from '$components/Node/Dataset';
+	import { onMount } from 'svelte';
+	import Accordion from '$components/Accordion.svelte';
+	// import { deleteNode } from '$components/Node/Dataset';
 
-	type $$Props = NodeProps;
+	export let data: {
+		datasetInfo: {
+			id: string; // dataset repo name
+			author: string; // dataset author
+			features: string[]; // dataset features
+		};
+	};
 
-	export let data: { color: Writable<string>; text: string } | $$Props['data'];
+	let repo_name = '',
+		author = '',
+		features = [],
+		feature_len = 0;
 
-	const { color, text } = data;
+	onMount(async () => {
+		repo_name = data.datasetInfo?.id;
+		author = data.datasetInfo?.author;
+		features = data.datasetInfo?.features;
+		feature_len = data.datasetInfo?.features.length;
+	});
+	// $: console.log('datasetInfo: DatasetNode.sv', data.datasetInfo?.id);
+
+	// const { id } = data?.datasetInfo;
+	// $: console.log('id: DatasetNode.sv', id);
+	// $: console.log(text);
+	let text = 'hi';
 
 	const edges = useEdges();
-	edges.subscribe((v) => console.log(v));
+	// edges.subscribe((v) => console.log(v));
 	const nodes = useNodes();
 
 	let selectedNodeId = '';
@@ -33,56 +56,60 @@
 	});
 	// const connection = useConnection();
 	// connection.subscribe((v) => console.log(v));
-
 </script>
 
 <!-- dimension of card -->
 <div class="bg-[#eee] p-5 rounded-md w-[25rem]">
-	<!-- style="background: {$color} -->
-
 	<Handle type="target" position={Position.Left} />
 	<Handle type="source" position={Position.Right} />
 
-	<div>
-		mix color: <strong>{$color}</strong>
-	</div>
-	<input
-		class="nodrag"
-		type="color"
-		on:input={(e) => {
-			$color = e.target?.value;
-		}}
-		value={$color}
-	/>
 	<div class="container">
+		<!-- <h1>{data.datasetInfo.id}</h1> -->
+		<!-- <h2>{data.datasetInfo.author}</h2>
+		<ul>
+			{#each data.datasetInfo.features as feature (feature)}
+				<li>{feature}</li>
+			{/each}
+		</ul> -->
+
 		<!-- title -->
 		<section class="flex justify-between items-center">
 			<span class="flex gap-1 py-1 items-center">
 				<Database size={23} />
-				<h1 class="text-lg">Dataset 1</h1>
+				<h1 class="text-lg">Dataset</h1>
 			</span>
 
-			<button
+			<!-- delete button -->
+			<!-- <button
 				class="btn-icon hover:bg-blue-50 rounded-md nodrag"
 				on:click={() => {
 					deleteNode(selectedNodeId);
 				}}
 			>
 				<X size={25} />
-			</button>
+			</button> -->
 		</section>
 		<hr class="opacity-30" />
 
 		<!-- source/dataset name -->
-		<h2 class="py-2">{text ? text : 'dataset not found'}</h2>
+		<h2 class="py-2">{repo_name}</h2>
 
-		<h2>Outputs (4)</h2>
-
-		<section class="flex gap-3 overflow-x-auto nowheel">
-			<OutputFeatures />
-			<OutputFeatures />
-			<OutputFeatures />
-			<OutputFeatures />
-		</section>
+		<Accordion>
+			<span slot="head">
+				<h2 class="flex items-center gap-3">
+					<MoveRight size={20} />
+					Outputs ({feature_len})
+				</h2>
+			</span>
+			<div slot="details">
+				<section class="flex gap-3 overflow-x-auto nowheel">
+					{#if features}
+						{#each features as feature}
+							<OutputFeatures name={feature?.name} type={feature.dtype} />
+						{/each}
+					{/if}
+				</section>
+			</div>
+		</Accordion>
 	</div>
 </div>
