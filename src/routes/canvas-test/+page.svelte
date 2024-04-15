@@ -1,6 +1,5 @@
 <script lang="ts">
 	// @ts-nocheck
-	import { writable } from 'svelte/store';
 	import '@xyflow/svelte/dist/style.css';
 	import {
 		SvelteFlow,
@@ -13,49 +12,29 @@
 	} from '@xyflow/svelte';
 	import Toolbar from '$components/Toolbar/Toolbar.svelte';
 
-	import DatasetNode from '$components/Node/DatasetNode.svelte';
-	import ModelNode from '$components/Node/ModelNode.svelte';
-	import { nodes, edges, addNode, bgColor } from '$components/Node/Dataset';
-	import type { Dataset } from '$components/Node/Dataset';
+	import {
+		nodes,
+		edges,
+		nodeTypes,
+		defaultEdgeOptions,
+		defaultNodeOptions,
+		onDragOver,
+		addNode,
+		bgColor
+	} from '$routes/canvas-test/Dataset';
 
+	// what Dataset type is this? define schema
 	export let data: Dataset;
-	$: console.log(data.datasetInfo)
-	
+	$: console.log(data.datasetInfo);
+
 	// export let form;
 	// $: console.log(form);
-
-	const nodeTypes = {
-		datasetNode: DatasetNode,
-		modelNode: ModelNode
-	};
-
-	const defaultNodeOptions = {
-		type: 'datasetNode',
-		data: {
-			color: writable('#f00'),
-			text: 'default text'
-		},
-
-		style: 'border: 1px solid #777; padding: 10px;',
-		position: { x: 300, y: 200 }
-	};
-
-	const defaultEdgeOptions = {
-		type: 'smoothstep',
-		animated: true,
-		interactionWidth: 30
-	};
 
 	let nodeText = '';
 
 	const { screenToFlowPosition } = useSvelteFlow();
-	const onDragOver = (event: DragEvent) => {
-		event.preventDefault();
 
-		if (event.dataTransfer) {
-			event.dataTransfer.dropEffect = 'move';
-		}
-	};
+	// drag and drop functionality
 
 	const onDrop = (event: DragEvent) => {
 		event.preventDefault();

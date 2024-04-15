@@ -1,64 +1,65 @@
 <script lang="ts">
-	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton';
-	import { Zap, Users, Settings, MoveHorizontal } from 'lucide-svelte';
-	
+	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton'
+	import { Zap, Users, Settings, MoveHorizontal } from 'lucide-svelte'
+
 	//NOTE: surely theres a better way to do this
-	let tag1: boolean = false;
-	let tag2: boolean = true;
-	let tag3: boolean = false;
-	let abc: string = 'w-32';
-	let flipflop: boolean = true;
-	let visblity: string = 'hidden';
+	let tag1: boolean = false
+	let tag2: boolean = true
+	let tag3: boolean = false
+	let abc: string = 'w-32'
+	let flipflop: boolean = true
+	let visblity: string = 'hidden'
 
 	function change(x: string) {
 		if (x == 'tag1') {
-			tag1 = true;
-			tag2 = false;
-			tag3 = false;
+			tag1 = true
+			tag2 = false
+			tag3 = false
 		}
 		if (x == 'tag2') {
-			tag1 = false;
-			tag2 = true;
-			tag3 = false;
+			tag1 = false
+			tag2 = true
+			tag3 = false
 		}
 		if (x == 'tag3') {
-			tag1 = false;
-			tag2 = false;
-			tag3 = true;
+			tag1 = false
+			tag2 = false
+			tag3 = true
 		}
 	}
 
 	function minimize() {
-		abc = 'w-32';
-		flipflop = false;
-		visblity = 'hidden';
+		abc = 'w-32'
+		flipflop = false
+		visblity = 'hidden'
 	}
 
 	function maxmize() {
-		abc = 'w-52';
-		flipflop = true;
-		visblity = 'block';
+		abc = 'w-52'
+		flipflop = true
+		visblity = 'block'
 	}
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div on:mouseenter={maxmize} on:mouseleave={minimize}>
+	<!-- <div> -->
 	<AppRail
 		width={abc}
 		spacing="space-y-1"
 		aspectRatio="aspect-[8/3]"
 		class=" bg-slate-100 h-screen"
-		active="bg-blue-500 hover text-white "
+		active="bg-blue-500 hover text-white"
 		shadow="shadow-md"
 		border="border-r "
-		hover="bg"
+		hover=""
 	>
 		<AppRailAnchor
 			href="/canvas-test"
 			title="Create"
 			selected={tag1}
 			on:click={() => {
-				change('tag1');
+				change('tag1')
 			}}
 		>
 			<svelte:fragment slot="lead">
@@ -73,7 +74,7 @@
 			title="Communtiy"
 			selected={tag2}
 			on:click={() => {
-				change('tag2');
+				change('tag2')
 			}}
 		>
 			<svelte:fragment slot="lead">
@@ -88,7 +89,7 @@
 			title="Account"
 			selected={tag3}
 			on:click={() => {
-				change('tag3');
+				change('tag3')
 			}}
 		>
 			<svelte:fragment slot="lead">

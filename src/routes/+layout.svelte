@@ -29,8 +29,15 @@
 </script>
 
 <AppShell>
-	<svelte:fragment slot="header"><Navbar /></svelte:fragment>
-	<svelte:fragment slot="sidebarLeft"><Sidebar /></svelte:fragment>
-	<Modal />
+	<svelte:fragment slot="header">
+		<Navbar />
+	</svelte:fragment>
+
+	<svelte:fragment slot="sidebarLeft">
+		<Sidebar />
+	</svelte:fragment>
+
 	<slot />
 </AppShell>
+
+<Modal />
