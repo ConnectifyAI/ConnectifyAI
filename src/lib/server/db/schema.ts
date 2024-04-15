@@ -79,6 +79,7 @@ export const nodeTypeEnum = pgEnum('node_type', ['dataset', 'model'])
 export const node = pgTable('node', {
     id: uuid('id').primaryKey().notNull().unique(),
     repoId: text('repo_id').notNull(),
+    displayName: text('display_name').notNull(),
     parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id),
     nodeType: nodeTypeEnum('node_type').notNull(),
     position: json('position').notNull(),
