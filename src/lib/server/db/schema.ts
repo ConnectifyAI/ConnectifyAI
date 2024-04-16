@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
-import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, json, integer } from "drizzle-orm/pg-core";
+import { double } from "drizzle-orm/mysql-core";
+import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, json, integer, numeric, doublePrecision } from "drizzle-orm/pg-core";
 
 //TODO: everything else lmfao
 //
@@ -82,7 +83,8 @@ export const node = pgTable('node', {
     displayName: text('display_name').notNull(),
     parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id),
     nodeType: nodeTypeEnum('node_type').notNull(),
-    position: json('position').notNull(),
+    posX: doublePrecision('pos_x').notNull(),
+    posY: doublePrecision('pos_y').notNull(),
 })
 
 export const nodesRelations = relations(node, ({ many, one }) => ({
@@ -102,9 +104,10 @@ export const nodesRelations = relations(node, ({ many, one }) => ({
     parentGraph: one(graph, {
         fields: [node.parentGraphId],
         references: [graph.id],
-    })
+    }),
 
 }))
+
 
 export const output = pgTable('output', {
     id: uuid('id').primaryKey().notNull().unique(),

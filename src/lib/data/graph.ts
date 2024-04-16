@@ -3,6 +3,7 @@ import { graph } from '$lib/server/db/schema'
 import { getDatasetByRepoId, type Dataset } from '$lib/server/hf/dataset'
 import { getModelByRepoId, getModelInfo, type Model } from '$lib/server/hf/model'
 import { eq } from 'drizzle-orm'
+import type { Graph, Author, Node, Input, Output, Edge } from './graph_types'
 
 
 export const createGraph = async (data: {
@@ -11,12 +12,12 @@ export const createGraph = async (data: {
 
 }
 
-export const testGetGraph = async () => {
+export const testGetGraph = async (): Promise<Graph> => {
+
     const dbGraph = await db.query.graph.findFirst({
-        where: eq(graph.id, 'fa4cab48-384d-4a95-8f84-4fb5116f7ebf'),
+        where: eq(graph.id, '0dc01d20-3339-4f1a-8892-10102bd04cd3'),
         with: {
             author: true,
-
             nodes: {
                 with: {
                     outputs: {
@@ -34,11 +35,27 @@ export const testGetGraph = async () => {
         }
     })
 
-    return dbGraph
+    if (!dbGraph) {
+
+        throw new Error("deal with it later lmao")
+    }
+    return dbGraph as Graph
+
 }
 
+
+
+
 // the id should be our id inside database
-export const getGraph = async (id: string) => {
+
+
+
+
+
+
+
+//TODO: figure out what to do
+export const getGraph = async (id: string): Promise<Graph> => {
     const dbGraph = await db.query.graph.findFirst({
         where: eq(graph.id, id),
         with: {
@@ -91,7 +108,7 @@ export const getGraph = async (id: string) => {
                 // what about source of truth though, wouldnt we want that to be huggingface
                 // i think it would be easier to just create different tables maybe? 
 
-                let model = await getModelByRepoId(node.repoId)
+                let model = await getModelByRepoId(node.repoId);
                 models.push(model)
 
             }
