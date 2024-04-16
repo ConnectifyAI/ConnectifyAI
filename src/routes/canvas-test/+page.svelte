@@ -5,7 +5,6 @@
 		SvelteFlow,
 		Controls,
 		Background,
-		BackgroundVariant,
 		useSvelteFlow,
 		Panel,
 		type Node
