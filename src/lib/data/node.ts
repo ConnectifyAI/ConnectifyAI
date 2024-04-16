@@ -7,6 +7,9 @@ export const createNode = async (data: {
 }) => {
 
 }
+export type NodeType = 'dataset' | 'model'
+
+
 
 export const getNode = async (id: string) => {
 

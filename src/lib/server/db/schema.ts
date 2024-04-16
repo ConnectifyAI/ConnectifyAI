@@ -86,13 +86,18 @@ export const node = pgTable('node', {
 })
 
 export const nodesRelations = relations(node, ({ many, one }) => ({
-
+    //
     outputs: many(output, {
-        relationName: "outgoing"
+        relationName: "outof"
     }),
+
+    // outputs: many(output),
+
     inputs: many(input, {
-        relationName: "incoming"
+        relationName: "into"
     }),
+
+    // inputs: many(input),
 
     parentGraph: one(graph, {
         fields: [node.parentGraphId],
@@ -111,7 +116,7 @@ export const outputRelations = relations(output, ({ one }) => ({
     parentNode: one(node, {
         fields: [output.parentNodeId],
         references: [node.id],
-        relationName: "outgoing"
+        relationName: "outof"
     }),
 
     edge: one(edge)
@@ -128,7 +133,7 @@ export const inputRelations = relations(output, ({ one }) => ({
     parentNode: one(node, {
         fields: [output.parentNodeId],
         references: [node.id],
-        relationName: "incoming"
+        relationName: "into"
     }),
 
     edge: one(edge)
