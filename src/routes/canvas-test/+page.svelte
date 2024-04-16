@@ -64,6 +64,8 @@
 	fitView
 	on:dragover={onDragOver}
 	on:drop={onDrop}
+	on:edgeclick={(event) => console.log('edge click', event)}
+	on:nodeclick={(event) => console.log('node click', event)}
 >
 	<Background />
 

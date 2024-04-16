@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import { Position, type Node, type Edge } from '@xyflow/svelte'
+import { type Node, type Edge } from '@xyflow/svelte'
 import type { Dataset } from '$lib/server/hf/dataset'
 import { DatasetNode, ModelNode } from '$components/Node'
 
@@ -8,24 +8,23 @@ export const bgColor = writable('#1A192B')
 // INITIAL NODES AND EDGES
 const initialNodes: Node[] = [
 	{
-		id: '1',
+		id: 'model-1',
 		type: 'modelNode',
 		data: {
 			datasetInfo: {
 				id: 'testing model',
 				out_features: [
 					{ name: 'model_out_feature', dtype: 'string' },
-					{ name: 'dataset out 2', dtype: 'int' }
+					{ name: 'output 2', dtype: 'int' }
 				],
 				in_features: [{ name: 'model_in_feature', dtype: 'string' }],
 				author: 'me'
 			}
 		},
-		position: { x: 0, y: 50 },
-		sourcePosition: Position.Right
+		position: { x: 500, y: 50 }
 	},
 	{
-		id: '2',
+		id: 'dataset-1',
 		type: 'datasetNode',
 		data: {
 			datasetInfo: {
@@ -35,16 +34,16 @@ const initialNodes: Node[] = [
 			}
 		},
 		style: 'border: 1px solid #999; padding: 10px;',
-		position: { x: 300, y: 50 }
+		position: { x: 0, y: 50 }
 	}
 ]
 
 const initialEdges: Edge[] = [
 	{
-		id: 'e1-2',
+		id: 'e_d1-m1',
 		type: 'smoothstep',
-		source: '1',
-		target: '2',
+		source: 'dataset-1',
+		target: 'model-1',
 		animated: true,
 		style: 'stroke: #fff;'
 	}
