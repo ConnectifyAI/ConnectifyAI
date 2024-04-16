@@ -1,7 +1,7 @@
 <script lang="ts">
 	// @ts-nocheck
 	import { Boxes, MoveRight } from 'lucide-svelte'
-	import Accordion from '$components/Accordion.svelte'
+	import Accordion from '$components/Node/Accordion.svelte'
 
 	import { Handle, Position, useEdges, useNodes } from '@xyflow/svelte'
 	import { OutputFeature, InputFeature } from '$components/Node'

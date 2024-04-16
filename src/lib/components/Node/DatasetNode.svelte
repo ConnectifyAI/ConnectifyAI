@@ -6,7 +6,7 @@
 	import { Database, MoveRight } from 'lucide-svelte'
 
 	import OutputFeature from '$components/Node/OutputFeature.svelte'
-	import Accordion from '$components/Accordion.svelte'
+	import Accordion from '$components/Node/Accordion.svelte'
 
 	export let data: DatasetNodeData
 
