@@ -1,36 +1,26 @@
 <script lang="ts">
 	// @ts-nocheck
-	import type { Writable } from 'svelte/store'
 	import { tick } from 'svelte'
-	import {
-		Handle,
-		Position,
-		type NodeProps,
-		useEdges,
-		useConnection,
-		useNodes
-	} from '@xyflow/svelte'
-	import { Database, X, MoveRight } from 'lucide-svelte'
-
-	import OutputFeatures from '$components/Node/OutputFeatures.svelte'
+	import { Handle, Position, useEdges, useConnection, useNodes } from '@xyflow/svelte'
 	import { onMount } from 'svelte'
-	import Accordion from '$components/Accordion.svelte'
+	import { Database, MoveRight } from 'lucide-svelte'
 
-	export let data: {
-		datasetInfo: {
-			id: string // dataset repo name
-			author: string // dataset author
-			features: string[] // dataset features
-		}
-	}
+	import OutputFeature from '$components/Node/OutputFeature.svelte'
+	import Accordion from '$components/Node/Accordion.svelte'
 
-	let repo_name, author, features, feature_len, displayName
+	export let data: DatasetNodeData
 
-	onMount(async () => {
-		repo_name = displayName = data.datasetInfo?.id
+	let repo_name, author, features, features_len, displayName
+
+	$: {
+		repo_name = data.datasetInfo?.id
 		author = data.datasetInfo?.author
 		features = data.datasetInfo?.features
-		feature_len = data.datasetInfo?.features.length
+		features_len = data.datasetInfo?.features.length
+	}
+
+	onMount(() => {
+		displayName = data.datasetInfo.id
 	})
 
 	// call this function when displayName changes
@@ -43,7 +33,7 @@
 	// $: console.log(text);
 
 	const edges = useEdges()
-	edges.subscribe((v) => console.log(v))
+	edges.subscribe((v) => console.log('edges', v))
 	// const nodes = useNodes()
 
 	// let selectedNodeId = ''
@@ -58,6 +48,7 @@
 	// const connection = useConnection();
 	// connection.subscribe((v) => console.log(v));
 
+	// editable display name
 	let inputElement: HTMLInputElement
 	let isEditing = false
 	const toggleEditing = async () => {
@@ -68,27 +59,28 @@
 		}
 	}
 
+	// generate unique id for each handle
+	const generateId = () => Math.random().toString()
+
 	const DEFAULT_HANDLE_STYLE = 'width: 10px; height: 10px; bottom: -5px;'
 </script>
 
 <!-- dimension of card -->
 <div class="bg-[#eee] p-5 rounded-md w-[26rem]">
 	<!-- HANDLES -->
-	<Handle type="target" position={Position.Left} />
-	<Handle type="source" position={Position.Right} />
-
-	<Handle
-		id="abcd"
-		type="target"
-		position={Position.Bottom}
-		style="{DEFAULT_HANDLE_STYLE}; left: 15%; background: red;"
-	/>
-	<Handle
-		id="blue"
-		type="target"
-		position={Position.Bottom}
-		style="{DEFAULT_HANDLE_STYLE}; left: 50%; background: blue;"
-	/>
+	{#if features}
+		{#each features as _, index}
+			<Handle
+				id={generateId()}
+				+
+				{index}
+				type="source"
+				position={Position.Right}
+				style="{DEFAULT_HANDLE_STYLE}; top: {((index + 1) * 100) /
+					(features_len + 1)}%; background: red;"
+			/>
+		{/each}
+	{/if}
 
 	<div class="container">
 		<!-- dataset/model display name -->
@@ -101,12 +93,15 @@
 						type="text"
 						bind:value={displayName}
 						bind:this={inputElement}
-						class="p-2 w-[21rem] rounded-md text-left selection:bg-fuchsia-300 selection:text-fuchsia-900 nodrag nowheel "
+						class="p-2 w-[21rem] rounded-md text-left selection:bg-fuchsia-300 selection:text-fuchsia-900 nodrag nowheel"
 					/>
 					<button type="submit" class="hidden">Submit</button>
 				</form>
 			{:else}
-				<button class="p-2 w-[21rem] rounded-md text-left hover:bg-slate-100" on:click={toggleEditing}>{displayName}</button>
+				<button
+					class="p-2 w-[21rem] rounded-md text-left hover:bg-slate-100"
+					on:click={toggleEditing}>{displayName}</button
+				>
 			{/if}
 		</section>
 
@@ -119,14 +114,14 @@
 			<span slot="head">
 				<h2 class="flex items-centerp p-1 gap-3">
 					<MoveRight size={20} />
-					Outputs ({feature_len})
+					Outputs ({features_len})
 				</h2>
 			</span>
 			<div slot="details">
 				<section class="flex gap-3 overflow-x-auto nowheel">
 					{#if features}
 						{#each features as feature}
-							<OutputFeatures name={feature?.name} type={feature.dtype} />
+							<OutputFeature name={feature?.name} type={feature.dtype} />
 						{/each}
 					{/if}
 				</section>
