@@ -4,6 +4,7 @@
 
 	// your script goes here
 	console.log(data);
+
 </script>
 
 <form method="POST" action="?/search">

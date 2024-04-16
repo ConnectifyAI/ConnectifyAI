@@ -2,13 +2,19 @@ import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { getModelInfo } from '$lib/server/hf/model';
 import { getDatasetInfo } from '$lib/server/hf/dataset';
+import { testGetGraph } from '$lib/data/graph';
 
 export const load: PageServerLoad = async ({ params }) => {
 
-	const datasetInfo = await getDatasetInfo('change later');
-	const modelInfo = await getModelInfo('change later');
+	// const datasetInfo = await getDatasetInfo('change later');
+	// const modelInfo = await getModelInfo('change later');
+	//
+	// return { datasetInfo, modelInfo };
+	//
+	
+	const graph = await testGetGraph();
 
-	return { datasetInfo, modelInfo };
+	return {graph}
 }
 
 

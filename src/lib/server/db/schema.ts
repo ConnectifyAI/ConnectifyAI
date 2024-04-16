@@ -86,13 +86,18 @@ export const node = pgTable('node', {
 })
 
 export const nodesRelations = relations(node, ({ many, one }) => ({
-
+    //
     outputs: many(output, {
-        relationName: "outgoing"
+        relationName: "outof"
     }),
+
+    // outputs: many(output),
+
     inputs: many(input, {
-        relationName: "incoming"
+        relationName: "into"
     }),
+
+    // inputs: many(input),
 
     parentGraph: one(graph, {
         fields: [node.parentGraphId],
@@ -104,6 +109,8 @@ export const nodesRelations = relations(node, ({ many, one }) => ({
 export const output = pgTable('output', {
     id: uuid('id').primaryKey().notNull().unique(),
     parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+    label: text('label').notNull(),
+    dtype: text('dtype').notNull()
 })
 
 export const outputRelations = relations(output, ({ one }) => ({
@@ -111,7 +118,7 @@ export const outputRelations = relations(output, ({ one }) => ({
     parentNode: one(node, {
         fields: [output.parentNodeId],
         references: [node.id],
-        relationName: "outgoing"
+        relationName: "outof"
     }),
 
     edge: one(edge)
@@ -121,14 +128,16 @@ export const outputRelations = relations(output, ({ one }) => ({
 export const input = pgTable('input', {
     id: uuid('id').primaryKey().notNull().unique(),
     parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+    label: text('label').notNull(),
+    dtype: text('dtype').notNull()
 })
 
-export const inputRelations = relations(output, ({ one }) => ({
+export const inputRelations = relations(input, ({ one }) => ({
 
     parentNode: one(node, {
-        fields: [output.parentNodeId],
+        fields: [input.parentNodeId],
         references: [node.id],
-        relationName: "incoming"
+        relationName: "into"
     }),
 
     edge: one(edge)
