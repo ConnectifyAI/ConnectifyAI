@@ -5,4 +5,5 @@
 
 
 # nice add-ons
-1. displayName updating and syncing
+1. when output is hovered or dragged, only input Handles are lit up, other output Handles are dimmed
+2. displayName updating and syncing

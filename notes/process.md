@@ -23,7 +23,7 @@ Target handle id
 2. Place node on canvas
 3. Generate node id and position
 4. Select hf dataset/model, get repo id
-5. Fetch features, create handles, and map to features
+5. Fetch features; for each feature, create handle and map it to a feature
 
 # Edge creation process
 1. Connect input to output handle

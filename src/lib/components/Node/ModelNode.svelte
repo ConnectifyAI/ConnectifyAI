@@ -1,13 +1,14 @@
 <script lang="ts">
 	// @ts-nocheck
-	import { Boxes, MoveRight } from 'lucide-svelte'
+	import { Boxes } from 'lucide-svelte'
 	import Accordion from '$components/Node/Accordion.svelte'
 
-	import { Handle, Position, useEdges, useNodes } from '@xyflow/svelte'
-	import { OutputFeature, InputFeature } from '$components/Node'
-	import { onMount } from 'svelte'
+	import { Handle, Position, useNodesData } from '@xyflow/svelte'
 
-	export let data: ModelNodeData
+	export let data: ModelNodeData | DatasetNodeData
+	// create a writable
+	let inputsOpen = true
+	let outputsOpen = true
 
 	let repo_name, author, in_features, in_features_len, out_features, out_features_len, displayName
 
@@ -21,67 +22,57 @@
 		out_features_len = out_features.length
 	}
 
-	// generate unique id for each handle
-	const generateId = () => Math.random().toString()
+	// on connect, extract output of other nodes connected to this node
+	let inputFeatures = []
 
-	const DEFAULT_HANDLE_STYLE = 'width: 10px; height: 10px; bottom: -5px;'
+	const nodeData = useNodesData(['dataset-1', 'dataset-2'])
+
+	$: {
+		// nodeData changes whenever the data of the passed node ids get updated
+		console.log($nodeData)
+	}
 </script>
 
 <!-- UI FOR NODE -->
 <div class="bg-[#eee] p-5 rounded-md w-[25rem]">
-		<!-- dataset/model display name -->
-		<section class="flex justify-between items-center">
-			<span class="flex gap-1 py-1 items-center">
-				<Boxes size={23} />
-				<h1 class="text-lg">Model Display Name</h1>
-			</span>
-		</section>
+	<!-- dataset/model display name -->
+	<section class="flex justify-between items-center">
+		<span class="flex gap-1 py-1 items-center">
+			<Boxes size={23} />
+			<h1 class="text-lg">Model Display Name</h1>
+		</span>
+	</section>
 
-		<hr class="opacity-30" />
+	<hr class="opacity-30" />
 
-		<!-- model repo name -->
-		<section class="py-2">{repo_name}</section>
+	<!-- model repo name -->
+	<section class="py-2">{repo_name}</section>
 
-		<Accordion
-			text="Inputs"
-			FeatureComponent={InputFeature}
-			features={in_features}
-			len={in_features_len}
-		/>
+	<Accordion
+		features_type="Inputs"
+		features={in_features}
+		features_len={in_features_len}
+		on:updateOpen={() => (inputsOpen = !inputsOpen)}
+	/>
 
-		<Accordion
-			text="Outputs"
-			FeatureComponent={OutputFeature}
-			features={out_features}
-			len={out_features_len}
-		/>
+	<Accordion
+		features_type="Outputs"
+		features={out_features}
+		features_len={out_features_len}
+		on:updateOpen={() => (outputsOpen = !outputsOpen)}
+	/>
 </div>
 
-<!-- HANDLES -->
-{#if in_features}
-	{#each in_features as _, index}
-		<Handle
-			id={generateId()}
-			+
-			{index}
-			type="target"
-			position={Position.Left}
-			style="{DEFAULT_HANDLE_STYLE}; top: {((index + 1) * 100) /
-				(in_features_len + 1)}%; background: red;"
-		/>
-	{/each}
+{#if !inputsOpen}
+	<Handle
+		type="target"
+		position={Position.Left}
+		onconnect={(e) => {
+			console.log('.', e)
+		}}
+	/>
 {/if}
 
-{#if out_features}
-	{#each out_features as _, index}
-		<Handle
-			id={generateId()}
-			+
-			{index}
-			type="source"
-			position={Position.Right}
-			style="{DEFAULT_HANDLE_STYLE}; top: {((index + 1) * 100) /
-				(out_features_len + 1)}%; background: blue;"
-		/>
-	{/each}
+{#if !outputsOpen}
+	<Handle type="source" position={Position.Right} />
 {/if}

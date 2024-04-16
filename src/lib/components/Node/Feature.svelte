@@ -1,19 +1,20 @@
 <script lang="ts">
-	import { writable, type Writable } from 'svelte/store'
 	import { Handle, Position } from '@xyflow/svelte'
 	export let name: string
 	export let dtype: string
 	export let pos: number
-	// export let badgeNum: number
+	export let featureType: 'Input' | 'Output'
+
 	export let isSelected = false
+	// add function to sync selected features
 </script>
 
 <!-- on button toggle, get dataset id and field name -->
 <div class="relative inline-block my-2">
 	<button
 		type="button"
-		class="border-[#bbb] active:bg-slate-200
-		{isSelected ? 'bg-slate-300' : 'bg-white'} hover:cursor-pointer"
+		class="
+		{isSelected ? 'bg-slate-300' : 'bg-white'}"
 		on:click={() => {
 			isSelected = !isSelected
 		}}
@@ -23,18 +24,19 @@
 	</button>
 </div>
 
-<!-- corresponding Handle for feature -->
 <Handle
 	id={name}
-	type="target"
-	position={Position.Left}
-	style="width: 10px; height: 10px; top: {pos}%; background: green;"
+	type={featureType == 'Input' ? 'target' : 'source'}
+	position={featureType == 'Input' ? Position.Left : Position.Right}
+	style="top: {pos}%; background: {isSelected ? 'green' : 'beige'};"
+	class="w-10 h-10"
+	onconnect={(e) => {
+		console.log('...', e)
+	}}
 />
 
 <style>
 	button {
-		@apply flex-col border rounded-md;
-		align-items: flex-start;
-		padding: 1rem;
+		@apply flex-col border rounded-md border-[#bbb] active:bg-slate-200 items-start p-4 hover:cursor-pointer;
 	}
 </style>

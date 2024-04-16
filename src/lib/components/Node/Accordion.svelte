@@ -1,47 +1,54 @@
 <script lang="ts">
 	// @ts-nocheck
-	import type { ComponentType } from 'svelte'
 	import { slide } from 'svelte/transition'
 	import { ChevronDown, ChevronUp, MoveRight } from 'lucide-svelte'
-	export let open = false
-	const handleClick = () => (open = !open)
 
-	export let text = ''
-	export let FeatureComponent: ComponentType<any>
-	export let len = 0
+	import { createEventDispatcher } from 'svelte'
+	import Feature from '$components/Node/Feature.svelte'
+
+	const dispatch = createEventDispatcher()
+
+	export let open = true
+	const handleClick = () => {
+		open = !open
+		dispatch('updateOpen')
+	}
+
+	export let features_type: 'Inputs' | 'Outputs'
 	export let features
+	export let features_len = 0
 </script>
 
+<!-- TAKES INPUT / OUTPUT FEATURES -->
 <div class="accordion">
-	<div class="flex justify-between">
-		<div class="text">
-			<slot name="head">
-				<h2 class="flex items-centerp p-1 gap-3">
-					<MoveRight size={20} />
-					{text} ({len})
-				</h2>
-			</slot>
-		</div>
+	<!-- HEAD -->
+	<head class="flex justify-between">
+		<h2 class="flex items-centerp p-1 gap-3">
+			<MoveRight size={20} />
+			{features_type} ({features_len})
+		</h2>
 
 		{#if open}
 			<button on:click={handleClick}><ChevronUp /></button>
 		{:else}
 			<button on:click={handleClick}><ChevronDown /></button>
 		{/if}
-	</div>
+	</head>
 
+	<!-- FEATURES & CORRESPONDING HANDLES -->
 	{#if open}
-		<div class="details" transition:slide>
-			<slot name="details">
-				<section class="flex gap-3 overflow-x-auto nowheel">
-					{#if features}
-						{#each features as feature}
-							<svelte:component this={FeatureComponent} name={feature.name} dtype={feature.dtype} />
-						{/each}
-					{/if}
-				</section>
-			</slot>
-		</div>
+		<section class="flex gap-3 overflow-x-auto nowheel" transition:slide>
+			{#if features}
+				{#each features as feature, index}
+					<Feature
+						name={feature.name}
+						dtype={feature.dtype}
+						pos={((index + 1) * 100) / (features_len + 1)}
+						featureType={features_type === 'Inputs' ? 'Input' : 'Output'}
+					/>
+				{/each}
+			{/if}
+		</section>
 	{/if}
 </div>
 
