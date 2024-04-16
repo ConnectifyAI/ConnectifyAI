@@ -109,6 +109,8 @@ export const nodesRelations = relations(node, ({ many, one }) => ({
 export const output = pgTable('output', {
     id: uuid('id').primaryKey().notNull().unique(),
     parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+    label: text('label').notNull(),
+    dtype: text('dtype').notNull()
 })
 
 export const outputRelations = relations(output, ({ one }) => ({
@@ -126,12 +128,14 @@ export const outputRelations = relations(output, ({ one }) => ({
 export const input = pgTable('input', {
     id: uuid('id').primaryKey().notNull().unique(),
     parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+    label: text('label').notNull(),
+    dtype: text('dtype').notNull()
 })
 
-export const inputRelations = relations(output, ({ one }) => ({
+export const inputRelations = relations(input, ({ one }) => ({
 
     parentNode: one(node, {
-        fields: [output.parentNodeId],
+        fields: [input.parentNodeId],
         references: [node.id],
         relationName: "into"
     }),

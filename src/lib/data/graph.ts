@@ -11,6 +11,32 @@ export const createGraph = async (data: {
 
 }
 
+export const testGetGraph = async () => {
+    const dbGraph = await db.query.graph.findFirst({
+        where: eq(graph.id, 'fa4cab48-384d-4a95-8f84-4fb5116f7ebf'),
+        with: {
+            author: true,
+
+            nodes: {
+                with: {
+                    outputs: {
+                        with: {
+                            edge: true
+                        }
+                    },
+                    inputs: {
+                        with: {
+                            edge: true
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    return dbGraph
+}
+
 // the id should be our id inside database
 export const getGraph = async (id: string) => {
     const dbGraph = await db.query.graph.findFirst({
@@ -39,7 +65,8 @@ export const getGraph = async (id: string) => {
         throw new Error("invalid id")
     }
 
-    //TODO: think about dataset / model id and how kenric wants it to be done
+    //TODO: think about dataset / model id 
+    //and how kenric wants it to be done
 
     let datasets: Dataset[] = []
     let models: Model[] = []

@@ -71,8 +71,11 @@ async function seed() {
 
 	const output1 = {
 		id: output1_id,
-		parentNodeId: node1Id
+		parentNodeId: node1Id,
+		label: "cool export",
+		dtype: "text"
 	}
+
 
 	const returningOutput1 = await db.insert(output).values(output1).returning()
 
@@ -80,7 +83,9 @@ async function seed() {
 
 	const output2 = {
 		id: output2_id,
-		parentNodeId: node1Id
+		parentNodeId: node1Id,
+		label: "notLabel",
+		dtype: "number"
 	}
 
 	const returningOutput2 = await db.insert(output).values(output2).returning()
@@ -89,7 +94,9 @@ async function seed() {
 
 	const input1 = {
 		id: input1_id,
-		parentNodeId: node2Id
+		parentNodeId: node2Id,
+		label: "absorb",
+		dtype: "text"
 	}
 
 	const returningInput1 = await db.insert(input).values(input1).returning()
@@ -98,7 +105,9 @@ async function seed() {
 
 	const input2 = {
 		id: input2_id,
-		parentNodeId: node2Id
+		parentNodeId: node2Id,
+		label: "interestng Label",
+		dtype: "number"
 	}
 
 	const returningInput2 = await db.insert(input).values(input2).returning()
