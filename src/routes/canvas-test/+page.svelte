@@ -1,15 +1,8 @@
 <script lang="ts">
 	// @ts-nocheck
-	import '@xyflow/svelte/dist/style.css';
-	import {
-		SvelteFlow,
-		Controls,
-		Background,
-		useSvelteFlow,
-		Panel,
-		type Node
-	} from '@xyflow/svelte';
-	import Toolbar from '$components/Toolbar/Toolbar.svelte';
+	import '@xyflow/svelte/dist/style.css'
+	import { SvelteFlow, Controls, Background, useSvelteFlow, Panel, type Node } from '@xyflow/svelte'
+	import Toolbar from '$components/Toolbar/Toolbar.svelte'
 
 	import {
 		nodes,
@@ -20,34 +13,33 @@
 		onDragOver,
 		addNode,
 		bgColor
-	} from '$routes/canvas-test/Dataset';
+	} from '$routes/canvas-test/Dataset'
 
-	// what Dataset type is this? define schema
-	export let data: Dataset;
-	$: console.log(data.datasetInfo);
+	export let data
+	$: console.log(data.datasetInfo)
 
 	// export let form;
 	// $: console.log(form);
 
-	let nodeText = '';
+	let nodeText = ''
 
-	const { screenToFlowPosition } = useSvelteFlow();
+	const { screenToFlowPosition } = useSvelteFlow()
 
 	// drag and drop functionality
 
 	const onDrop = (event: DragEvent) => {
-		event.preventDefault();
+		event.preventDefault()
 
 		if (!event.dataTransfer) {
-			return null;
+			return null
 		}
 
-		const type = event.dataTransfer.getData('application/svelteflow');
+		const type = event.dataTransfer.getData('application/svelteflow')
 
 		const position = screenToFlowPosition({
 			x: event.clientX,
 			y: event.clientY
-		});
+		})
 
 		const newNode = {
 			id: `${Math.random()}`,
@@ -55,11 +47,11 @@
 			position,
 			data: { label: `${type} node` },
 			origin: [0.5, 0.0]
-		} satisfies Node;
+		} satisfies Node
 
-		$nodes.push(newNode);
-		$nodes = $nodes;
-	};
+		$nodes.push(newNode)
+		$nodes = $nodes
+	}
 </script>
 
 <SvelteFlow
@@ -81,8 +73,8 @@
 	<Panel>
 		<form
 			on:submit={() => {
-				addNode(data.datasetInfo);
-				nodeText = '';
+				addNode(data.datasetInfo)
+				nodeText = ''
 			}}
 			class="bg-slate-100 p-5"
 		>

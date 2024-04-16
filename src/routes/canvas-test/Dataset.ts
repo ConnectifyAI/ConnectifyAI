@@ -10,14 +10,30 @@ const initialNodes: Node[] = [
 	{
 		id: '1',
 		type: 'modelNode',
-		data: { label: 'An input node' },
+		data: {
+			datasetInfo: {
+				id: 'testing model',
+				out_features: [
+					{ name: 'model_out_feature', dtype: 'string' },
+					{ name: 'dataset out 2', dtype: 'int' }
+				],
+				in_features: [{ name: 'model_in_feature', dtype: 'string' }],
+				author: 'me'
+			}
+		},
 		position: { x: 0, y: 50 },
 		sourcePosition: Position.Right
 	},
 	{
 		id: '2',
 		type: 'datasetNode',
-		data: {},
+		data: {
+			datasetInfo: {
+				id: 'testing dataset',
+				features: [{ name: 'dataset name', dtype: 'int' }],
+				author: 'me'
+			}
+		},
 		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 300, y: 50 }
 	}

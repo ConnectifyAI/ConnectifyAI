@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { writable, type Writable } from 'svelte/store';
-	export let name: string;
-	export let type: string;
-	// export let badgeNum: number;
-	export let isSelected = false;
+	import { writable, type Writable } from 'svelte/store'
+	export let name: string
+	export let dtype: string
+	// export let badgeNum: number
+	export let isSelected = false
 </script>
 
 <!-- on button toggle, get dataset id and field name -->
@@ -11,15 +11,15 @@
 	<button
 		type="button"
 		class="border-[#bbb] active:bg-slate-200
-		{isSelected ? 'bg-slate-300' : 'bg-white'}"
+		{isSelected ? 'bg-slate-300' : 'bg-white'} hover:cursor-pointer"
 		on:click={() => {
-			isSelected = !isSelected;
+			isSelected = !isSelected
 		}}
 	>
 		<!-- <span class="badge-icon bg-blue-50 absolute -top-2 -right-2 z-10">{badgeNum}</span> -->
 
 		<h1>{name}</h1>
-		<p class="text-sm text-left opacity-70">{type} • etc</p>
+		<p class="text-sm text-left opacity-70">{dtype} • etc</p>
 	</button>
 </div>
 
