@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm"
 import type { Graph, Node } from "../apiTypes"
 
 
-export const fetchTestGraph = async () => {
+export const fetchTestGraph = async (): Promise<Graph> => {
 
     const testGraphId = "8d15884b-f58c-4953-9096-f8cf46e5482d"
 
