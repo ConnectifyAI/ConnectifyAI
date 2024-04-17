@@ -70,7 +70,7 @@
 
 	<a href="/auth/account" class={url === '/auth/account' ? 'lit' : ''}>
 		<Settings />
-		Account
+		<h1 class={visblity}>Account</h1>
 	</a>
 </div>
 </div>
