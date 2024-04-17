@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 import { type Node, type Edge } from '@xyflow/svelte'
-import type { Dataset } from '$lib/server/hf/dataset'
+import type { Dataset } from '$lib/server/api/search/datasets'
 import { DatasetNode, ModelNode } from '$components/Node'
 
 export const bgColor = writable('#1A192B')

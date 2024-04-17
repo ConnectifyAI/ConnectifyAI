@@ -1,52 +1,46 @@
-import type { PageServerLoad, Actions } from './$types';
-import { getDatasetInfo, searchDatasets } from '$lib/server/hf/dataset';
-import { getModelInfo } from '$lib/server/hf/model';
+import type { PageServerLoad, Actions } from './$types'
+import { fetchTestGraph } from '$lib/server/api/fetch'
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async () => {
 	//TODO: load their latest
-
-	const datasetInfo = await getDatasetInfo('change later');
-	const modelInfo = await getModelInfo('change later');
-
-	return { datasetInfo, modelInfo };
-
-};
+	const graph = await fetchTestGraph()
+	return { graph }
+}
 
 export const actions = {
-	searchForDataset: async ({ request }) => {
-		//search lmfao
-		const formData = await request.formData();
-		const query = formData.get('query');
+	// searchForDataset: async ({ request }) => {
+	// 	//search lmfao
+	// 	const formData = await request.formData()
+	// 	const query = formData.get('query')
 
-		if (!query) {
-			throw new Error('query not provided');
-		}
+	// 	if (!query) {
+	// 		throw new Error('query not provided')
+	// 	}
 
-		const specialOne = await getDatasetInfo('soemthing');
+	// 	// const specialOne = await getDatasetInfo('soemthing')
 
-		//TODO: do the creation of nodes that you need?
+	// 	//TODO: do the creation of nodes that you need?
 
-		return {
-			datasets: [specialOne]
-		};
-	},
+	// 	return {
+	// 		datasets: [specialOne]
+	// 	}
+	// },
 
-	searchForModel: async ({ request }) => {
-		//search lmfao
-		const formData = await request.formData();
-		const query = formData.get('query');
+	// searchForModel: async ({ request }) => {
+	// 	//search lmfao
+	// 	const formData = await request.formData()
+	// 	const query = formData.get('query')
 
-		if (!query) {
-			throw new Error('query not provided');
-		}
+	// 	if (!query) {
+	// 		throw new Error('query not provided')
+	// 	}
 
-		let datasets = await searchDatasets(query.toString())
+	// 	let datasets = await searchDatasets(query.toString())
 
-		// //TODO: do the creation of nodes that you need?
+	// 	// //TODO: do the creation of nodes that you need?
 
-		return {
-			datasets
-		};
-	}
-
-} satisfies Actions;
+	// 	return {
+	// 		datasets
+	// 	}
+	// }
+} satisfies Actions

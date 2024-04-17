@@ -21,9 +21,6 @@
 		// console.log('empty model_node data', repoName)
 	}
 
-	// on connect, extract output of other nodes connected to this node
-	let inputFeatures = []
-
 	// const nodeData = useNodesData(['dataset-1', 'dataset-2'])
 
 	// $: {

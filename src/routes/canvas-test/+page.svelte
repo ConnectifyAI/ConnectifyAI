@@ -1,12 +1,11 @@
 <script lang="ts">
 	// @ts-nocheck
+	import { writable } from 'svelte/store';
 	import '@xyflow/svelte/dist/style.css'
 	import { SvelteFlow, Controls, Background, useSvelteFlow, Panel, type Node } from '@xyflow/svelte'
 	import Toolbar from '$components/Toolbar/Toolbar.svelte'
 
 	import {
-		nodes,
-		edges,
 		nodeTypes,
 		defaultEdgeOptions,
 		defaultNodeOptions,
@@ -16,7 +15,11 @@
 	} from '$routes/canvas-test/Dataset'
 
 	export let data
-	$: console.log('data', data)
+	
+	const nodes = writable<Node[]>(data.graph.nodes)
+	const edges = writable<Edge[]>(data.graph.edges)
+	// $: console.log('data', data.graph.nodes)
+	$: console.log('edges', data.graph.edges)
 
 	// export let form;
 	// $: console.log(form);
