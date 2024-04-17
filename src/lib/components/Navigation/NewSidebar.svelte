@@ -48,7 +48,7 @@
 	$: url = $page.url.pathname
 </script>
 
-<div class="bg-slate-100 w-full border-r">
+<div class="bg-slate-100  border-r w-20 transition-width duration-300 hover:w-48">
 	<a href="/canvas-test" class={url === '/canvas-test' ? 'lit' : ''}>
 		<Zap />
 		Create
