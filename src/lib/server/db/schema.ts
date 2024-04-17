@@ -1,6 +1,5 @@
 import { relations } from "drizzle-orm";
-import { double } from "drizzle-orm/mysql-core";
-import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, json, integer, numeric, doublePrecision } from "drizzle-orm/pg-core";
+import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, integer, doublePrecision } from "drizzle-orm/pg-core";
 
 //TODO: everything else lmfao
 //
@@ -57,17 +56,16 @@ export const sessionRelations = relations(session, ({ one }) => ({
 
 
 export const graph = pgTable('graph', {
-
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
     authorId: text('author_id').notNull().references(() => user.id),
     likes: integer('likes').notNull(),
     forks: integer('forks').notNull(),
     name: text('name').notNull()
-
 })
 
 export const graphRelations = relations(graph, ({ many, one }) => ({
     nodes: many(node),
+    edges: many(edge),
     author: one(user, {
         fields: [graph.authorId],
         references: [user.id]
@@ -88,18 +86,10 @@ export const node = pgTable('node', {
 })
 
 export const nodesRelations = relations(node, ({ many, one }) => ({
-    //
-    outputs: many(output, {
-        relationName: "outof"
-    }),
 
-    // outputs: many(output),
+    inFeatures: many(inFeature),
 
-    inputs: many(input, {
-        relationName: "into"
-    }),
-
-    // inputs: many(input),
+    outFeatures: many(outFeature),
 
     parentGraph: one(graph, {
         fields: [node.parentGraphId],
@@ -108,67 +98,95 @@ export const nodesRelations = relations(node, ({ many, one }) => ({
 
 }))
 
+export const inFeature = pgTable('in_feature', {
+    id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
+    parentNodeId: uuid('id').notNull().references(() => node.id),
 
-export const output = pgTable('output', {
-    id: uuid('id').primaryKey().notNull().unique(),
-    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+    isSelected: boolean('is_selected').notNull(),
     label: text('label').notNull(),
     dtype: text('dtype').notNull()
+
 })
 
-export const outputRelations = relations(output, ({ one }) => ({
+
+export const inFeatureRelations = relations(inFeature, ({ one }) => ({
 
     parentNode: one(node, {
-        fields: [output.parentNodeId],
-        references: [node.id],
-        relationName: "outof"
+        fields: [inFeature.parentNodeId],
+        references: [node.id]
     }),
 
-    edge: one(edge)
+    inputEdge: one(edge)
 
 }))
 
-export const input = pgTable('input', {
-    id: uuid('id').primaryKey().notNull().unique(),
-    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+export const outFeature = pgTable('out_feature', {
+    id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
+    parentNodeId: uuid('id').notNull().references(() => node.id),
+
+    isSelected: boolean('is_selected').notNull(),
     label: text('label').notNull(),
     dtype: text('dtype').notNull()
+
 })
 
-export const inputRelations = relations(input, ({ one }) => ({
+export const outFeatureRelations = relations(outFeature, ({ one }) => ({
 
     parentNode: one(node, {
-        fields: [input.parentNodeId],
-        references: [node.id],
-        relationName: "into"
+        fields: [outFeature.parentNodeId],
+        references: [node.id]
     }),
 
-    edge: one(edge)
+    outputEdge: one(edge)
 
 }))
+
 
 export const edge = pgTable('edge', {
+    id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
+    parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id),
 
-    id: uuid('id').defaultRandom().primaryKey().unique().notNull(),
+    sourceNodeId: uuid('source_id').notNull().references(() => node.id),
+    targetNodeId: uuid('target_id').notNull().references(() => node.id),
 
-    sourceId: uuid('source_id').notNull().references(() => output.id),
-    targetId: uuid('target_id').notNull().references(() => input.id)
+    sourceFeatureId: uuid('source_feature_id').notNull().references(() => outFeature.id),
+    targetFeatureId: uuid('target_feature_id').notNull().references(() => inFeature.id),
 
 })
+
 
 export const edgeRelations = relations(edge, ({ one }) => ({
 
-    source: one(output, {
-        fields: [edge.sourceId],
-        references: [output.id],
-        relationName: "source"
+    parentGraph: one(graph, {
+        fields: [edge.parentGraphId],
+        references: [graph.id]
+
     }),
 
-    target: one(input, {
-        fields: [edge.targetId],
-        references: [input.id],
-        relationName: "target"
+    targetFeature: one(inFeature, {
+        fields: [edge.targetNodeId],
+        references: [inFeature.id],
+        relationName: "target_feature"
     }),
+
+    sourceFeature: one(outFeature, {
+        fields: [edge.sourceNodeId],
+        references: [outFeature.id],
+        relationName: "source_feature"
+    }),
+
+    targetNode: one(node, {
+        fields: [edge.targetNodeId],
+        references: [node.id],
+        relationName: "target_node"
+    }),
+
+    sourceNode: one(node, {
+        fields: [edge.sourceNodeId],
+        references: [node.id],
+        relationName: "source_node"
+    })
 
 }))
+
 
