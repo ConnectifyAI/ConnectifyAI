@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.postcss'
-	import { Navbar, Sidebar } from '$components/Navigation'
+	import { Navbar, NewSidebar } from '$components/Navigation'
 
 	import { initializeStores } from '@skeletonlabs/skeleton'
 	import { AppShell } from '@skeletonlabs/skeleton'
@@ -27,7 +27,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebarLeft">
-		<Sidebar />
+		<NewSidebar />
 	</svelte:fragment>
 
 	<slot />
