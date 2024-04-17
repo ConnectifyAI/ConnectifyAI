@@ -6,34 +6,69 @@ import { eq } from "drizzle-orm"
 import type { Graph, Node } from "../apiTypes"
 
 
-export const graphById = async (id: string): Promise<Graph> => {
+export const fetchTestGraph = async () => {
 
-    const dbGraph = await db.query.graph.findFirst({
-        where: eq(graph.id, id),
+    const testGraphId = "8d15884b-f58c-4953-9096-f8cf46e5482d"
+
+    const testGraph = await db.query.graph.findFirst({
+
+        where: eq(graph.id, testGraphId),
+
         with: {
             author: true,
             nodes: {
                 with: {
-                    outputs: {
-                        with: {
-                            edge: true
-                        }
-                    },
-                    inputs: {
-                        with: {
-                            edge: true
-                        }
-                    }
+                    inFeatures: true,
+                    outFeatures: true,
+                }
+            },
+            edges: {
+                with: {
+                    sourceFeature: true,
+                    targetFeature: true,
+                    sourceNode: true,
+                    targetNode: true,
+
                 }
             }
+
+
         }
     })
 
-    if (!dbGraph) {
-        throw new Error("deal with it later lmao")
-    }
-    return dbGraph as Graph
+    return testGraph
+
+
 }
+
+// export const graphById = async (id: string): Promise<Graph> => {
+//
+//     const dbGraph = await db.query.graph.findFirst({
+//         where: eq(graph.id, id),
+//         with: {
+//             author: true,
+//             nodes: {
+//                 with: {
+//                     outputs: {
+//                         with: {
+//                             edge: true
+//                         }
+//                     },
+//                     inputs: {
+//                         with: {
+//                             edge: true
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     })
+//
+//     if (!dbGraph) {
+//         throw new Error("deal with it later lmao")
+//     }
+//     return dbGraph as Graph
+// }
 
 // export const modelById = async (id: string): Promise<Node> => {
 //
