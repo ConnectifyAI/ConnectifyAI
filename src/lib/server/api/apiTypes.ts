@@ -14,6 +14,7 @@ export interface Node {
         x: number,
         y: number
     }
+
     data: {
         displayName: string,
         repoId: string;
@@ -54,3 +55,10 @@ export interface Graph {
 
 
 
+export type DatasetInfo = {
+    author: string,
+    repoId: string,
+    downloads: number,
+    likes: number,
+    features: Feature[]
+}

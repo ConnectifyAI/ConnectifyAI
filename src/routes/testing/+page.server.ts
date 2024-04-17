@@ -1,6 +1,7 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { fetchTestGraph } from '$lib/server/api/fetch';
+import { getDatasetByRepoId, searchDatasets } from '$lib/server/api/search/datasets';
 
 export const load: PageServerLoad = async ({ params }) => {
 
@@ -10,9 +11,17 @@ export const load: PageServerLoad = async ({ params }) => {
 	// return { datasetInfo, modelInfo };
 	//
 
-	const graph = await fetchTestGraph();
+	const dataset = await searchDatasets('bert', 100);
+	console.log(dataset)
+	const deepInfo = await getDatasetByRepoId(dataset[0].id)
 
-	return { graph }
+	return {
+		dataset,
+		deepInfo
+	}
+
+
+
 }
 
 
