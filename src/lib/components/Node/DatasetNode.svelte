@@ -12,7 +12,7 @@
 	let repoName, author, outFeatures, outFeaturesLen, displayName
 
 	$: {
-		repoName = data?.repo_id
+		repoName = data?.repoId
 		author = data?.author
 		outFeatures = data?.outFeatures
 		outFeaturesLen = outFeatures ? outFeatures.length : 0

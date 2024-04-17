@@ -11,10 +11,10 @@
 	let repoName, author, inFeatures, inFeaturesLen, outFeatures, outFeaturesLen, displayName
 
 	$: {
-		repoName = data?.repo_id
-		author = data?.author
-		inFeatures = data?.inFeatures
+		repoName = data?.repoId
 		outFeatures = data?.outFeatures
+		inFeatures = data?.inFeatures
+		author = data?.author
 
 		inFeaturesLen = inFeatures ? inFeatures.length : 0
 		outFeaturesLen = outFeatures ? outFeatures.length : 0
