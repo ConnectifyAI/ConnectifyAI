@@ -39,7 +39,6 @@
 		<!-- repoName -->
 		<section class="py-2">{repoName}</section>
 
-		hi
 		<Accordion featuresType="Outputs" features={outFeatures} featuresLen={outFeaturesLen} />
 	</div>
 

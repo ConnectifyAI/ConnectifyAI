@@ -18,7 +18,6 @@ export const nodes = writable<Node[]>([
 			],
 			author: 'me'
 		},
-		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 0, y: 50 }
 	},
 	{
@@ -29,7 +28,6 @@ export const nodes = writable<Node[]>([
 			outFeatures: [{ label: 'output-22', dtype: 'int', isSelected: false }],
 			author: 'me'
 		},
-		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 0, y: 350 }
 	},
 	{
@@ -43,7 +41,8 @@ export const nodes = writable<Node[]>([
 			],
 			inFeatures: [
 				{ label: 'input-1', dtype: 'string', isSelected: true },
-				{ label: 'input-2', dtype: 'string', isSelected: false }
+				{ label: 'input-2', dtype: 'string', isSelected: false },
+				{ label: 'input-3', dtype: 'string', isSelected: false }
 			],
 			author: 'me'
 		},

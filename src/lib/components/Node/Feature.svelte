@@ -12,23 +12,21 @@
 </script>
 
 <!-- on button toggle, get dataset id and field label -->
-<div class="relative inline-block my-2">
-	<button
-		type="button"
-		class="
-		{isSelected ? 'bg-slate-300' : 'bg-white'}"
-	>
-		<h1>{label}</h1>
-		<p class="text-sm text-left opacity-70">{dtype} • etc</p>
-	</button>
-</div>
+<aside
+	class="my-2
+	{isSelected ? 'bg-[#30a0ef]' : 'bg-[#d1eafb]'}"
+>
+	<h1>{label}</h1>
+	<p class="text-sm text-left opacity-70">{dtype} • etc</p>
+</aside>
 
 <Handle
 	id={label}
 	type={featureType == 'Input' ? 'target' : 'source'}
 	position={featureType == 'Input' ? Position.Left : Position.Right}
-	style="top: {relativePos}%; background: {isSelected ? 'green' : 'beige'};"
-	class="w-10 h-10"
+	style="top: {relativePos}%; background: {isSelected
+		? '#30a0ef'
+		: '#d1eafb'}; width: 16px; height: 16px; border: 2px solid black"
 	onconnect={(connection) => {
 		isSelected = !isSelected
 		dispatch('toggleFeature', {
@@ -46,7 +44,7 @@
 />
 
 <style>
-	button {
-		@apply flex-col border rounded-md border-[#bbb] items-start p-4 hover:cursor-pointer;
+	aside {
+		@apply flex-col border rounded-md border-[#bbb] items-start p-4;
 	}
 </style>

@@ -18,9 +18,7 @@
 	const toggleFeature = (e) => {
 		const c = e.detail.connection[0]
 		$nodes.forEach((node) => {
-			console.log('run', node.id)
 			if (node.id === c.source) {
-				console.log('FEATURES', node.data.outFeatures)
 				node.data.outFeatures.forEach((f) => {
 					if (f.label == c.sourceHandle) {
 						f.isSelected = e.detail.isSelected
@@ -28,8 +26,6 @@
 				})
 			}
 		})
-		console.log($nodes)
-		features = features
 	}
 </script>
 
