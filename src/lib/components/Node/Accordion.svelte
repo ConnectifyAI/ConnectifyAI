@@ -40,7 +40,8 @@
 		<section class="flex gap-3 overflow-x-auto nowheel" transition:slide>
 			{#if features}
 				{#each features as feature, index}
-					<Featurej						label={feature.label}
+					<Feature
+						label={feature.label}
 						dtype={feature.dtype}
 						pos={((index + 1) * 100) / (features_len + 1)}
 						featureType={features_type === 'Inputs' ? 'Input' : 'Output'}
