@@ -1,10 +1,9 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { edge, graph, inFeature,  node, outFeature, } from "./src/lib/server/db/schema";
-import { NodeType } from "./src/lib/data/node";
-import { exit} from "process";
+import { edge, graph, inFeature, node, outFeature, } from "./src/lib/server/db/schema";
+import { exit } from "process";
 
-
+type NodeType = 'datasetNode' | 'modelNode'
 
 async function seed() {
 
@@ -13,7 +12,8 @@ async function seed() {
 	//
 
 	if (!connectionString) {
-		throw new Error("No connection string")
+		// throw new Error("No connection string")
+		connectionString = "postgres://postgres.ekddqrevhkpjazoflntv:Z12CVBlpvCOW7EEt@aws-0-us-west-1.pooler.supabase.com:5432/postgres"
 	}
 
 	const client = postgres(connectionString, { prepare: false })
@@ -22,7 +22,7 @@ async function seed() {
 
 	//TODO: create new graph
 	const graph1 = {
-		authorId: "qmw1xs4m56qgozch3v6d96ep6fi7eaevdwxxperg",
+		authorId: "ki89hktm1vsshofbjimysxbpibo9uie7hqkxcxcn",
 		likes: 69,
 		forks: 420,
 		name: "w graph"
@@ -32,41 +32,40 @@ async function seed() {
 
 	const graphId = returnedGraph[0].id
 
-	const node1Id = crypto.randomUUID()
 
 	const node1 = {
-		id: node1Id,
 		repoId: "suriai/whisper_noises",
 		displayName: "W dataset",
 		parentGraphId: graphId,
-		nodeType: "dataset" as NodeType,
+		type: "datasetNode" as NodeType,
 		posX: 100,
 		posY: 300,
 	}
 
+
 	let returnedNode1 = await db.insert(node).values(node1).returning()
+
+	let node1Id = returnedNode1[0].id
 
 	console.log("inserted", returnedNode1)
 
-	const node2Id = crypto.randomUUID()
-
 	const node2 = {
-		id: node2Id,
 		repoId: "alb123/midModel",
 		displayName: "cringe model",
 		parentGraphId: graphId,
-		nodeType: 'model' as NodeType,
+		type: 'modelNode' as NodeType,
 		posX: 400,
 		posY: 200,
 	}
 
 	let returnedNode2 = await db.insert(node).values(node2).returning()
 
+	let node2Id = returnedNode2[0].id
 	console.log("inserted", returnedNode2)
 
 
 	const inFeature1 = {
-		parentNodeId: node1Id,
+		parentNodeId: node2Id,
 		isSelected: true,
 		label: "cool export",
 		dtype: "text"
@@ -80,7 +79,7 @@ async function seed() {
 	console.log("inserted", returningInFeature1)
 
 	const inFeature2 = {
-		parentNodeId: node1Id,
+		parentNodeId: node2Id,
 
 		isSelected: true,
 		label: "notLabel",
@@ -95,7 +94,7 @@ async function seed() {
 
 	const outFeature1 = {
 		isSelected: true,
-		parentNodeId: node2Id,
+		parentNodeId: node1Id,
 		label: "absorb",
 		dtype: "text"
 	}
@@ -108,7 +107,7 @@ async function seed() {
 
 	const outFeature2 = {
 		isSelected: true,
-		parentNodeId: node2Id,
+		parentNodeId: node1Id,
 		label: "interestng Label",
 		dtype: "number"
 	}
@@ -121,7 +120,7 @@ async function seed() {
 
 	const outFeature3 = {
 		isSelected: false,
-		parentNodeId: node2Id,
+		parentNodeId: node1Id,
 		label: "lame",
 		dtype: "text"
 	}
@@ -135,8 +134,8 @@ async function seed() {
 	const edge1 = {
 		parentGraphId: graphId,
 
-		sourceNodeId: node2Id,
-		targetNodeId: node1Id,
+		sourceNodeId: node1Id,
+		targetNodeId: node2Id,
 
 
 		sourceFeatureId: outFeature1Id,
@@ -150,8 +149,8 @@ async function seed() {
 	const edge2 = {
 		parentGraphId: graphId,
 
-		sourceNodeId: node2Id,
-		targetNodeId: node1Id,
+		sourceNodeId: node1Id,
+		targetNodeId: node2Id,
 
 
 		sourceFeatureId: outFeature2Id,

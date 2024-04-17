@@ -10,7 +10,7 @@ import type { Author } from "$lib/data/graph_types"
 
 export const fetchTestGraph = async (): Promise<APIGraph> => {
 
-    const testGraphId = "8d15884b-f58c-4953-9096-f8cf46e5482d"
+    const testGraphId = "0d075d47-5720-479f-8c23-3087d9de6fa1"
 
     const testGraph = await db.query.graph.findFirst({
 

@@ -1,6 +1,5 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
-import { getModelInfo } from '$lib/server/hf/model';
 import { fetchTestGraph } from '$lib/server/api/fetch';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -25,13 +24,6 @@ export const actions = {
 
 		if (!query) {
 			throw new Error("query not provided")
-		}
-
-		const models = await getModelInfo('a');
-
-		return {
-			// datasets,
-			models
 		}
 
 	},

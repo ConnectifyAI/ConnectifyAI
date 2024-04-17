@@ -1,4 +1,4 @@
-export type NodeType = 'dataset' | 'model'
+export type NodeType = 'datasetNode' | 'modelNode'
 
 
 export interface Feature {
@@ -51,4 +51,6 @@ export interface Graph {
     nodes: Node[];
     edges: Edge[];
 }
+
+
 

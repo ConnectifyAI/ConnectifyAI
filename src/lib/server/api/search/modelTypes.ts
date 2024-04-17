@@ -1,6 +1,5 @@
 
 
-
 export const modelTypes = {
     "audio-classification": {
         inputs: [

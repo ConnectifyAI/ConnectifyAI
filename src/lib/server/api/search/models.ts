@@ -9,9 +9,10 @@ if (!token) {
     throw new Error("need hf token ")
 }
 
-export async function searchModels(query: string) {
+async function searchModels(query: string) {
 
-    const limit = 5;
+    //
+    const limit = 20;
 
     const response = await fetch(
         `https://huggingface.co/api/models?search=${query}&limit=${limit}&full=true&config=true`,
@@ -27,16 +28,17 @@ export async function searchModels(query: string) {
     for (const modelInfo of modelInfos) {
 
         let pipeline_tag = ""
+        let io;
+        pipeline_tag = modelInfo.pipeline_tag;
 
         try {
-            pipeline_tag = modelInfo.pipeline_tag;
-            console.log(pipeline_tag);
+            io = getIo(pipeline_tag);
         } catch (e) {
             //TODO: handle here
             console.log(e)
+            continue
         }
 
-        const io = getIo(pipeline_tag);
 
         const model: Model = {
             ...modelInfo,
@@ -52,38 +54,7 @@ export async function searchModels(query: string) {
 
 }
 
-export async function getModelByRepoId(repo_id: string) {
-
-    const response = await fetch(
-        // `https://huggingface.co/api/datasets/${chosen_one}`,
-        `https://huggingface.co/api/models/${repo_id}`,
-        {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${HF_TOKEN}` }
-        }
-
-    )
-
-    const modelInfo = await response.json()
-
-    let pipeline_tag = "";
-
-    pipeline_tag = modelInfo.pipeline_tag;
-
-    //THIS WILL ERROR IF NOT FOUND
-    const io = getIo(pipeline_tag);
-
-    const model: Model = {
-        ...modelInfo,
-        input: io['inputs'],
-        output: io['outputs'],
-    }
-
-    return model
-
-}
-
-
+//
 // need to fetch indepth data of model
 export async function getModelInfo(something: string) {
 

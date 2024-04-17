@@ -1,4 +1,5 @@
 import { relations } from "drizzle-orm";
+import { datetime } from "drizzle-orm/mysql-core";
 import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, integer, doublePrecision } from "drizzle-orm/pg-core";
 
 //TODO: everything else lmfao
@@ -16,6 +17,7 @@ export const user = pgTable('user', {
     lastName: text('last_name').notNull(),
     isAdmin: boolean('is_admin').notNull(),
     email: text('email').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
 },
     // composite primary key
     (table) => {
@@ -39,7 +41,8 @@ export const session = pgTable('session', {
     expiresAt: timestamp("expires_at", {
         withTimezone: true,
         mode: "date"
-    }).notNull()
+    }).notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -56,7 +59,8 @@ export const graph = pgTable('graph', {
     authorId: text('author_id').notNull().references(() => user.id),
     likes: integer('likes').notNull(),
     forks: integer('forks').notNull(),
-    name: text('name').notNull()
+    name: text('name').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
 export const graphRelations = relations(graph, ({ many, one }) => ({
@@ -69,7 +73,7 @@ export const graphRelations = relations(graph, ({ many, one }) => ({
 
 }))
 
-export const nodeTypeEnum = pgEnum('node_type', ['dataset', 'model'])
+export const nodeTypeEnum = pgEnum('node_type', ['datasetNode', 'modelNode'])
 
 export const node = pgTable('node', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
@@ -79,6 +83,7 @@ export const node = pgTable('node', {
     type: nodeTypeEnum('node_type').notNull(),
     posX: doublePrecision('pos_x').notNull(),
     posY: doublePrecision('pos_y').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
 export const nodesRelations = relations(node, ({ many, one }) => ({
@@ -101,7 +106,8 @@ export const inFeature = pgTable('in_feature', {
 
     isSelected: boolean('is_selected').notNull(),
     label: text('label').notNull(),
-    dtype: text('dtype').notNull()
+    dtype: text('dtype').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
 
 })
 
@@ -123,7 +129,8 @@ export const outFeature = pgTable('out_feature', {
 
     isSelected: boolean('is_selected').notNull(),
     label: text('label').notNull(),
-    dtype: text('dtype').notNull()
+    dtype: text('dtype').notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
 
 })
 
@@ -143,6 +150,7 @@ export const outFeatureRelations = relations(outFeature, ({ one }) => ({
 export const edge = pgTable('edge', {
     id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
     parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
 
     sourceNodeId: uuid('source_node_id').notNull().references(() => node.id),
     targetNodeId: uuid('target_node_id').notNull().references(() => node.id),

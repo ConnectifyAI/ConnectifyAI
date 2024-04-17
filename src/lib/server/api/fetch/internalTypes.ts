@@ -1,4 +1,4 @@
-type NodeType = 'dataset' | 'model'
+type NodeType = "datasetNode" | "modelNode"
 
 interface Author {
     id: string;
