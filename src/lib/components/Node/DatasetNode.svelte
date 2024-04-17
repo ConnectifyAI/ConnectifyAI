@@ -43,7 +43,6 @@
 			features_type="Outputs"
 			features={out_features}
 			features_len={out_features_len}
-			on:updateOpen={() => (outputsOpen = !outputsOpen)}
 		/>
 	</div>
 

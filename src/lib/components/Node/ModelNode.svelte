@@ -55,14 +55,12 @@
 			features_type="Inputs"
 			features={in_features}
 			features_len={in_features_len}
-			on:updateOpen={() => (inputsOpen = !inputsOpen)}
 		/>
 
 		<Accordion
 			features_type="Outputs"
 			features={out_features}
 			features_len={out_features_len}
-			on:updateOpen={() => (outputsOpen = !outputsOpen)}
 		/>
 	</div>
 

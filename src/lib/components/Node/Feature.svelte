@@ -2,7 +2,7 @@
 	import { Handle, Position } from '@xyflow/svelte'
 	export let label: string
 	export let dtype: string
-	export let pos: number
+	export let relative_pos: number
 	export let featureType: 'Input' | 'Output'
 
 	export let isSelected = false
@@ -28,7 +28,7 @@
 	id={label}
 	type={featureType == 'Input' ? 'target' : 'source'}
 	position={featureType == 'Input' ? Position.Left : Position.Right}
-	style="top: {pos}%; background: {isSelected ? 'green' : 'beige'};"
+	style="top: {relative_pos}%; background: {isSelected ? 'green' : 'beige'};"
 	class="w-10 h-10"
 	onconnect={(e) => {
 		console.log('...', e)
