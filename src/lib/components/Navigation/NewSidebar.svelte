@@ -57,7 +57,8 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="w-28 h-16 transition-width duration-300 hover:w-52" on:mouseenter={maxmize} on:mouseleave={minimize}>
+<div class="flex-col h-full border border-black">
+<div class="w-28 h-full transition-width duration-300 hover:w-52 bg-slate-100" on:mouseenter={maxmize} on:mouseleave={minimize}>
 	<a href="/canvas-test" class={url === '/canvas-test' ? 'lit' : ''}>
 		<Zap />
 		<h1 class={visblity}>Create</h1>
@@ -73,7 +74,7 @@
 		<h1 class={visblity}>Account</h1>
 	</a>
 </div>
-
+</div>
 <style>
 	.lit {
 		@apply bg-blue-100 border-blue-500 border-2;
