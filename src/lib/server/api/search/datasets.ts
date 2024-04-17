@@ -50,7 +50,7 @@ async function getDatasetInfo() {
     return cleanDataset
 }
 
-type Dataset = {
+export type Dataset = {
     author: string,
     id: string,
     downloads: number,
