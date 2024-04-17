@@ -1,6 +1,6 @@
 <script lang="ts">
 	// @ts-nocheck
-	import { Database } from 'lucide-svelte'
+	import { Database, Plus } from 'lucide-svelte'
 	import { onMount } from 'svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
@@ -15,34 +15,53 @@
 		repo_name = data.datasetInfo?.id
 		author = data.datasetInfo?.author
 		out_features = data.datasetInfo?.features
-		out_features_len = out_features.length
+		out_features_len = out_features ? out_features.length : 0
 	}
 
 	onMount(() => {
-		displayName = data.datasetInfo.id
+		if (data.datasetInfo) {
+			displayName = data.datasetInfo.id
+		}
 	})
 </script>
 
-<div class="bg-[#eee] p-5 rounded-md w-[26rem]">
-	<!-- dataset/model display name -->
-	<section class="flex gap-1 py-1 items-center">
-		<Database size={23} />
-		Dataset 1
-	</section>
+<!-- IF NODE INTIALIZED -->
+{#if repo_name}
+	<div class="wrapper">
+		<!-- dataset/model display name -->
+		<section class="flex gap-1 py-1 items-center text-lg">
+			<Database size={23} />
+			Dataset 1
+		</section>
 
-	<hr class="opacity-30" />
+		<hr class="opacity-30" />
 
-	<!-- repo_name -->
-	<section class="py-2">{repo_name}</section>
+		<!-- repo_name -->
+		<section class="py-2">{repo_name}</section>
 
-	<Accordion
-		features_type="Outputs"
-		features={out_features}
-		features_len={out_features_len}
-		on:updateOpen={() => (outputsOpen = !outputsOpen)}
-	/>
-</div>
+		<Accordion
+			features_type="Outputs"
+			features={out_features}
+			features_len={out_features_len}
+			on:updateOpen={() => (outputsOpen = !outputsOpen)}
+		/>
+	</div>
 
-{#if !outputsOpen}
-	<Handle type="source" position={Position.Right} />
+	{#if !outputsOpen}
+		<Handle type="source" position={Position.Right} />
+	{/if}
+{:else}
+	<button
+		class="flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md"
+		on:click={() => console.log('open modal')}
+	>
+		<Plus size={23} />
+		Add Dataset Here
+	</button>
 {/if}
+
+<style>
+	.wrapper {
+		@apply bg-[#eee] p-5 rounded-md w-[26rem] min-h-20;
+	}
+</style>

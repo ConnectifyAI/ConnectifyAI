@@ -1,27 +1,31 @@
 <script lang="ts">
-	import type { Icon } from 'lucide-svelte';
-	import type { ComponentType } from 'svelte';
+	import type { Icon } from 'lucide-svelte'
+	import type { ComponentType } from 'svelte'
 
-	export let icon: ComponentType<Icon>, type: 'Model' | 'Dataset';
+	export let icon: ComponentType<Icon>
+	export let type: 'Model' | 'Dataset'
 
 	const onDragStart = (event: DragEvent, nodeType: string) => {
 		if (!event.dataTransfer) {
-			return null;
+			return null
 		}
 
-		event.dataTransfer.setData('application/svelteflow', nodeType);
-		event.dataTransfer.effectAllowed = 'move';
-	};
+		event.dataTransfer.setData('application/svelteflow', nodeType)
+		event.dataTransfer.effectAllowed = 'move'
+	}
 </script>
 
-<div
+<button
 	on:dragstart={(event) => onDragStart(event, type.toLowerCase() + 'Node')}
 	draggable={true}
-	role="button"
 	tabindex={0}
 >
-	<button class="flex flex-col items-center p-5 rounded-md border border-slate-300 w-36">
-		<svelte:component this={icon} class="size-6" />
-		<span>Add {type}</span>
-	</button>
-</div>
+	<svelte:component this={icon} class="size-6" />
+	<span>Add {type}</span>
+</button>
+
+<style>
+	button {
+		@apply flex flex-col gap-1 items-center p-5 rounded-md border border-slate-300 w-36;
+	}
+</style>
