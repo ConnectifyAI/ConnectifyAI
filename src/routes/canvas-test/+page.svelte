@@ -16,7 +16,7 @@
 	} from '$routes/canvas-test/Dataset'
 
 	export let data
-	$: console.log("data", data)
+	$: console.log('data', data)
 
 	// export let form;
 	// $: console.log(form);
@@ -70,7 +70,11 @@
 	<Panel position="top-left">
 		<Toolbar />
 	</Panel>
-	<Panel>
+	<Controls />
+</SvelteFlow>
+
+
+<!-- <Panel>
 		<form
 			on:submit={() => {
 				addNode(data)
@@ -93,6 +97,4 @@
 				<input name="query" type="search" />
 			</label>
 		</form>
-	</Panel>
-	<Controls />
-</SvelteFlow>
+	</Panel> -->

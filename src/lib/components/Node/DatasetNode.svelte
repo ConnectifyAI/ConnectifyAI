@@ -12,7 +12,7 @@
 	let repoName, author, outFeatures, outFeaturesLen, displayName
 
 	$: {
-		repoName = data?.repo_id
+		repoName = data?.repoId
 		author = data?.author
 		outFeatures = data?.outFeatures
 		outFeaturesLen = outFeatures ? outFeatures.length : 0
@@ -39,7 +39,6 @@
 		<!-- repoName -->
 		<section class="py-2">{repoName}</section>
 
-		hi
 		<Accordion featuresType="Outputs" features={outFeatures} featuresLen={outFeaturesLen} />
 	</div>
 

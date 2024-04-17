@@ -6,52 +6,51 @@ import { DatasetNode, ModelNode } from '$components/Node'
 export const bgColor = writable('#1A192B')
 
 // INITIAL NODES AND EDGES
-const initialNodes: Node[] = [
+export const nodes = writable<Node[]>([
 	{
 		id: 'dataset-1',
 		type: 'datasetNode',
 		data: {
-			repo_id: 'testing dataset',
+			repoId: 'testing dataset',
 			outFeatures: [
 				{ label: 'output-1', dtype: 'int', isSelected: true },
 				{ label: 'output-2', dtype: 'int', isSelected: false }
 			],
 			author: 'me'
 		},
-		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 0, y: 50 }
 	},
 	{
 		id: 'dataset-2',
 		type: 'datasetNode',
 		data: {
-			repo_id: 'testing dataset 2',
-			outFeatures: [{ label: 'output-2', dtype: 'int', isSelected: false }],
+			repoId: 'testing dataset 2',
+			outFeatures: [{ label: 'output-22', dtype: 'int', isSelected: false }],
 			author: 'me'
 		},
-		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 0, y: 350 }
 	},
 	{
 		id: 'model-1',
 		type: 'modelNode',
 		data: {
-			repo_id: 'testing model',
+			repoId: 'testing model',
 			outFeatures: [
 				{ label: 'output-1', dtype: 'string', isSelected: false },
 				{ label: 'output-2', dtype: 'int', isSelected: false }
 			],
 			inFeatures: [
 				{ label: 'input-1', dtype: 'string', isSelected: true },
-				{ label: 'input-2', dtype: 'string', isSelected: false }
+				{ label: 'input-2', dtype: 'string', isSelected: false },
+				{ label: 'input-3', dtype: 'string', isSelected: false }
 			],
 			author: 'me'
 		},
 		position: { x: 500, y: 50 }
 	}
-]
+])
 
-const initialEdges: Edge[] = [
+export const edges = writable<Edge[]>([
 	{
 		id: 'e_d1-m1',
 		source: 'dataset-1',
@@ -63,7 +62,7 @@ const initialEdges: Edge[] = [
 		animated: true,
 		style: 'stroke: #fff;'
 	}
-]
+])
 
 // DEFAULT CONFIG
 export const nodeTypes = {
@@ -112,6 +111,3 @@ export const addNode = (datasetInfo: Dataset) => {
 // export const deleteNode = (id: string) => {
 // use built in node destory
 // };
-
-export const nodes = writable<Node[]>(initialNodes)
-export const edges = writable(initialEdges)
