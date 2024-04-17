@@ -46,22 +46,31 @@
 
 	import { page } from '$app/stores'
 	$: url = $page.url.pathname
+	let visblity: string = 'hidden'
+	function minimize() {
+		visblity = 'hidden'
+	}
+
+	function maxmize() {
+		visblity = 'block'
+	}
 </script>
 
-<div class="bg-slate-100  border-r w-20 transition-width duration-300 hover:w-48">
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div class="w-28 h-16 transition-width duration-300 hover:w-52" on:mouseenter={maxmize} on:mouseleave={minimize}>
 	<a href="/canvas-test" class={url === '/canvas-test' ? 'lit' : ''}>
 		<Zap />
-		Create
+		<h1 class={visblity}>Create</h1>
 	</a>
 
 	<a href="/community" class={$page.url.pathname === '/community' ? 'lit' : ''}>
 		<Users />
-		Community
+		<h1 class={visblity}>Community</h1>
 	</a>
 
 	<a href="/auth/account" class={url === '/auth/account' ? 'lit' : ''}>
 		<Settings />
-		Account
+		<h1 class={visblity}>Account</h1>
 	</a>
 </div>
 
