@@ -1,4 +1,7 @@
 import { HF_TOKEN } from "$env/static/private";
+import { db } from "$lib/server/db";
+import { node, outFeature } from "$lib/server/db/schema";
+import type { DatasetInfo, Node } from "../apiTypes";
 
 export async function searchDatasets(query: string, take: number): Promise<Dataset[]> {
 
@@ -13,10 +16,10 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
     //TODO: filter out based on what is availible
     let filtered = datasets.filter((dataset) => dataset?.cardData?.dataset_info?.features)
 
-    var cleaned: Dataset[] = [];
+    var cleaned: DatasetInfo[] = [];
     for (const dataset of filtered) {
 
-        const cleanDataset: Dataset = {
+        const cleanDataset: DatasetInfo = {
             features: dataset.cardData.dataset_info.features,
             ...dataset
         }
@@ -27,14 +30,12 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
     return cleaned
 }
 
-//TODO: does this actually give more info or what?
-async function getDatasetInfo() {
-
-    let repo = "Baidicoot/adverserial_training_evil_mistral"
+//TODO: make sure this works
+export async function getDatasetNodeByRepoId(input: Node, graphId: string): Node {
 
     const response = await fetch(
         // `https://huggingface.co/api/datasets/${chosen_one}`,
-        `https://huggingface.co/api/datasets/${repo}`,
+        `https://huggingface.co/api/datasets/${input.id}`,
         {
             method: "GET",
             headers: { "Authorization": `Bearer ${HF_TOKEN}` }
@@ -43,22 +44,27 @@ async function getDatasetInfo() {
     )
     const dataset = await response.json()
 
-    const cleanDataset: Dataset = {
+    const cleanDataset: DatasetInfo = {
         features: dataset.cardData.dataset_info.features,
         ...dataset
     }
+
+    //TODO: Make a db call to create it in the db first
+    // const returnedNode = await db.insert(node).values({
+    //     repoId: input.id,
+    //     displayName: input.id,
+    //     parentGraphId: graphId,
+    //     type: 'datasetNode',
+    //     posX: input.position.x,
+    //     posY: input.position.y,
+    // })
+    
+    //TODO: create the and out features
+    
+    const returnedOutFeatures = await db.insert(outFeature).values({
+
+    })
+
     return cleanDataset
 }
 
-export type Dataset = {
-    author: string,
-    id: string,
-    downloads: number,
-    likes: number,
-    features: {
-        id: string, // just match it with the id?
-        name: string,
-        dtype: string
-    }[]
-
-}

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '../app.postcss';
 	import Navbar from '$components/Navigation/Navbar.svelte';
+	import NewSidebar from  '$components/Navigation/NewSidebar.svelte';
 	import NewSidebar from '$components/Navigation/NewSidebar.svelte';
 	// Highlight JS
 	import hljs from 'highlight.js/lib/core';
