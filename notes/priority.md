@@ -1,7 +1,6 @@
 
 # core functionality features
-1. passing in node data, both model and dataset
-    - being able to store and restore nodes and edges
+1. modal, search hf for datasets/models
 
 
 # nice add-ons

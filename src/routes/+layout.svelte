@@ -1,40 +1,23 @@
 <script lang="ts">
-	import '../app.postcss';
-	import Navbar from '$components/Navigation/Navbar.svelte';
-	// Highlight JS
-	import hljs from 'highlight.js/lib/core';
-	import 'highlight.js/styles/github-dark.css';
-	import { storeHighlightJs } from '@skeletonlabs/skeleton';
-	import xml from 'highlight.js/lib/languages/xml'; // for HTML
-	import css from 'highlight.js/lib/languages/css';
-	import javascript from 'highlight.js/lib/languages/javascript';
-	import typescript from 'highlight.js/lib/languages/typescript';
-	import { initializeStores } from '@skeletonlabs/skeleton';
-	import { AppShell } from '@skeletonlabs/skeleton';
-	import Sidebar from '$components/Navigation/Sidebar.svelte';
+	import '../app.postcss'
+	import { Navbar, Sidebar } from '$components/Navigation'
 
-	//modal stuff
-	import { Modal, getModalStore } from '@skeletonlabs/skeleton';
-	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton';
-	import NewModel from '$components/Modal/NewModel.svelte';
-	import NewDataset from '$components/Modal/NewDataset.svelte';
-	initializeStores();
-	const modalRegistry: Record<string, ModalComponent> = {
-	// Set a unique modal ID, then pass the component reference
-	NewModel: { ref: NewModel },
-	NewDataset: { ref: NewDataset },
-	// ...
-	};
+	import { initializeStores } from '@skeletonlabs/skeleton'
+	import { AppShell } from '@skeletonlabs/skeleton'
+
+	// MODAL
+	import { Modal, getModalStore } from '@skeletonlabs/skeleton'
+	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton'
 	
-
-
-	hljs.registerLanguage('xml', xml); // for HTML
-	hljs.registerLanguage('css', css);
-	hljs.registerLanguage('javascript', javascript);
-	hljs.registerLanguage('typescript', typescript);
-	storeHighlightJs.set(hljs);
+	import NewModel from '$components/Modal/NewModel.svelte'
+	import NewDataset from '$components/Modal/NewDataset.svelte'
+	initializeStores()
+	const modalRegistry: Record<string, ModalComponent> = {
+		// Set unique modal ID, pass component reference
+		NewModel: { ref: NewModel },
+		NewDataset: { ref: NewDataset }
+	}
 </script>
-
 
 <Modal components={modalRegistry} />
 
@@ -49,4 +32,3 @@
 
 	<slot />
 </AppShell>
-

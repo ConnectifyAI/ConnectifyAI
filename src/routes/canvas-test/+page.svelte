@@ -10,7 +10,6 @@
 		defaultEdgeOptions,
 		defaultNodeOptions,
 		onDragOver,
-		addNode,
 		bgColor
 	} from '$routes/canvas-test/Dataset'
 
