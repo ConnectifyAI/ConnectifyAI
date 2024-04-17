@@ -11,14 +11,12 @@ const initialNodes: Node[] = [
 		id: 'dataset-1',
 		type: 'datasetNode',
 		data: {
-			datasetInfo: {
-				id: 'testing dataset',
-				features: [
-					{ name: 'output-1', dtype: 'int' },
-					{ name: 'output-2', dtype: 'int' }
-				],
-				author: 'me'
-			}
+			repo_id: 'testing dataset',
+			features: [
+				{ label: 'output-1', dtype: 'int', isSelected: false },
+				{ label: 'output-2', dtype: 'int', isSelected: false }
+			],
+			author: 'me'
 		},
 		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 0, y: 50 }
@@ -27,11 +25,9 @@ const initialNodes: Node[] = [
 		id: 'dataset-2',
 		type: 'datasetNode',
 		data: {
-			datasetInfo: {
-				id: 'testing dataset 2',
-				features: [{ name: 'output-2', dtype: 'int' }],
-				author: 'me'
-			}
+			repo_id: 'testing dataset 2',
+			features: [{ label: 'output-2', dtype: 'int', isSelected: false }],
+			author: 'me'
 		},
 		style: 'border: 1px solid #999; padding: 10px;',
 		position: { x: 0, y: 350 }
@@ -40,18 +36,16 @@ const initialNodes: Node[] = [
 		id: 'model-1',
 		type: 'modelNode',
 		data: {
-			datasetInfo: {
-				id: 'testing model',
-				out_features: [
-					{ name: 'output-1', dtype: 'string' },
-					{ name: 'output-2', dtype: 'int' }
-				],
-				in_features: [
-					{ name: 'input-1', dtype: 'string' },
-					{ name: 'input-2', dtype: 'string' }
-				],
-				author: 'me'
-			}
+			repo_id: 'testing model',
+			out_features: [
+				{ label: 'output-1', dtype: 'string', isSelected: false },
+				{ label: 'output-2', dtype: 'int', isSelected: false }
+			],
+			in_features: [
+				{ label: 'input-1', dtype: 'string', isSelected: false },
+				{ label: 'input-2', dtype: 'string', isSelected: false }
+			],
+			author: 'me'
 		},
 		position: { x: 500, y: 50 }
 	}

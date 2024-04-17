@@ -12,18 +12,14 @@ declare namespace App {
 }
 
 interface ModelNodeData {
-	datasetInfo: {
-		id: string
-		out_features: Array<{ name: string; dtype: string }>
-		in_features: Array<{ name: string; dtype: string }>
-		author: string
-	}
+	id: string
+	out_features: Array<{ name: string; dtype: string; isSelected: boolean }>
+	in_features: Array<{ name: string; dtype: string; isSelected: boolean }>
+	author: string
 }
 
 interface DatasetNodeData {
-	datasetInfo: {
-		id: string
-		features: Array<{ name: string; dtype: string }>
-		author: string
-	}
+	id: string
+	features: Array<{ name: string; dtype: string; isSelected: boolean }>
+	author: string
 }

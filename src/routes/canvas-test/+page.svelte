@@ -16,7 +16,7 @@
 	} from '$routes/canvas-test/Dataset'
 
 	export let data
-	$: console.log(data.datasetInfo)
+	$: console.log(data)
 
 	// export let form;
 	// $: console.log(form);
@@ -75,7 +75,7 @@
 	<Panel>
 		<form
 			on:submit={() => {
-				addNode(data.datasetInfo)
+				addNode(data)
 				nodeText = ''
 			}}
 			class="bg-slate-100 p-5"
