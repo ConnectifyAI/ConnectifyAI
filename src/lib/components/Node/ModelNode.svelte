@@ -13,10 +13,10 @@
 	let repo_name, author, in_features, in_features_len, out_features, out_features_len, displayName
 
 	$: {
-		repo_name = data.datasetInfo?.id
-		author = data.datasetInfo?.author
-		in_features = data.datasetInfo?.in_features
-		out_features = data.datasetInfo?.out_features
+		repo_name = data?.repo_id
+		author = data?.author
+		in_features = data?.in_features
+		out_features = data?.out_features
 
 		in_features_len = in_features ? in_features.length : 0
 		out_features_len = out_features ? out_features.length : 0
@@ -55,14 +55,12 @@
 			features_type="Inputs"
 			features={in_features}
 			features_len={in_features_len}
-			on:updateOpen={() => (inputsOpen = !inputsOpen)}
 		/>
 
 		<Accordion
 			features_type="Outputs"
 			features={out_features}
 			features_len={out_features_len}
-			on:updateOpen={() => (outputsOpen = !outputsOpen)}
 		/>
 	</div>
 

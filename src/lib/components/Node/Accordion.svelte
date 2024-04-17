@@ -3,15 +3,11 @@
 	import { slide } from 'svelte/transition'
 	import { ChevronDown, ChevronUp, MoveRight } from 'lucide-svelte'
 
-	import { createEventDispatcher } from 'svelte'
 	import Feature from '$components/Node/Feature.svelte'
-
-	const dispatch = createEventDispatcher()
 
 	export let open = true
 	const handleClick = () => {
 		open = !open
-		dispatch('updateOpen')
 	}
 
 	export let features_type: 'Inputs' | 'Outputs'
@@ -41,9 +37,9 @@
 			{#if features}
 				{#each features as feature, index}
 					<Feature
-						name={feature.name}
+						label={feature.label}
 						dtype={feature.dtype}
-						pos={((index + 1) * 100) / (features_len + 1)}
+						relative_pos={((index + 1) * 100) / (features_len + 1)}
 						featureType={features_type === 'Inputs' ? 'Input' : 'Output'}
 					/>
 				{/each}

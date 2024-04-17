@@ -12,15 +12,15 @@
 	let repo_name, author, out_features, out_features_len, displayName
 
 	$: {
-		repo_name = data.datasetInfo?.id
-		author = data.datasetInfo?.author
-		out_features = data.datasetInfo?.features
+		repo_name = data?.repo_id
+		author = data?.author
+		out_features = data?.features
 		out_features_len = out_features ? out_features.length : 0
 	}
 
 	onMount(() => {
-		if (data.datasetInfo) {
-			displayName = data.datasetInfo.id
+		if (data) {
+			displayName = data.id
 		}
 	})
 </script>
@@ -43,7 +43,6 @@
 			features_type="Outputs"
 			features={out_features}
 			features_len={out_features_len}
-			on:updateOpen={() => (outputsOpen = !outputsOpen)}
 		/>
 	</div>
 

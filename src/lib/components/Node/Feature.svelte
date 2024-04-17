@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { Handle, Position } from '@xyflow/svelte'
-	export let name: string
+	export let label: string
 	export let dtype: string
-	export let pos: number
+	export let relative_pos: number
 	export let featureType: 'Input' | 'Output'
 
 	export let isSelected = false
 	// add function to sync selected features
 </script>
 
-<!-- on button toggle, get dataset id and field name -->
+<!-- on button toggle, get dataset id and field label -->
 <div class="relative inline-block my-2">
 	<button
 		type="button"
@@ -19,16 +19,16 @@
 			isSelected = !isSelected
 		}}
 	>
-		<h1>{name}</h1>
+		<h1>{label}</h1>
 		<p class="text-sm text-left opacity-70">{dtype} • etc</p>
 	</button>
 </div>
 
 <Handle
-	id={name}
+	id={label}
 	type={featureType == 'Input' ? 'target' : 'source'}
 	position={featureType == 'Input' ? Position.Left : Position.Right}
-	style="top: {pos}%; background: {isSelected ? 'green' : 'beige'};"
+	style="top: {relative_pos}%; background: {isSelected ? 'green' : 'beige'};"
 	class="w-10 h-10"
 	onconnect={(e) => {
 		console.log('...', e)
