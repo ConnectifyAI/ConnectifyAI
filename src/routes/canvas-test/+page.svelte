@@ -16,17 +16,15 @@
 	} from '$routes/canvas-test/Dataset'
 
 	export let data
-	$: console.log(data)
+	$: console.log("data", data)
 
 	// export let form;
 	// $: console.log(form);
 
 	let nodeText = ''
 
-	const { screenToFlowPosition } = useSvelteFlow()
-
 	// drag and drop functionality
-
+	const { screenToFlowPosition } = useSvelteFlow()
 	const onDrop = (event: DragEvent) => {
 		event.preventDefault()
 
@@ -48,6 +46,7 @@
 			data: { label: `${type} node` },
 			origin: [0.5, 0.0]
 		} satisfies Node
+		console.log(newNode)
 
 		$nodes.push(newNode)
 		$nodes = $nodes
@@ -64,8 +63,7 @@
 	fitView
 	on:dragover={onDragOver}
 	on:drop={onDrop}
-	on:edgeclick={(event) => console.log('edge click', event)}
-	on:nodeclick={(event) => console.log('node click', event)}
+	on:edgeclick={(event) => console.log('main: edge click', event)}
 >
 	<Background />
 

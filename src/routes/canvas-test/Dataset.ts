@@ -12,8 +12,8 @@ const initialNodes: Node[] = [
 		type: 'datasetNode',
 		data: {
 			repo_id: 'testing dataset',
-			features: [
-				{ label: 'output-1', dtype: 'int', isSelected: false },
+			outFeatures: [
+				{ label: 'output-1', dtype: 'int', isSelected: true },
 				{ label: 'output-2', dtype: 'int', isSelected: false }
 			],
 			author: 'me'
@@ -26,7 +26,7 @@ const initialNodes: Node[] = [
 		type: 'datasetNode',
 		data: {
 			repo_id: 'testing dataset 2',
-			features: [{ label: 'output-2', dtype: 'int', isSelected: false }],
+			outFeatures: [{ label: 'output-2', dtype: 'int', isSelected: false }],
 			author: 'me'
 		},
 		style: 'border: 1px solid #999; padding: 10px;',
@@ -37,12 +37,12 @@ const initialNodes: Node[] = [
 		type: 'modelNode',
 		data: {
 			repo_id: 'testing model',
-			out_features: [
+			outFeatures: [
 				{ label: 'output-1', dtype: 'string', isSelected: false },
 				{ label: 'output-2', dtype: 'int', isSelected: false }
 			],
-			in_features: [
-				{ label: 'input-1', dtype: 'string', isSelected: false },
+			inFeatures: [
+				{ label: 'input-1', dtype: 'string', isSelected: true },
 				{ label: 'input-2', dtype: 'string', isSelected: false }
 			],
 			author: 'me'

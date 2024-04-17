@@ -7,35 +7,33 @@
 
 	export let data: ModelNodeData | DatasetNodeData
 	// create a writable
-	let inputsOpen = true
-	let outputsOpen = true
 
-	let repo_name, author, in_features, in_features_len, out_features, out_features_len, displayName
+	let repoName, author, inFeatures, inFeaturesLen, outFeatures, outFeaturesLen, displayName
 
 	$: {
-		repo_name = data?.repo_id
+		repoName = data?.repo_id
 		author = data?.author
-		in_features = data?.in_features
-		out_features = data?.out_features
+		inFeatures = data?.inFeatures
+		outFeatures = data?.outFeatures
 
-		in_features_len = in_features ? in_features.length : 0
-		out_features_len = out_features ? out_features.length : 0
-		console.log('empty model_node data', repo_name)
+		inFeaturesLen = inFeatures ? inFeatures.length : 0
+		outFeaturesLen = outFeatures ? outFeatures.length : 0
+		// console.log('empty model_node data', repoName)
 	}
 
 	// on connect, extract output of other nodes connected to this node
 	let inputFeatures = []
 
-	const nodeData = useNodesData(['dataset-1', 'dataset-2'])
+	// const nodeData = useNodesData(['dataset-1', 'dataset-2'])
 
-	$: {
-		// nodeData changes whenever the data of the passed node ids get updated
-		console.log($nodeData)
-	}
+	// $: {
+	// 	// nodeData changes whenever the data of the passed node ids get updated
+	// 	console.log($nodeData)
+	// }
 </script>
 
 <!-- IF NODE INTIALIZED -->
-{#if repo_name}
+{#if repoName}
 	<!-- UI FOR NODE -->
 	<div class="wrapper">
 		<!-- dataset/model display name -->
@@ -49,22 +47,14 @@
 		<hr class="opacity-30" />
 
 		<!-- model repo name -->
-		<section class="py-2">{repo_name}</section>
+		<section class="py-2">{repoName}</section>
 
-		<Accordion
-			features_type="Inputs"
-			features={in_features}
-			features_len={in_features_len}
-		/>
+		<Accordion featuresType="Inputs" features={inFeatures} featuresLen={inFeaturesLen} />
 
-		<Accordion
-			features_type="Outputs"
-			features={out_features}
-			features_len={out_features_len}
-		/>
+		<Accordion featuresType="Outputs" features={outFeatures} featuresLen={outFeaturesLen} />
 	</div>
 
-	{#if !inputsOpen}
+	<!-- {#if !inputsOpen}
 		<Handle
 			type="target"
 			position={Position.Left}
@@ -76,7 +66,7 @@
 
 	{#if !outputsOpen}
 		<Handle type="source" position={Position.Right} />
-	{/if}
+	{/if} -->
 {:else}
 	<button
 		class="flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md"

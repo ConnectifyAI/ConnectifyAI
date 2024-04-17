@@ -10,9 +10,10 @@
 		open = !open
 	}
 
-	export let features_type: 'Inputs' | 'Outputs'
+	export let featuresType: 'Inputs' | 'Outputs'
 	export let features
-	export let features_len = 0
+	export let featuresLen = 0
+	
 </script>
 
 <!-- TAKES INPUT / OUTPUT FEATURES -->
@@ -21,7 +22,7 @@
 	<head class="flex justify-between">
 		<h2 class="flex items-centerp p-1 gap-3">
 			<MoveRight size={20} />
-			{features_type} ({features_len})
+			{featuresType} ({featuresLen})
 		</h2>
 
 		{#if open}
@@ -37,10 +38,9 @@
 			{#if features}
 				{#each features as feature, index}
 					<Feature
-						label={feature.label}
-						dtype={feature.dtype}
-						relative_pos={((index + 1) * 100) / (features_len + 1)}
-						featureType={features_type === 'Inputs' ? 'Input' : 'Output'}
+						{feature}
+						relativePos={((index + 1) * 100) / (featuresLen + 1)}
+						featureType={featuresType === 'Inputs' ? 'Input' : 'Output'}
 					/>
 				{/each}
 			{/if}
