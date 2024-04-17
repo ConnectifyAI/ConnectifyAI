@@ -9,13 +9,13 @@
 	export let data: DatasetNodeData
 
 	let outputsOpen = true
-	let repo_name, author, out_features, out_features_len, displayName
+	let repoName, author, outFeatures, outFeaturesLen, displayName
 
 	$: {
-		repo_name = data?.repo_id
+		repoName = data?.repo_id
 		author = data?.author
-		out_features = data?.features
-		out_features_len = out_features ? out_features.length : 0
+		outFeatures = data?.outFeatures
+		outFeaturesLen = outFeatures ? outFeatures.length : 0
 	}
 
 	onMount(() => {
@@ -26,7 +26,7 @@
 </script>
 
 <!-- IF NODE INTIALIZED -->
-{#if repo_name}
+{#if repoName}
 	<div class="wrapper">
 		<!-- dataset/model display name -->
 		<section class="flex gap-1 py-1 items-center text-lg">
@@ -36,14 +36,11 @@
 
 		<hr class="opacity-30" />
 
-		<!-- repo_name -->
-		<section class="py-2">{repo_name}</section>
+		<!-- repoName -->
+		<section class="py-2">{repoName}</section>
 
-		<Accordion
-			features_type="Outputs"
-			features={out_features}
-			features_len={out_features_len}
-		/>
+		hi
+		<Accordion featuresType="Outputs" features={outFeatures} featuresLen={outFeaturesLen} />
 	</div>
 
 	{#if !outputsOpen}
