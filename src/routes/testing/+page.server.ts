@@ -1,8 +1,7 @@
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 import { getModelInfo } from '$lib/server/hf/model';
-import { getDatasetInfo } from '$lib/server/hf/dataset';
-import { testGetGraph } from '$lib/data/graph';
+import { fetchTestGraph } from '$lib/server/api/fetch';
 
 export const load: PageServerLoad = async ({ params }) => {
 
@@ -11,10 +10,10 @@ export const load: PageServerLoad = async ({ params }) => {
 	//
 	// return { datasetInfo, modelInfo };
 	//
-	
-	const graph = await testGetGraph();
 
-	return {graph}
+	const graph = await fetchTestGraph();
+
+	return { graph }
 }
 
 

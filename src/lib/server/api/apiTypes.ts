@@ -1,41 +1,37 @@
 export type NodeType = 'dataset' | 'model'
 
-export type Edge = {
-    id: string;
-    sourceId: string;
-    targetId: string;
-}
 
-export type Output = {
-    id: string;
-    parentNodeId: string;
+export interface Feature {
+    isSelected: boolean;
     label: string;
     dtype: string;
-    edge: Edge;
 }
 
-
-export type Input = {
+export interface Node {
     id: string;
-    parentNodeId: string;
-    label: string;
-    dtype: string;
-    edge: Edge;
+    type: NodeType;
+    position: {
+        x: number,
+        y: number
+    }
+    data: {
+        displayName: string,
+        repoId: string;
+        inFeatures: Feature[];
+        outFeatures: Feature[];
+    }
 }
 
-export type Node = {
+
+export interface Edge {
     id: string;
-    repoId: string;
-    displayName: string;
-    parentGraphId: string;
-    nodeType: string;
-    outputs: Output[];
-    inputs: Input[];
-    posX: number,
-    posY: number
+    source: string; //source node id
+    target: string; // target node id
+    sourceHandle: string; // name of source feature
+    targetHandle: string; // name of target feature
 }
 
-export type Author = {
+export interface Author {
     id: string;
     provider: string;
     providerId: string;
@@ -45,7 +41,7 @@ export type Author = {
     email: string;
 }
 
-export type Graph = {
+export interface Graph {
     id: string;
     authorId: string;
     likes: number;
@@ -53,4 +49,6 @@ export type Graph = {
     name: string;
     author: Author;
     nodes: Node[];
+    edges: Edge[];
 }
+

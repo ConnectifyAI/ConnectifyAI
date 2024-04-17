@@ -51,10 +51,6 @@ export const sessionRelations = relations(session, ({ one }) => ({
 
 }))
 
-
-
-
-
 export const graph = pgTable('graph', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
     authorId: text('author_id').notNull().references(() => user.id),
@@ -76,11 +72,11 @@ export const graphRelations = relations(graph, ({ many, one }) => ({
 export const nodeTypeEnum = pgEnum('node_type', ['dataset', 'model'])
 
 export const node = pgTable('node', {
-    id: uuid('id').primaryKey().notNull().unique(),
+    id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
     repoId: text('repo_id').notNull(),
     displayName: text('display_name').notNull(),
     parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id),
-    nodeType: nodeTypeEnum('node_type').notNull(),
+    type: nodeTypeEnum('node_type').notNull(),
     posX: doublePrecision('pos_x').notNull(),
     posY: doublePrecision('pos_y').notNull(),
 })
@@ -100,7 +96,8 @@ export const nodesRelations = relations(node, ({ many, one }) => ({
 
 export const inFeature = pgTable('in_feature', {
     id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
-    parentNodeId: uuid('id').notNull().references(() => node.id),
+
+    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
 
     isSelected: boolean('is_selected').notNull(),
     label: text('label').notNull(),
@@ -122,7 +119,7 @@ export const inFeatureRelations = relations(inFeature, ({ one }) => ({
 
 export const outFeature = pgTable('out_feature', {
     id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
-    parentNodeId: uuid('id').notNull().references(() => node.id),
+    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
 
     isSelected: boolean('is_selected').notNull(),
     label: text('label').notNull(),
@@ -134,7 +131,8 @@ export const outFeatureRelations = relations(outFeature, ({ one }) => ({
 
     parentNode: one(node, {
         fields: [outFeature.parentNodeId],
-        references: [node.id]
+        references: [node.id],
+
     }),
 
     outputEdge: one(edge)
@@ -146,8 +144,8 @@ export const edge = pgTable('edge', {
     id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
     parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id),
 
-    sourceNodeId: uuid('source_id').notNull().references(() => node.id),
-    targetNodeId: uuid('target_id').notNull().references(() => node.id),
+    sourceNodeId: uuid('source_node_id').notNull().references(() => node.id),
+    targetNodeId: uuid('target_node_id').notNull().references(() => node.id),
 
     sourceFeatureId: uuid('source_feature_id').notNull().references(() => outFeature.id),
     targetFeatureId: uuid('target_feature_id').notNull().references(() => inFeature.id),
@@ -164,13 +162,13 @@ export const edgeRelations = relations(edge, ({ one }) => ({
     }),
 
     targetFeature: one(inFeature, {
-        fields: [edge.targetNodeId],
+        fields: [edge.targetFeatureId],
         references: [inFeature.id],
         relationName: "target_feature"
     }),
 
     sourceFeature: one(outFeature, {
-        fields: [edge.sourceNodeId],
+        fields: [edge.sourceFeatureId],
         references: [outFeature.id],
         relationName: "source_feature"
     }),

@@ -1,9 +1,8 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { edge, graph, input, node, output } from "./src/lib/server/db/schema";
+import { edge, graph, inFeature,  node, outFeature, } from "./src/lib/server/db/schema";
 import { NodeType } from "./src/lib/data/node";
-import { node2, outputs1_1 } from "./seed";
-import { exit, sourceMapsEnabled } from "process";
+import { exit} from "process";
 
 
 
@@ -22,7 +21,6 @@ async function seed() {
 
 
 	//TODO: create new graph
-
 	const graph1 = {
 		authorId: "qmw1xs4m56qgozch3v6d96ep6fi7eaevdwxxperg",
 		likes: 69,
@@ -48,6 +46,8 @@ async function seed() {
 
 	let returnedNode1 = await db.insert(node).values(node1).returning()
 
+	console.log("inserted", returnedNode1)
+
 	const node2Id = crypto.randomUUID()
 
 	const node2 = {
@@ -62,67 +62,105 @@ async function seed() {
 
 	let returnedNode2 = await db.insert(node).values(node2).returning()
 
+	console.log("inserted", returnedNode2)
 
-	const output1_id = crypto.randomUUID()
 
-	const output1 = {
-		id: output1_id,
+	const inFeature1 = {
 		parentNodeId: node1Id,
+		isSelected: true,
 		label: "cool export",
 		dtype: "text"
 	}
 
 
-	const returningOutput1 = await db.insert(output).values(output1).returning()
+	const returningInFeature1 = await db.insert(inFeature).values(inFeature1).returning()
 
-	const output2_id = crypto.randomUUID()
+	const inFeature1Id = returningInFeature1[0].id
 
-	const output2 = {
-		id: output2_id,
+	console.log("inserted", returningInFeature1)
+
+	const inFeature2 = {
 		parentNodeId: node1Id,
+
+		isSelected: true,
 		label: "notLabel",
 		dtype: "number"
 	}
 
-	const returningOutput2 = await db.insert(output).values(output2).returning()
+	const returningInFeature2 = await db.insert(inFeature).values(inFeature2).returning()
 
-	const input1_id = crypto.randomUUID()
+	const inFeature2Id = returningInFeature2[0].id
 
-	const input1 = {
-		id: input1_id,
+	console.log("inserted", returningInFeature2)
+
+	const outFeature1 = {
+		isSelected: true,
 		parentNodeId: node2Id,
 		label: "absorb",
 		dtype: "text"
 	}
 
-	const returningInput1 = await db.insert(input).values(input1).returning()
+	const returningOutFeature1 = await db.insert(outFeature).values(outFeature1).returning()
 
-	const input2_id = crypto.randomUUID()
+	const outFeature1Id = returningOutFeature1[0].id
 
-	const input2 = {
-		id: input2_id,
+	console.log("inserted", returningOutFeature1)
+
+	const outFeature2 = {
+		isSelected: true,
 		parentNodeId: node2Id,
 		label: "interestng Label",
 		dtype: "number"
 	}
 
-	const returningInput2 = await db.insert(input).values(input2).returning()
+	const returningOutFeature2 = await db.insert(outFeature).values(outFeature2).returning()
+
+	const outFeature2Id = returningOutFeature2[0].id
+
+	console.log("inserted", returningOutFeature2)
+
+	const outFeature3 = {
+		isSelected: false,
+		parentNodeId: node2Id,
+		label: "lame",
+		dtype: "text"
+	}
+
+	const returningOutFeature3 = await db.insert(outFeature).values(outFeature3).returning()
+
+	const outFeature3Id = returningOutFeature3[0].id
+
+	console.log("inserted", returningOutFeature3)
 
 	const edge1 = {
-		id: crypto.randomUUID(),
-		sourceId: output1_id,
-		targetId: input1_id,
+		parentGraphId: graphId,
+
+		sourceNodeId: node2Id,
+		targetNodeId: node1Id,
+
+
+		sourceFeatureId: outFeature1Id,
+		targetFeatureId: inFeature1Id,
 	}
 
 	const returningEdge1 = await db.insert(edge).values(edge1).returning()
 
+	console.log("inserted", returningEdge1)
+
 	const edge2 = {
-		id: crypto.randomUUID(),
-		sourceId: output2_id,
-		targetId: input2_id,
+		parentGraphId: graphId,
+
+		sourceNodeId: node2Id,
+		targetNodeId: node1Id,
+
+
+		sourceFeatureId: outFeature2Id,
+		targetFeatureId: inFeature2Id,
 	}
 
 	const returningEdge2 = await db.insert(edge).values(edge2).returning()
+
+	console.log("inserted", returningEdge2)
 
 	exit(0)
 
