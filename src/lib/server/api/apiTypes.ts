@@ -57,22 +57,24 @@ export interface Graph {
 
 
 export type DatasetInfo = {
-    author: string,
     repoId: string,
+    author: string,
+    outputFeatures: Feature[]
     downloads: number,
     likes: number,
-    outputFeatures: Feature[]
+    createdAt: string
 }
 
 
 export type ModelInfo = {
     repoId: string,
     author: string,
-    inputFeatures: Feature[],
     outputFeatures: Feature[],
-    pipeline_tag: string,
+    inputFeatures: Feature[],
     downloads: string,
     likes: number,
     createdAt: string
+
+    pipeline_tag: string,
 }
 

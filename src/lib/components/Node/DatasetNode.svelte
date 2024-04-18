@@ -13,7 +13,7 @@
 		type: 'component',
 		component: 'datasetModal',
 
-		backdropClasses: '!bg-slate-300/50',
+		backdropClasses: '!bg-slate-800/50',
 		// modalClasses: '!bg-red-500',
 		response: (r) => console.log('response:', r)
 	}
