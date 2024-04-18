@@ -6,30 +6,29 @@
 </script>
 
 <div class="wrapper">
-	<div class="flex-col justify-center">
-		<div class="flex font-dmMono text-[27px]">
-			<h1>Discover</h1>
-		</div>
-		<div class="py-5">
+	<section class="flex-col">
+		<h1 class="font-dmMono text-[27px]">Discover</h1>
+		<div class="flex">
 			<input
 				type="text"
 				bind:value={searchTerm}
 				on:input={searchSomething}
-				class="focus:ring-2 focus:ring-blu rounded-lg font-dmMono w-[900px] h-16"
+				class="focus:ring-2 focus:ring-blu rounded-lg font-dmMono h-16 w-2/3"
 				placeholder="Type here"
 			/>
+            <div class="flex w-1/3">
+                <Dropdown title="Input" contents={['asdfd', 'adfsdf']} />
+                <Dropdown title="Output" contents={['asdfd', 'adfsdf']} />
+                <Dropdown title="Function" contents={['asdfd', 'adfsdf']} />
+                <Dropdown title="Owner" contents={['asdfd', 'adfsdf']} />
+            </div>
 		</div>
-	</div>
-	<div class="flex space-x-3 mt-11">
-		<Dropdown title="Input" contents={['asdfd', 'adfsdf']} />
-		<Dropdown title="Output" contents={['asdfd', 'adfsdf']} />
-		<Dropdown title="Function" contents={['asdfd', 'adfsdf']} />
-		<Dropdown title="Owner" contents={['asdfd', 'adfsdf']} />
-	</div>
+	</section>
+
 </div>
 
 <style>
 	.wrapper {
-		@apply h-1/4 w-full border-b flex space-x-10 bg-slate-300 p-10;
+		@apply h-1/4 w-full border-b flex bg-slate-300 p-10 min-w-[1069px];
 	}
 </style>
