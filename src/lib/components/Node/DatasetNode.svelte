@@ -1,12 +1,12 @@
 <script lang="ts">
 	// @ts-nocheck
 	import { Database, Plus, Trash } from 'lucide-svelte'
-	import { Handle, Position, type Position } from '@xyflow/svelte'
+	import { Handle, Position, type Position, useSvelteFlow, getConnectedEdges } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
-	import { deleteNode } from '$stores/graph'
+	import { deleteNode, pathMode, path, edges } from '$stores/graph'
 
 	const modalStore = getModalStore()
 
@@ -19,7 +19,7 @@
 		response: (r) => console.log('response:', r)
 	}
 
-	const openDatasetModal = () => {
+	const openModal = () => {
 		modalStore.trigger(modal)
 	}
 
@@ -28,14 +28,11 @@
 	// 	meta: { foo: 'bar', fizz: 'buzz', fn: myCustomFunction }
 	// }
 
-	export let data: DatasetNodeData
+	export let data: DatasetNodeData | ModelNodeData
 	export let id: string
-	export let position: any
-	export let type: any
-	$: pos = position
-	console.log('DatasetNode', data, id, pos, type)
+	// export let type: any
+	// console.log('DatasetNode', data, id, type)
 
-	let outputsOpen = true
 	let repoName, author, outFeatures, outFeaturesLen, displayName
 
 	$: {
@@ -44,11 +41,65 @@
 		outFeatures = data?.outFeatures
 		outFeaturesLen = outFeatures ? outFeatures.length : 0
 	}
+
+	const { getNode } = useSvelteFlow()
+	let nodeSelected = false
+
+	$path.subscribe((value) => {
+		if (value == id) {
+			nodeSelected = true
+		}
+	})
+
+	const selectNode = () => {
+		if ($pathMode) {
+			// uncheck node if already selected
+			if (nodeSelected) {
+				$path.forEach((nodeId, index) => {
+					if (nodeId === id) {
+						$path = $path.slice(0, index)
+					}
+				})
+			} else {
+				// node not selected
+				const len = $path.length
+			}
+
+			if (len == 0) {
+				$path.push(id)
+			} else {
+				let prevNodeData = getNode($path[len - 1])
+				let currNodeData = getNode(id)
+
+				const connectedEdges = getConnectedEdges([prevNodeData, currNodeData], $edges)
+				// console.log('hi', prevNodeData, id)
+				console.log('hi', connectedEdges)
+
+				// if (prevNodeId !== id) {
+				// 	$path.push(id)
+				// 	nodeSelected = !nodeSelected
+				// }
+			}
+		}
+	}
+
+	pathMode.subscribe((value) => {
+		if (value) {
+			nodeSelected = false
+		}
+	})
 </script>
 
 <!-- IF NODE INTIALIZED -->
 {#if repoName}
-	<div class="wrapper">
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<div
+		class="wrapper bg-[#eee] {$pathMode ? 'bg-blue-300' : ''} {nodeSelected
+			? 'bg-green-300 bg-opacity-100'
+			: ''}"
+		on:click={selectNode}
+	>
 		<!-- dataset/model display name -->
 		<section class="flex gap-1 py-1 items-center text-lg">
 			<Database size={23} />
@@ -62,13 +113,9 @@
 
 		<Accordion featuresType="Outputs" features={outFeatures} featuresLen={outFeaturesLen} />
 	</div>
-
-	{#if !outputsOpen}
-		<Handle type="source" position={Position.Right} />
-	{/if}
 {:else}
 	<aside class="flex">
-		<button on:click={openDatasetModal}>
+		<button on:click={openModal}>
 			<Plus size={23} />
 			Add Dataset Here
 		</button>
@@ -80,10 +127,10 @@
 
 <style>
 	.wrapper {
-		@apply bg-[#eee] p-5 rounded-md w-[26rem] min-h-20;
+		@apply p-5 rounded-md w-[26rem] min-h-20;
 	}
 
-	button {
+	aside > button {
 		@apply flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md border-green-500 border-2;
 	}
 
