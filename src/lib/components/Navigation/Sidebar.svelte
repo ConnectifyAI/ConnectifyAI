@@ -12,7 +12,6 @@
 		visblity = 'block'
 	}
 
-	console.log('what the hale')
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
