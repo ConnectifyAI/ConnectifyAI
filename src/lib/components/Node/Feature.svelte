@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Handle, Position, type Connection } from '@xyflow/svelte'
 	import { createEventDispatcher } from 'svelte'
+	import { nodes } from '$routes/canvas-test/Dataset'
 
 	export let feature: Feature
 	export let relativePos: number
@@ -9,6 +10,21 @@
 	let { label, dtype, isSelected } = feature
 
 	const dispatch = createEventDispatcher()
+
+	const toggleFeature = (e: any) => {
+		isSelected = !isSelected
+		const c = e[0]
+		console.log('toggleFeature', c)
+		$nodes.forEach((node) => {
+			if (node.id === c.source) {
+				;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
+					if (f.label == c.sourceHandle) {
+						f.isSelected = isSelected
+					}
+				})
+			}
+		})
+	}
 </script>
 
 <!-- on button toggle, get dataset id and field label -->
@@ -27,20 +43,9 @@
 	style="top: {relativePos}%; background: {isSelected
 		? '#30a0ef'
 		: '#d1eafb'}; width: 16px; height: 16px; border: 2px solid black"
-	onconnect={(connection) => {
-		isSelected = !isSelected
-		dispatch('toggleFeature', {
-			connection: connection,
-			isSelected: isSelected
-		})
-	}}
-	ondisconnect={(connection) => {
-		isSelected = !isSelected
-		dispatch('toggleFeature', {
-			connection: connection,
-			isSelected: isSelected
-		})
-	}}
+	onconnect={(e) => toggleFeature(e)}
+	isConnectable={!isSelected}
+	ondisconnect={(e) => toggleFeature(e)}
 />
 
 <style>
