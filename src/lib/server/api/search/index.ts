@@ -18,6 +18,7 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
     for (const dataset of filtered) {
 
         dataset.repoId = dataset.id
+
         const features = dataset.cardData.dataset_info.features;
 
         // continue if feature doesnt exist
@@ -31,6 +32,10 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
                     throw new Error("yo this dataset is wack")
                 } else {
                     // sequence is now a type
+
+                    if(feature.name) {
+                        feature.label = feature.name
+                    }
 
                     feature.dtype = feature.sequence
                     // feature.sequence = null
