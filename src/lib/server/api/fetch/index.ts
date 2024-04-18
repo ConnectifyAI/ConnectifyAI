@@ -6,7 +6,7 @@ import type { Graph as APIGraph } from "../../helpers/apiTypes"
 import { convertGraph } from "$lib/server/helpers/convert"
 
 export const fetchTestGraph = async (): Promise<APIGraph> => {
-    const testGraphId = "926a93eb-b60d-4075-a0bc-fcca9fa3c060"
+    const testGraphId = "3dc898c0-a8f5-490b-bec4-72a9eece676a"
 
     const testGraph = await db.query.graph.findFirst({
 

@@ -71,7 +71,7 @@ async function seed() {
 	}
 
 	let returnedNode3 = await db.insert(node).values(node2).returning()
-	let node3Id = returnedNode2[0].id
+	let node3Id = returnedNode3[0].id
 
 	console.log("inserted", returnedNode3)
 
@@ -121,7 +121,7 @@ async function seed() {
 
 
 	const inFeatureN1_2 = await db.insert(inFeature).values({
-		parentNodeId: node2Id,
+		parentNodeId: node3Id,
 		isSelected: false,
 		label: "something1",
 		dtype: "string"
