@@ -12,7 +12,8 @@
 		defaultNodeOptions,
 		onDragOver,
 		bgColor
-	} from '$routes/canvas-test/Dataset'
+	} from '$routes/proc/canvas-test/Dataset.js'
+
 	import { nodes, edges } from '$stores/graph'
 
 	export let data
