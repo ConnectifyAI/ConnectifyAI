@@ -2,7 +2,7 @@
 import { db } from "$lib/server/db";
 import { edge } from "$lib/server/db/schema";
 import type { UUID } from "crypto";
-import type { Node as APINode, Edge as APIEdge, Feature as APIFeature } from "../apiTypes";
+import type { Node as APINode, Edge as APIEdge, Feature as APIFeature } from "$lib/server/helpers/apiTypes";
 import { time } from "console";
 import { convertEdge } from "$lib/server/helpers/convert";
 import { eq } from "drizzle-orm";

@@ -35,7 +35,9 @@ export function convertNode(node: Node): APINode {
         data: {
             displayName,
             repoId,
+            //@ts-ignore types are gonna kill me
             inFeatures,
+            //@ts-ignore
             outFeatures
         }
     };
@@ -53,36 +55,3 @@ export function convertEdge(edge: Edge): APIEdge {
     };
 }
 
-// export const graphById = async (id: string): Promise<Graph> => {
-//
-//     const dbGraph = await db.query.graph.findFirst({
-//         where: eq(graph.id, id),
-//         with: {
-//             author: true,
-//             nodes: {
-//                 with: {
-//                     outputs: {
-//                         with: {
-//                             edge: true
-//                         }
-//                     },
-//                     inputs: {
-//                         with: {
-//                             edge: true
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     })
-//
-//     if (!dbGraph) {
-//         throw new Error("deal with it later lmao")
-//     }
-//     return dbGraph as Graph
-// }
-
-// export const modelById = async (id: string): Promise<Node> => {
-//
-// }
-//
