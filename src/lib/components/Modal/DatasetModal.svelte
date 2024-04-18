@@ -19,9 +19,8 @@
 </script>
 
 <div class="wrapper">
-	<!-- search bar goes here -->
-	<input type="text" class="w-96 rounded-md" />
 	<Search />
+
 	<section class="results">
 		{#each arr as _}
 			<ResultCard info={obj} />
