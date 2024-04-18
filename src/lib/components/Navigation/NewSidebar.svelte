@@ -58,7 +58,11 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
+<<<<<<< HEAD
 <div class="flex-col h-full ">
+=======
+<div class="flex-col h-full border border-black overflow-hidden">
+>>>>>>> 6aaa353bd7bf9a95b236273730c71e5d592fb223
 	<div
 		class="w-28 h-full transition-width duration-300 hover:w-52 bg-slate-100"
 		on:mouseenter={maxmize}
