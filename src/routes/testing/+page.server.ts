@@ -5,11 +5,11 @@ import type { Actions } from './$types';
 export const load: PageServerLoad = async ({ params }) => {
 
 
-	let datasets = await searchDatasets("bert", 200)
-	let models = await searchModels("bert", 200)
+	// let datasets = await searchDatasets("bert", 200)
+	let models = await searchModels("bert", 20)
 	
 	return {
-		datasets,
+		// datasets,
 		models
 	}
 

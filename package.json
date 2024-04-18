@@ -52,10 +52,13 @@
     "@floating-ui/dom": "1.6.3",
     "@huggingface/hub": "^0.14.7",
     "@lucia-auth/adapter-drizzle": "^1.0.7",
+    "@trpc/client": "^10.45.2",
+    "@trpc/server": "^10.45.2",
     "@xyflow/svelte": "^0.0.40",
     "arctic": "^1.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "delay": "^6.0.0",
     "drizzle-orm": "^0.30.8",
     "highlight.js": "11.9.0",
     "lucide-svelte": "^0.368.0",
@@ -63,7 +66,11 @@
     "oslo": "^1.2.0",
     "pg": "^8.11.5",
     "postgres": "^3.4.4",
+    "superjson": "^2.2.1",
     "tailwind-merge": "^2.2.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "trpc-sveltekit": "^3.6.1",
+    "trpc-transformer": "^3.2.1",
+    "zod": "^3.22.4"
   }
 }
