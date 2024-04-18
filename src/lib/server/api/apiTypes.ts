@@ -66,7 +66,7 @@ export type DatasetInfo = {
 
 
 export type ModelInfo = {
-    id: string,
+    repoId: string,
     author: string,
     inputFeatures: Feature[],
     outputFeatures: Feature[],
