@@ -1,5 +1,5 @@
 import { HF_TOKEN } from "$env/static/private";
-import type { DatasetInfo, ModelInfo } from "../apiTypes";
+import type { DatasetInfo, ModelInfo } from "$lib/server/helpers/apiTypes";
 import { modelTypes } from "./modelTypes";
 
 export async function searchDatasets(query: string, take: number): Promise<DatasetInfo[]> {
@@ -17,6 +17,7 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
     var cleaned: DatasetInfo[] = [];
     for (const dataset of filtered) {
 
+        dataset.repoId = dataset.id
         const features = dataset.cardData.dataset_info.features;
 
         // continue if feature doesnt exist

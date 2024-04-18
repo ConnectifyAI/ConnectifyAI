@@ -5,8 +5,10 @@ import type { Context } from '$lib/trpc/context';
 import { initTRPC } from '@trpc/server';
 import delay from 'delay';
 import { z } from 'zod';
-import type { Graph as APIGraph, DatasetInfo, ModelInfo } from '$lib/server/helpers/apiTypes';
+import type { Graph as APIGraph, Node as APINode, Edge as APIEdge, DatasetInfo, ModelInfo } from '$lib/server/helpers/apiTypes';
 import { createEdge } from '$lib/server/api/upsert/edge';
+import { createModelNode } from '$lib/server/api/upsert/model';
+import { createDatasetNode } from '$lib/server/api/upsert/dataset';
 
 export const t = initTRPC.context<Context>().create();
 
@@ -47,12 +49,47 @@ export const node = t.router({
       let x: ModelInfo[] = await searchModels(input.query, input.take)
       return x
     }),
+
+  newModelNode: t.procedure
+    .input(z.object({
+      modelInfo: z.any(),
+      graphId: z.string(),
+      position: z.object({
+        x: z.number(),
+        y: z.number()
+      })
+    })).mutation(async ({ input }) => {
+      let x: APINode = await createModelNode(
+        input.modelInfo,
+        input.graphId,
+        input.position
+      )
+
+      return x
+    }),
+  newDatasetNode: t.procedure
+    .input(z.object({
+      datasetInfo: z.any(),
+      graphId: z.string(),
+      position: z.object({
+        x: z.number(),
+        y: z.number()
+      })
+    })).mutation(async ({ input }) => {
+      let x: APINode = await createDatasetNode(
+        input.datasetInfo,
+        input.graphId,
+        input.position
+      )
+
+      return x
+    }),
 })
 
 export const edge = t.router({
   newEdge: t.procedure
     .input(z.object({
-    //TODO: im way too lazy to zod type these, can just do this later
+      //TODO: im way too lazy to zod type these, can just do this later
       sourceNode: z.any(),
       targetNode: z.any(),
       sourceFeature: z.any(),
@@ -61,9 +98,10 @@ export const edge = t.router({
 
     })).mutation(async ({ input }) => {
 
-      let x = await createEdge(input.sourceNode, input.targetNode, input.sourceFeature, input.targetFeature, input.graphId)
-      
+      let x: APIEdge = await createEdge(input.sourceNode, input.targetNode, input.sourceFeature, input.targetFeature, input.graphId)
+
       return x;
+
     })
 })
 
