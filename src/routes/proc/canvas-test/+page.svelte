@@ -14,12 +14,13 @@
 		bgColor
 	} from '$routes/proc/canvas-test/Dataset.js'
 
-	import { nodes, edges } from '$stores/graph'
+	import { nodes, edges, graphId } from '$stores/graph'
 
 	export let data
 
 	nodes.set(data.graph.nodes)
 	edges.set(data.graph.edges)
+	graphId.set(data.graph.id)
 
 	// $: console.log('data', data.graph.nodes)
 	// $: console.log('edges', data.graph.edges)
