@@ -1,17 +1,11 @@
 <script lang="ts">
 	import { ThumbsUp, Download } from 'lucide-svelte'
-	import type { DatasetInfo, ModelInfo } from '$lib/server/api/apiTypes'
+	import type { DatasetInfo, ModelInfo } from '$lib/server/helpers/apiTypes'
 	export let info: DatasetInfo | ModelInfo
 	// Model | Dataset
 
 	const { repoId, author, outputFeatures, downloads, likes, createdAt } = info
 
-	// repoId: string,
-	// author: string,
-	// outputFeatures: Feature[]
-	// downloads: number,
-	// likes: number,
-	// createdAt: string
 </script>
 
 <div class="wrapper">
