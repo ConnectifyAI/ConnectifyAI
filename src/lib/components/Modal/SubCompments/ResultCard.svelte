@@ -1,17 +1,10 @@
 <script lang="ts">
 	import { ThumbsUp, Download } from 'lucide-svelte'
-	import type { DatasetInfo, ModelInfo } from '$lib/server/api/apiTypes'
+	import type { DatasetInfo, ModelInfo } from '$lib/server/helpers/apiTypes'
 	export let info: DatasetInfo | ModelInfo
 	// Model | Dataset
+	const { author, repoId , outputFeatures, downloads, likes, createdAt } = info
 
-	const { repoId, author, outputFeatures, downloads, likes, createdAt } = info
-
-	// repoId: string,
-	// author: string,
-	// outputFeatures: Feature[]
-	// downloads: number,
-	// likes: number,
-	// createdAt: string
 </script>
 
 <div class="wrapper">
@@ -24,8 +17,9 @@
 		<button class="btn-md variant-outline rounded-md border-2 border-blue-500">Add Dataset</button>
 	</section>
 	<section class="flex gap-1 text-sm">
-		<p class="h-7 min-w-24 bg-slate-100 rounded-sm flex justify-center items-center">field 1</p>
-		<p class="h-7 min-w-24 bg-slate-100 rounded-sm flex justify-center items-center">field 1</p>
+		{#each outputFeatures as feature}
+			
+		{/each}
 	</section>
 
 	<!-- stats -->
