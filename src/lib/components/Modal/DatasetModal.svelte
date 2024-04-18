@@ -29,7 +29,6 @@
 
 	let modalStore = getModalStore()
 	const nodeId = $modalStore[0].meta.nodeId
-	const graphId = $modalStore[0].meta.graphId
 
 	console.log('nodes', $nodes)
 </script>
@@ -68,7 +67,7 @@
 		{:else}
 			<aside class="h-fit grid grid-cols-1 lg:grid-cols-2 gap-4">
 				{#each results as result}
-					<ResultCard info={result} {graphId} {nodeId} nodeType="datasetNode" />
+					<ResultCard info={result} {nodeId} nodeType="datasetNode" />
 				{/each}
 			</aside>
 		{/if}

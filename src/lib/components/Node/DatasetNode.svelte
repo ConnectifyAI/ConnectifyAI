@@ -19,7 +19,6 @@
 	export let id: string
 	export let position: any
 	export let type: any
-	export let graphId: string;
 
 	$: pos = position
 
@@ -35,7 +34,6 @@
 
 		meta: {
 			nodeId: id,
-			graphId: graphId
 		},
 		// modalClasses: '!bg-red-500',
 		response: (r) => console.log('response:', r)
