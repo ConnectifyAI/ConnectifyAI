@@ -30,15 +30,12 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
             for (const feature of features) {
                 if (feature.sequence && typeof feature.sequence !== 'string') {
                     throw new Error("yo this dataset is wack")
-                } else {
-                    // sequence is now a type
-
-
-
-
+                } else if(feature.sequence) {
 
                     feature.dtype = feature.sequence
                     // feature.sequence = null
+                } else {
+                
                 }
 
                 if (feature.name) {
@@ -46,8 +43,14 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
                 }
 
                 if (!feature.dtype) {
+                    // feature.dtype = "string"
+                    console.log(feature)
+                }
+
+                if (feature?.dtype?.class_label) {
                     feature.dtype = "string"
                 }
+
             }
         } catch (e) {
             continue
