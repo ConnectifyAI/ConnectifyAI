@@ -33,12 +33,20 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
                 } else {
                     // sequence is now a type
 
-                    if(feature.name) {
-                        feature.label = feature.name
-                    }
+
+
+
 
                     feature.dtype = feature.sequence
                     // feature.sequence = null
+                }
+
+                if (feature.name) {
+                    feature.label = feature.name
+                }
+
+                if (!feature.dtype) {
+                    feature.dtype = "string"
                 }
             }
         } catch (e) {
