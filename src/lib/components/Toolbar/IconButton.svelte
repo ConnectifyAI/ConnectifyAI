@@ -21,6 +21,10 @@
 	on:dragstart={(event) => onDragStart(event, type.toLowerCase() + 'Node')}
 	class={draggable ? 'bg-slate-50 cursor-move' : 'no-drag'}
 	{draggable}
+	on:click={() => {
+		if (draggable) return
+		console.log('clicked')
+	}}
 >
 	<svelte:component this={icon} class="size-7" />
 	<span>Add {type}</span>
