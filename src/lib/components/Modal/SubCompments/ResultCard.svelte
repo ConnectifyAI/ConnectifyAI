@@ -16,10 +16,11 @@
 
 		<button class="btn-md variant-outline rounded-md border-2 border-blue-500">Add Dataset</button>
 	</section>
-	<section class="flex gap-1 text-sm">
+	<section class="= grid grid-row-3 gap-2 text-sm">
 		{#each outputFeatures as feature}
-			
+			<p class=" px-1 min-w-24 bg-slate-100 rounded-sm flex justify-center items-center text-[14px]">{feature.label+": "+feature.dtype}</p>
 		{/each}
+
 	</section>
 
 	<!-- stats -->
