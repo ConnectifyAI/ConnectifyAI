@@ -24,7 +24,10 @@
 	}
 </script>
 
-<aside class="my-2 bg-[#d1eafb]">
+<aside
+	class="my-2
+	{isSelected ? 'bg-[#30a0ef]' : 'bg-[#d1eafb]'}"
+>
 	<h1>{label}</h1>
 	<p class="text-sm text-left opacity-70">{dtype} • etc</p>
 </aside>
@@ -33,7 +36,11 @@
 	id={label}
 	type={featureType == 'Input' ? 'target' : 'source'}
 	position={featureType == 'Input' ? Position.Left : Position.Right}
-	style="top: {relativePos}%; background: #d1eafb; width: 16px; height: 16px; border: 2px solid black"
+	style="top: {relativePos}%; background: {isSelected
+		? '#30a0ef'
+		: '#d1eafb'}; width: 16px; height: 16px; border: 2px solid black"
+	onconnect={(e) => toggleFeature(e)}
+	ondisconnect={(e) => toggleFeature(e)}
 />
 
 <style>

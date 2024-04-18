@@ -2,7 +2,8 @@
 	// @ts-nocheck
 	import { writable } from 'svelte/store'
 	import '@xyflow/svelte/dist/style.css'
-	import { SvelteFlow, Controls, Background, useSvelteFlow, Panel, type Node } from '@xyflow/svelte'
+	import { SvelteFlow, Controls, Background, useSvelteFlow, Panel } from '@xyflow/svelte'
+	import type { IsValidConnection, Node } from '@xyflow/svelte'
 	import Toolbar from '$components/Toolbar/Toolbar.svelte'
 
 	import {
@@ -54,6 +55,28 @@
 		$nodes = $nodes
 	}
 
+	const isValidConnection: IsValidConnection = (c) => {
+		console.log('valid?', c)
+		let sourceDtype = ''
+		let targetDtype = ''
+		$nodes.forEach((node) => {
+			if (node.id === c.source) {
+				node.data.outFeatures.forEach((f) => {
+					if (f.label == c.sourceHandle) {
+						sourceDtype = f.dtype
+					}
+				})
+			} else if (node.id === c.target) {
+				node.data.inFeatures.forEach((f) => {
+					if (f.label == c.targetHandle) {
+						targetDtype = f.dtype
+					}
+				})
+			}
+		})
+		return sourceDtype == targetDtype
+	}
+
 	// // context menu, if needed
 	// on:nodecontextmenu={handleContextMenu}
 	// function handleContextMenu({ detail: { event, node } }) {
@@ -68,6 +91,7 @@
 	{nodeTypes}
 	{defaultEdgeOptions}
 	{defaultNodeOptions}
+	{isValidConnection}
 	style="background: {$bgColor}"
 	fitView
 	on:dragover={onDragOver}
