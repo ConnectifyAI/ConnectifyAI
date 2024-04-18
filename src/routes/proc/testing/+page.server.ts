@@ -2,7 +2,8 @@ import { searchDatasets, searchModels } from '$lib/server/api/search';
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params, locals }) => {
+
 
 
 	// let datasets = await searchDatasets("bert", 200)
