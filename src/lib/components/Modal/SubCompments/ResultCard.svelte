@@ -30,7 +30,7 @@
 
 	<!-- stats -->
 	<section class="flex justify-between opacity-30">
-		<aside class="flex justify-normal items-center gap-1" >
+		<aside class="flex justify-normal items-center gap-1">
 			<ThumbsUp size={20} />
 			{likes}
 		</aside>

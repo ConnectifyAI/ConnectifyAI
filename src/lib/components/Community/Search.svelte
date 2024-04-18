@@ -1,14 +1,11 @@
 <script lang="ts">
-	import { Card, DatasetCard, Dropdown } from '$components/Community'
-	import { ChevronDown } from 'lucide-svelte'
-	import Search from './Search.svelte'
-	import { SearchSlash } from 'lucide-svelte'
+	import { Dropdown } from '$components/Community'
 	let searchTerm = ''
 
 	function searchSomething() {}
 </script>
 
-<div class="h-1/4 w-full border-b flex space-x-10 bg-slate-300 p-10 ">
+<div class="wrapper">
 	<div class="flex-col justify-center">
 		<div class="flex font-dmMono text-[27px]">
 			<h1>Discover</h1>
@@ -33,6 +30,6 @@
 
 <style>
 	.wrapper {
-		@apply flex-col w-1/3;
+		@apply h-1/4 w-full border-b flex space-x-10 bg-slate-300 p-10;
 	}
 </style>
