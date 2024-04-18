@@ -7,7 +7,7 @@
 </script>
 
 <div class="wrapper">
-	<section class="flex justify-between items-center h-36">
+	<section class="flex justify-between items-center h-32">
 		<aside class="">
 			<h1>{repoId}</h1>
 			<p class="opacity-30">by {author ? author : 'unknown'}</p>
@@ -36,6 +36,6 @@
 
 <style>
 	.wrapper {
-		@apply w-full h-40 bg-slate-200 p-5 rounded-md flex flex-col justify-between;
+		@apply w-full h-44 bg-slate-200 p-5 rounded-md flex flex-col justify-between;
 	}
 </style>
