@@ -3,4 +3,12 @@
 @tailwind utilities;
 @tailwind variants;
 
-html, body { @apply h-full overflow-hidden; }
+html,
+body {
+	@apply h-full overflow-hidden;
+}
+
+/* hide svelte flow logo */
+.svelte-flow__attribution {
+	@apply hidden;
+}
