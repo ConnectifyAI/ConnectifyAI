@@ -6,7 +6,7 @@
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
-	import { deleteNode, pathMode, path, edges } from '$stores/graph'
+	import { deleteNode, pathMode, path, nodes, edges } from '$stores/graph'
 
 	const modalStore = getModalStore()
 
@@ -45,42 +45,67 @@
 	const { getNode } = useSvelteFlow()
 	let nodeSelected = false
 
-	$path.subscribe((value) => {
+	path.subscribe((value) => {
 		if (value == id) {
 			nodeSelected = true
 		}
 	})
+	const connectedEdges = getConnectedEdges($nodes, $edges)
+	$: console.log('connectedEdges', connectedEdges)
 
 	const selectNode = () => {
+		console.log('select node', id, $pathMode, nodeSelected)
 		if ($pathMode) {
-			// uncheck node if already selected
 			if (nodeSelected) {
+				console.log('ID', id)
 				$path.forEach((nodeId, index) => {
+					// remove node from path
 					if (nodeId === id) {
-						$path = $path.slice(0, index)
+						if ((index = 0)) {
+							$path = []
+						} else {
+							$path = $path.slice(0, index)
+						}
 					}
 				})
-			} else {
-				// node not selected
-				const len = $path.length
-			}
 
-			if (len == 0) {
-				$path.push(id)
+				console.log('node already selected, remove from path', $path)
 			} else {
-				let prevNodeData = getNode($path[len - 1])
+				console.log('here', id)
+				const last = $path.length - 1
+				let prevNodeData = getNode(last)
 				let currNodeData = getNode(id)
 
-				const connectedEdges = getConnectedEdges([prevNodeData, currNodeData], $edges)
-				// console.log('hi', prevNodeData, id)
-				console.log('hi', connectedEdges)
-
-				// if (prevNodeId !== id) {
-				// 	$path.push(id)
-				// 	nodeSelected = !nodeSelected
-				// }
+				console.log('Sselect node')
 			}
+
+			nodeSelected = !nodeSelected
 		}
+		// 	// uncheck node if already selected
+		// 	if (nodeSelected) {
+		// 		$path.forEach((nodeId, index) => {
+		// 			if (nodeId === id) {
+		// 				$path = $path.slice(0, index)
+		// 			}
+		// 		})
+		// 	} else {
+		// 		// node not selected
+		// 		const len = $path.length
+		// 		if (len == 0 && getNode(id).type == 'dataset') {
+		// 			$path.push(id)
+		// 		} else {
+		// 			let prevNodeData = getNode($path[len - 1])
+		// 			let currNodeData = getNode(id)
+		// 			const connectedEdges = getConnectedEdges([prevNodeData, currNodeData], $edges)
+		// 			console.log('prevNodeData:', prevNodeData, 'currNodeid', id)
+		// 			console.log('connectedEdges', connectedEdges)
+		// 			// if (prevNodeId !== id) {
+		// 			// 	$path.push(id)
+		// 			// 	nodeSelected = !nodeSelected
+		// 			// }
+		// 		}
+		// 	}
+		// }
 	}
 
 	pathMode.subscribe((value) => {

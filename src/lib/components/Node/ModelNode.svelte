@@ -43,35 +43,33 @@
 	const { getNode } = useSvelteFlow()
 	let nodeSelected = false
 
-	$path.subscribe((value) => {
+	path.subscribe((value) => {
 		if (value == id) {
 			nodeSelected = true
 		}
 	})
 
 	const selectNode = () => {
-		if ($pathMode) {
-			if (nodeSelected)
-			// before pushing, check if possible to connect node
-			const len = $path.length
-			if (len > 0) {
-				let prevNodeData = getNode($path[len - 1])
-				let currNodeData = getNode(id)
-
-				const connectedEdges = getConnectedEdges([prevNodeData, currNodeData], $edges)
-				// console.log('hi', prevNodeData, id)
-				console.log('hi', connectedEdges)
-
-				// if (prevNodeId !== id) {
-				// 	$path.push(id)
-				// 	nodeSelected = !nodeSelected
-				// }
-			} else {
-				$path.push(id)
-				nodeSelected = !nodeSelected
-			}
-			console.log('path', $path)
-		}
+		// if ($pathMode) {
+		// 	if (nodeSelected)
+		// 	// before pushing, check if possible to connect node
+		// 	const len = $path.length
+		// 	if (len > 0) {
+		// 		let prevNodeData = getNode($path[len - 1])
+		// 		let currNodeData = getNode(id)
+		// 		const connectedEdges = getConnectedEdges([prevNodeData, currNodeData], $edges)
+		// 		// console.log('hi', prevNodeData, id)
+		// 		console.log('hi', connectedEdges)
+		// 		// if (prevNodeId !== id) {
+		// 		// 	$path.push(id)
+		// 		// 	nodeSelected = !nodeSelected
+		// 		// }
+		// 	} else {
+		// 		$path.push(id)
+		// 		nodeSelected = !nodeSelected
+		// 	}
+		// 	console.log('path', $path)
+		// }
 	}
 
 	pathMode.subscribe((value) => {
