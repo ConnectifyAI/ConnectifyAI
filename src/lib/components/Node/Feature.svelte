@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Handle, Position, type Connection } from '@xyflow/svelte'
-	import { createEventDispatcher } from 'svelte'
 	import { nodes } from '$routes/canvas-test/Dataset'
 
 	export let feature: Feature
@@ -8,8 +7,6 @@
 	export let featureType: 'Input' | 'Output'
 
 	let { label, dtype, isSelected } = feature
-
-	const dispatch = createEventDispatcher()
 
 	const toggleFeature = (e: any) => {
 		isSelected = !isSelected
@@ -27,7 +24,6 @@
 	}
 </script>
 
-<!-- on button toggle, get dataset id and field label -->
 <aside
 	class="my-2
 	{isSelected ? 'bg-[#30a0ef]' : 'bg-[#d1eafb]'}"

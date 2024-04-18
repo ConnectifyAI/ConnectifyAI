@@ -1,22 +1,18 @@
 <script lang="ts">
 	import '../app.postcss'
-	import { Navbar} from '$components/Navigation'
-
-	import { initializeStores } from '@skeletonlabs/skeleton'
+	import { Navbar, Sidebar } from '$components/Navigation'
 	import { AppShell } from '@skeletonlabs/skeleton'
 
 	// MODAL
-	import { Modal, getModalStore } from '@skeletonlabs/skeleton'
+	import { Modal, getModalStore, initializeStores } from '@skeletonlabs/skeleton'
 	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton'
+	import { ModelModal, DatasetModal } from '$components/Modal'
 
-	import NewModel from '$components/Modal/NewModel.svelte'
-	import NewDataset from '$components/Modal/NewDataset.svelte'
-	import NewSidebar from '$components/Navigation/NewSidebar.svelte'
 	initializeStores()
 	const modalRegistry: Record<string, ModalComponent> = {
 		// Set unique modal ID, pass component reference
-		NewModel: { ref: NewModel },
-		NewDataset: { ref: NewDataset }
+		modelModal: { ref: ModelModal },
+		datasetModal: { ref: DatasetModal }
 	}
 </script>
 
@@ -28,7 +24,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebarLeft">
-		<NewSidebar />
+		<Sidebar />
 	</svelte:fragment>
 
 	<slot />

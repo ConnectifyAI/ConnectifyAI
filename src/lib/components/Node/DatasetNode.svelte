@@ -2,9 +2,30 @@
 	// @ts-nocheck
 	import { Database, Plus } from 'lucide-svelte'
 	import { onMount } from 'svelte'
+	import { Handle, Position } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
-	import { Handle, Position } from '@xyflow/svelte'
+	import { getModalStore } from '@skeletonlabs/skeleton'
+
+	const modalStore = getModalStore()
+
+	const modal: ModalSettings = {
+		type: 'component',
+		component: 'datasetModal',
+
+		backdropClasses: '!bg-slate-300/50',
+		// modalClasses: '!bg-red-500',
+		response: (r) => console.log('response:', r)
+	}
+
+	const openDatasetModal = () => {
+		modalStore.trigger(modal)
+	}
+
+	// const modal: ModalSettings = {
+	// 	// Provide arbitrary metadata to your modal instance:
+	// 	meta: { foo: 'bar', fizz: 'buzz', fn: myCustomFunction }
+	// }
 
 	export let data: DatasetNodeData
 
@@ -17,12 +38,6 @@
 		outFeatures = data?.outFeatures
 		outFeaturesLen = outFeatures ? outFeatures.length : 0
 	}
-
-	onMount(() => {
-		if (data) {
-			displayName = data.id
-		}
-	})
 </script>
 
 <!-- IF NODE INTIALIZED -->
@@ -48,7 +63,7 @@
 {:else}
 	<button
 		class="flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md"
-		on:click={() => console.log('open modal')}
+		on:click={openDatasetModal}
 	>
 		<Plus size={23} />
 		Add Dataset Here
