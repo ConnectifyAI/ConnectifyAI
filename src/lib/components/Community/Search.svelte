@@ -16,15 +16,14 @@
 				class="focus:ring-2 focus:ring-blu rounded-lg font-dmMono h-16 w-2/3"
 				placeholder="Type here"
 			/>
-            <div class="flex w-1/3">
-                <Dropdown title="Input" contents={['asdfd', 'adfsdf']} />
-                <Dropdown title="Output" contents={['asdfd', 'adfsdf']} />
-                <Dropdown title="Function" contents={['asdfd', 'adfsdf']} />
-                <Dropdown title="Owner" contents={['asdfd', 'adfsdf']} />
-            </div>
+			<section class="flex w-1/3">
+				<Dropdown title="Input" contents={['asdfd', 'adfsdf']} />
+				<Dropdown title="Output" contents={['asdfd', 'adfsdf']} />
+				<Dropdown title="Function" contents={['asdfd', 'adfsdf']} />
+				<Dropdown title="Owner" contents={['asdfd', 'adfsdf']} />
+			</section>
 		</div>
 	</section>
-
 </div>
 
 <style>

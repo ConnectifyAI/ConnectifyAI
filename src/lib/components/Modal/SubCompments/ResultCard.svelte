@@ -23,9 +23,9 @@
 
 		<button class="btn-md variant-outline rounded-md border-2 border-blue-500">Add Dataset</button>
 	</section>
-	<section>
-		<!-- fields -->
-		fields...
+	<section class="flex gap-1 text-sm">
+		<p class="h-7 min-w-24 bg-slate-100 rounded-sm flex justify-center items-center">field 1</p>
+		<p class="h-7 min-w-24 bg-slate-100 rounded-sm flex justify-center items-center">field 1</p>
 	</section>
 
 	<!-- stats -->

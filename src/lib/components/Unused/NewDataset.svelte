@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Stepper, Step } from '@skeletonlabs/skeleton'
-	import StepOne from './SubCompments/StepOne.svelte'
-	import StepTwo from './SubCompments/StepTwo.svelte'
-	import StepThree from './SubCompments/StepThree.svelte'
+	import StepOne from './StepOne.svelte'
+	import StepTwo from '../Modal/SubCompments/StepTwo.svelte'
+	import StepThree from '../Modal/SubCompments/StepThree.svelte'
 </script>
 
 <div class="flex h-52 w-[100] z-50">
