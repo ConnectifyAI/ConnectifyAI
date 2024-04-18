@@ -18,7 +18,7 @@
 		console.log('searching', term)
 		results = await trpc().node.searchForDatasets.query({
 			query: searchTerm,
-			take: 30
+			take: 100
 		})
 
 		console.log(results)
@@ -27,14 +27,7 @@
 	const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
 	// arr of obj, pass into result card
-	const obj = {
-		repoId: '123',
-		author: 'author',
-		outputFeatures: [],
-		downloads: 0,
-		likes: 0,
-		createdAt: '2021-10-10'
-	}
+
 </script>
 
 <div class="wrapper">
@@ -66,8 +59,8 @@
 	</form>
 
 	<section class="results">
-		{#each arr as _}
-			<ResultCard info={obj} />
+		{#each results as result}
+			<ResultCard info={result} />
 		{/each}
 	</section>
 </div>
