@@ -29,6 +29,6 @@
 
 <style>
 	.wrapper {
-		@apply h-1/4 w-full border-b flex bg-slate-300 p-10 min-w-[1069px];
+		@apply h-1/4 w-full border-b flex bg-slate-300 p-10 min-w-[1000px] ;
 	}
 </style>

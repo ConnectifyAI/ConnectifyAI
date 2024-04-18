@@ -30,7 +30,7 @@
 <style>
 	.wrapper {
 		@apply flex flex-col items-center justify-center gap-5;
-		@apply min-w-[1069px] min-h-[30rem] w-5/6 bg-slate-100 p-7 rounded-md border-slate-700 border-4;
+		@apply min-w-[1200px] min-h-[30rem] w-5/6 bg-slate-100 p-7 rounded-md border-slate-700 border-4;
 	}
 
 	.results {
