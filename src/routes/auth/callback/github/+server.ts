@@ -52,7 +52,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 
             if (primary) {
 
-                var nameParts: string[];
+                let nameParts: string[];
 
                 // crazy edge case if someone doesnt have their name on github
                 if (!githubUser.name) {

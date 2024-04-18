@@ -24,7 +24,6 @@
 		console.log(results)
 
 		isSearching = false
-		searchTerm = ''
 	}
 
 	const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
@@ -38,8 +37,8 @@
 	<form
 		on:submit={() => {
 			search(searchTerm)
-			searchTerm = 'Searching...'
 			isSearching = true
+			searchTerm = ''
 		}}
 		class="flex gap-3 h-12 w-full"
 	>
