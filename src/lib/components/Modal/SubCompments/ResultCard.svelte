@@ -3,22 +3,21 @@
 	import type { DatasetInfo, ModelInfo } from '$lib/server/helpers/apiTypes'
 	export let info: DatasetInfo | ModelInfo
 	// Model | Dataset
-	const { author, repoId , outputFeatures, downloads, likes, createdAt } = info
-
+	const { author, repoId, outputFeatures, downloads, likes, createdAt } = info
 </script>
 
 <div class="wrapper">
-	<section class="flex justify-between items-center">
+	<section class="flex justify-between items-center h-36">
 		<aside class="">
 			<h1>{repoId}</h1>
-			<p class="opacity-30">by {author}</p>
+			<p class="opacity-30">by {author ? author : 'unknown'}</p>
 		</aside>
 
 		<button class="btn-md variant-outline rounded-md border-2 border-blue-500">Add Dataset</button>
 	</section>
 	<section class="flex gap-1 text-sm">
 		{#each outputFeatures as feature}
-			
+			{feature.label}
 		{/each}
 	</section>
 

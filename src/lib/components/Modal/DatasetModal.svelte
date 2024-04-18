@@ -22,12 +22,14 @@
 		})
 
 		console.log(results)
+
+		isSearching = false
+		searchTerm = ''
 	}
 
 	const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
 	// arr of obj, pass into result card
-
 </script>
 
 <div class="wrapper">
@@ -59,9 +61,15 @@
 	</form>
 
 	<section class="results">
-		{#each results as result}
-			<ResultCard info={result} />
-		{/each}
+		{#if isSearching}
+			<p>Searching...</p>
+		{:else}
+			<aside class="h-fit grid grid-cols-1 lg:grid-cols-2 gap-4">
+				{#each results as result}
+					<ResultCard info={result} />
+				{/each}
+			</aside>
+		{/if}
 	</section>
 </div>
 
@@ -71,11 +79,11 @@
 	}
 
 	.wrapper {
-		@apply flex flex-col items-center justify-center gap-5;
-		@apply min-w-[1200px] min-h-[30rem] w-5/6 bg-slate-100 p-7 rounded-md border-slate-700 border-4;
+		@apply flex flex-col justify-center gap-5;
+		@apply min-w-[30rem] h-[40rem] w-5/6 bg-slate-100 p-12 rounded-md;
 	}
 
 	.results {
-		@apply grid grid-cols-1 lg:grid-cols-2 gap-4 max-h-[32rem] w-full overflow-y-auto;
+		@apply h-[32rem] w-full overflow-y-auto;
 	}
 </style>
