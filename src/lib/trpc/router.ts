@@ -9,10 +9,12 @@ import type { Graph as APIGraph, Node as APINode, Edge as APIEdge, DatasetInfo, 
 import { createEdge } from '$lib/server/api/upsert/edge';
 import { createModelNode } from '$lib/server/api/upsert/model';
 import { createDatasetNode } from '$lib/server/api/upsert/dataset';
+import { db } from '$lib/server/db';
+import { node } from '$lib/server/db/schema';
 
 export const t = initTRPC.context<Context>().create();
 
-export const graph = t.router({
+export const graphs = t.router({
   testGraph: t.procedure
     .query(async () => {
       let x: APIGraph = await fetchTestGraph()
@@ -31,7 +33,7 @@ export const graph = t.router({
   //new Graph
 })
 
-export const node = t.router({
+export const nodes = t.router({
   searchForDatasets: t.procedure
     .input(z.object({
       query: z.string(),
@@ -84,6 +86,12 @@ export const node = t.router({
 
       return x
     }),
+
+  deleteDatasetNode: t.procedure
+  .input(z.string())
+  .mutation(async ({ input }) => {
+    await db.delete(node)
+  })
 })
 
 export const edge = t.router({
@@ -110,8 +118,8 @@ export const edge = t.router({
 
 export const router = t.router({
 
-  graph,
-  node
+  graphs,
+  nodes
 
 });
 

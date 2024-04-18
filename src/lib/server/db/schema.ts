@@ -37,7 +37,7 @@ export const session = pgTable('session', {
     id: text("id").primaryKey(),
     userId: text("user_id")
         .notNull()
-        .references(() => user.id),
+        .references(() => user.id, { onDelete: "cascade" }),
     expiresAt: timestamp("expires_at", {
         withTimezone: true,
         mode: "date"
@@ -56,7 +56,7 @@ export const sessionRelations = relations(session, ({ one }) => ({
 
 export const graph = pgTable('graph', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
-    authorId: text('author_id').notNull().references(() => user.id),
+    authorId: text('author_id').notNull().references(() => user.id, { onDelete: "cascade" }),
     likes: integer('likes').notNull(),
     forks: integer('forks').notNull(),
     name: text('name').notNull(),
@@ -79,7 +79,7 @@ export const node = pgTable('node', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
     repoId: text('repo_id').notNull(),
     displayName: text('display_name').notNull(),
-    parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id),
+    parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id, { onDelete: "cascade" }),
     type: nodeTypeEnum('node_type').notNull(),
     posX: doublePrecision('pos_x').notNull(),
     posY: doublePrecision('pos_y').notNull(),
@@ -102,7 +102,8 @@ export const nodesRelations = relations(node, ({ many, one }) => ({
 export const inFeature = pgTable('in_feature', {
     id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
 
-    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id,
+        { onDelete: "cascade" }),
 
     isSelected: boolean('is_selected').notNull(),
     label: text('label').notNull(),
@@ -125,7 +126,7 @@ export const inFeatureRelations = relations(inFeature, ({ one }) => ({
 
 export const outFeature = pgTable('out_feature', {
     id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
-    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id),
+    parentNodeId: uuid('parent_node_id').notNull().references(() => node.id, { onDelete: "cascade" }),
 
     isSelected: boolean('is_selected').notNull(),
     label: text('label').notNull(),
@@ -149,14 +150,14 @@ export const outFeatureRelations = relations(outFeature, ({ one }) => ({
 
 export const edge = pgTable('edge', {
     id: uuid('id').defaultRandom().unique().primaryKey().notNull(),
-    parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id),
+    parentGraphId: uuid('parent_graph_id').notNull().references(() => graph.id, { onDelete: "cascade" }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
 
-    sourceNodeId: uuid('source_node_id').notNull().references(() => node.id),
-    targetNodeId: uuid('target_node_id').notNull().references(() => node.id),
+    sourceNodeId: uuid('source_node_id').notNull().references(() => node.id, { onDelete: "cascade" }),
+    targetNodeId: uuid('target_node_id').notNull().references(() => node.id, { onDelete: "cascade" }),
 
-    sourceFeatureId: uuid('source_feature_id').notNull().references(() => outFeature.id),
-    targetFeatureId: uuid('target_feature_id').notNull().references(() => inFeature.id),
+    sourceFeatureId: uuid('source_feature_id').notNull().references(() => outFeature.id, { onDelete: "cascade" }),
+    targetFeatureId: uuid('target_feature_id').notNull().references(() => inFeature.id, { onDelete: "cascade" }),
 
 })
 
