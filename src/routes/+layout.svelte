@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.postcss'
-	import { Navbar, NewSidebar } from '$components/Navigation'
+	import { Navbar} from '$components/Navigation'
 
 	import { initializeStores } from '@skeletonlabs/skeleton'
 	import { AppShell } from '@skeletonlabs/skeleton'
@@ -11,6 +11,7 @@
 
 	import NewModel from '$components/Modal/NewModel.svelte'
 	import NewDataset from '$components/Modal/NewDataset.svelte'
+	import NewSidebar from '$components/Navigation/NewSidebar.svelte'
 	initializeStores()
 	const modalRegistry: Record<string, ModalComponent> = {
 		// Set unique modal ID, pass component reference
