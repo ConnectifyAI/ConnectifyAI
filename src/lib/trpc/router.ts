@@ -9,6 +9,17 @@ import type { Graph as APIGraph, DatasetInfo } from '$lib/server/helpers/apiType
 
 export const t = initTRPC.context<Context>().create();
 
+export const lol = t.router({
+  newSomething: t.procedure.
+    input(z.string()).query(async ({ input }) => {
+      await delay(500);
+      let x: APIGraph = await fetchTestGraph()
+
+      return x
+    }),
+})
+
+
 export const router = t.router({
   greeting: t.procedure.query(async () => {
     await delay(500); // 👈 simulate an expensive operation
@@ -31,9 +42,12 @@ export const router = t.router({
       return x
 
     }),
+  lol
 
 
 });
+
+
 
 export const createCaller = t.createCallerFactory(router);
 

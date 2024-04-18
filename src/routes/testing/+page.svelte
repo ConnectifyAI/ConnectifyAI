@@ -7,6 +7,7 @@
 
 	let testLol: RouterOutputs['something'] = []
 	let lmfao: RouterOutputs['searchForDatasets'] = []
+	let newLol: RouterOutputs['lol']['newSomething'] = []
 
 	const testTRPC = async () => {
 		console.log('running')
@@ -16,6 +17,10 @@
 			query: 'bert',
 			take: 100
 		})
+
+		newLol = await trpc().lol.newSomething.query('bert')
+		console.log("new lol", newLol)
+
 		console.log(lmfao)
 	}
 </script>
