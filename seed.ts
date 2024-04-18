@@ -12,8 +12,7 @@ async function seed() {
 	//
 
 	if (!connectionString) {
-		// throw new Error("No connection string")
-		connectionString = "postgres://postgres.ekddqrevhkpjazoflntv:Z12CVBlpvCOW7EEt@aws-0-us-west-1.pooler.supabase.com:5432/postgres"
+		throw new Error("No connection string")
 	}
 
 	const client = postgres(connectionString, { prepare: false })
@@ -42,7 +41,6 @@ async function seed() {
 		posY: 300,
 	}
 
-
 	let returnedNode1 = await db.insert(node).values(node1).returning()
 
 	let node1Id = returnedNode1[0].id
@@ -59,107 +57,90 @@ async function seed() {
 	}
 
 	let returnedNode2 = await db.insert(node).values(node2).returning()
-
 	let node2Id = returnedNode2[0].id
+
 	console.log("inserted", returnedNode2)
 
-
-	const inFeature1 = {
-		parentNodeId: node2Id,
-		isSelected: true,
-		label: "cool export",
-		dtype: "text"
+	const node3 = {
+		repoId: "alb123/midModel",
+		displayName: "cringe model",
+		parentGraphId: graphId,
+		type: 'modelNode' as NodeType,
+		posX: 400,
+		posY: 200,
 	}
 
+	let returnedNode3 = await db.insert(node).values(node2).returning()
+	let node3Id = returnedNode3[0].id
 
-	const returningInFeature1 = await db.insert(inFeature).values(inFeature1).returning()
+	console.log("inserted", returnedNode3)
 
-	const inFeature1Id = returningInFeature1[0].id
 
-	console.log("inserted", returningInFeature1)
-
-	const inFeature2 = {
-		parentNodeId: node2Id,
-
-		isSelected: true,
-		label: "notLabel",
-		dtype: "number"
-	}
-
-	const returningInFeature2 = await db.insert(inFeature).values(inFeature2).returning()
-
-	const inFeature2Id = returningInFeature2[0].id
-
-	console.log("inserted", returningInFeature2)
-
-	const outFeature1 = {
-		isSelected: true,
+	const outFeatureDS1 = await db.insert(outFeature).values({
 		parentNodeId: node1Id,
-		label: "absorb",
-		dtype: "text"
-	}
-
-	const returningOutFeature1 = await db.insert(outFeature).values(outFeature1).returning()
-
-	const outFeature1Id = returningOutFeature1[0].id
-
-	console.log("inserted", returningOutFeature1)
-
-	const outFeature2 = {
-		isSelected: true,
-		parentNodeId: node1Id,
-		label: "interestng Label",
-		dtype: "number"
-	}
-
-	const returningOutFeature2 = await db.insert(outFeature).values(outFeature2).returning()
-
-	const outFeature2Id = returningOutFeature2[0].id
-
-	console.log("inserted", returningOutFeature2)
-
-	const outFeature3 = {
 		isSelected: false,
+		label: "cool data",
+		dtype: "string",
+	}).returning()
+
+
+	const outFeatureDS2 = await db.insert(outFeature).values({
 		parentNodeId: node1Id,
-		label: "lame",
-		dtype: "text"
-	}
+		isSelected: false,
+		label: "some data",
+		dtype: "string",
+	}).returning()
 
-	const returningOutFeature3 = await db.insert(outFeature).values(outFeature3).returning()
+	const outFeatureN1_1 = await db.insert(outFeature).values({
+		parentNodeId: node2Id,
+		isSelected: false,
+		label: "lol",
+		dtype: "string",
+	})
 
-	const outFeature3Id = returningOutFeature3[0].id
+	const outFeatureN1_2 = await db.insert(outFeature).values({
+		parentNodeId: node2Id,
+		isSelected: false,
+		label: "lol1",
+		dtype: "string",
+	})
 
-	console.log("inserted", returningOutFeature3)
+	const outFeatureN1_3 = await db.insert(outFeature).values({
+		parentNodeId: node2Id,
+		isSelected: false,
+		label: "lol2",
+		dtype: "string",
+	})
 
-	const edge1 = {
-		parentGraphId: graphId,
-
-		sourceNodeId: node1Id,
-		targetNodeId: node2Id,
-
-
-		sourceFeatureId: outFeature1Id,
-		targetFeatureId: inFeature1Id,
-	}
-
-	const returningEdge1 = await db.insert(edge).values(edge1).returning()
-
-	console.log("inserted", returningEdge1)
-
-	const edge2 = {
-		parentGraphId: graphId,
-
-		sourceNodeId: node1Id,
-		targetNodeId: node2Id,
+	const inFeatureN1_1 = await db.insert(inFeature).values({
+		parentNodeId: node2Id,
+		isSelected: false,
+		label: "something",
+		dtype: "string"
+	})
 
 
-		sourceFeatureId: outFeature2Id,
-		targetFeatureId: inFeature2Id,
-	}
+	const inFeatureN1_2 = await db.insert(inFeature).values({
+		parentNodeId: node3Id,
+		isSelected: false,
+		label: "something1",
+		dtype: "string"
+	})
 
-	const returningEdge2 = await db.insert(edge).values(edge2).returning()
+	const inFeatureN2_1 = await db.insert(inFeature).values({
+		parentNodeId: node3Id,
+		isSelected: false,
+		label: "lmfao",
+		dtype: "string"
+	})
 
-	console.log("inserted", returningEdge2)
+
+	const inFeatureN2_2 = await db.insert(inFeature).values({
+		parentNodeId: node3Id,
+		isSelected: false,
+		label: "lmfao1",
+		dtype: "string"
+	})
 
 	exit(0)
 

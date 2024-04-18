@@ -1,22 +1,23 @@
 <script lang="ts">
+	import { nodes, edges } from '$stores/graph'
 	import ResultCard from '$components/Modal/SubCompments/ResultCard.svelte'
 	import Filter from '$components/Modal/SubCompments/Filter.svelte'
 	import Dropdown from '$components/Community/Dropdown.svelte'
 	import type { RouterOutputs } from '$lib/trpc/router'
 	import { trpc } from '$lib/trpc/client'
+	import { getModalStore } from '@skeletonlabs/skeleton'
 
 	export let parent: any
 	console.log('parent', parent)
-	const type = 'dataset'
 
 	let searchTerm = ''
 	let isSearching = false
 
-	let results: RouterOutputs['node']['searchForDatasets'] = []
+	let results: RouterOutputs['nodes']['searchForDatasets'] = []
 
 	async function search(term: string) {
 		console.log('searching', term)
-		results = await trpc().node.searchForDatasets.query({
+		results = await trpc().nodes.searchForDatasets.query({
 			query: searchTerm,
 			take: 100
 		})
@@ -24,12 +25,12 @@
 		console.log(results)
 
 		isSearching = false
-		searchTerm = ''
 	}
 
-	const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+	let modalStore = getModalStore()
+	const nodeId = $modalStore[0].meta.nodeId
 
-	// arr of obj, pass into result card
+	console.log('nodes', $nodes)
 </script>
 
 <div class="wrapper">
@@ -38,8 +39,8 @@
 	<form
 		on:submit={() => {
 			search(searchTerm)
-			searchTerm = 'Searching...'
 			isSearching = true
+			searchTerm = ''
 		}}
 		class="flex gap-3 h-12 w-full"
 	>
@@ -66,7 +67,7 @@
 		{:else}
 			<aside class="h-fit grid grid-cols-1 lg:grid-cols-2 gap-4">
 				{#each results as result}
-					<ResultCard info={result} />
+					<ResultCard info={result} {nodeId} nodeType="datasetNode" />
 				{/each}
 			</aside>
 		{/if}

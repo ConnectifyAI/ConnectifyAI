@@ -2,11 +2,11 @@
 import { db } from "$lib/server/db"
 import { graph } from "$lib/server/db/schema"
 import { eq } from "drizzle-orm"
-import type { Graph as APIGraph } from "../apiTypes"
+import type { Graph as APIGraph } from "../../helpers/apiTypes"
 import { convertGraph } from "$lib/server/helpers/convert"
 
 export const fetchTestGraph = async (): Promise<APIGraph> => {
-    const testGraphId = "0d075d47-5720-479f-8c23-3087d9de6fa1"
+    const testGraphId = "3dc898c0-a8f5-490b-bec4-72a9eece676a"
 
     const testGraph = await db.query.graph.findFirst({
 
