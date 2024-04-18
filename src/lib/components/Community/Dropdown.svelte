@@ -1,13 +1,12 @@
 <script lang="ts">
-	export let contents: Array<string>;
-	export let title: string;
+	export let contents: Array<string>
+	export let title: string
 </script>
 
 <form method="GET" action="/login">
 	<div class="flex space-x-4 items-center">
-		<h1>{title}:</h1>
-		<select name={title} id={title} class="rounded-lg outline-gris">
-			<option>select</option>
+		<select name={title} id={title} class="rounded-lg outline-gris w-32 h-16">
+			<option>{title}</option>
 			{#each contents as value}
 				<option {value} class="text-gris font-dmMono">{value}</option>
 			{/each}

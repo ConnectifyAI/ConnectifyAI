@@ -7,6 +7,7 @@
 	import { Modal, getModalStore, initializeStores } from '@skeletonlabs/skeleton'
 	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton'
 	import { ModelModal, DatasetModal } from '$components/Modal'
+	import Search from '$lib/components/Community/Search.svelte'
 
 	initializeStores()
 	const modalRegistry: Record<string, ModalComponent> = {
