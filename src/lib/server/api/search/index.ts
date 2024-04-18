@@ -58,6 +58,10 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
             ...dataset
         }
 
+        if (cleanDataset.outputFeatures.length > 6) {
+            continue
+            
+        } 
         cleaned.push(cleanDataset)
     }
 
