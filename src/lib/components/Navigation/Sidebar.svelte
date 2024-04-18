@@ -1,103 +1,50 @@
+
 <script lang="ts">
-	import { AppRail, AppRailTile, AppRailAnchor } from '@skeletonlabs/skeleton'
-	import { Zap, Users, Settings, MoveHorizontal } from 'lucide-svelte'
-
-	//NOTE: surely theres a better way to do this
-	let tag1: boolean = false
-	let tag2: boolean = true
-	let tag3: boolean = false
-	let abc: string = 'w-32'
-	let flipflop: boolean = true
+	import { Zap, Users, Settings } from 'lucide-svelte'
+	import { page } from '$app/stores'
+	$: url = $page.url.pathname
 	let visblity: string = 'hidden'
-
-	function change(x: string) {
-		if (x == 'tag1') {
-			tag1 = true
-			tag2 = false
-			tag3 = false
-		}
-		if (x == 'tag2') {
-			tag1 = false
-			tag2 = true
-			tag3 = false
-		}
-		if (x == 'tag3') {
-			tag1 = false
-			tag2 = false
-			tag3 = true
-		}
-	}
-
 	function minimize() {
-		abc = 'w-32'
-		flipflop = false
 		visblity = 'hidden'
 	}
 
 	function maxmize() {
-		abc = 'w-52'
-		flipflop = true
 		visblity = 'block'
 	}
+
+	console.log('what the hale')
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div on:mouseenter={maxmize} on:mouseleave={minimize}>
-	<!-- <div> -->
-	<AppRail
-		width={abc}
-		spacing="space-y-1"
-		aspectRatio="aspect-[8/3]"
-		class=" bg-slate-100 h-screen"
-		active="bg-blue-500 hover text-white"
-		shadow="shadow-md"
-		border="border-r "
-		hover=""
+<div class="flex-col h-full overflow-hidden ">
+	<div
+		class="w-28 h-full transition-width duration-300 hover:w-52 bg-slate-100"
+		on:mouseenter={maxmize}
+		on:mouseleave={minimize}
 	>
-		<AppRailAnchor
-			href="/canvas-test"
-			title="Create"
-			selected={tag1}
-			on:click={() => {
-				change('tag1')
-			}}
-		>
-			<svelte:fragment slot="lead">
-				<div class="flex space-x-3">
-					<Zap />
-					<span class={visblity}>Create</span>
-				</div>
-			</svelte:fragment>
-		</AppRailAnchor>
-		<AppRailAnchor
-			href="/community"
-			title="Communtiy"
-			selected={tag2}
-			on:click={() => {
-				change('tag2')
-			}}
-		>
-			<svelte:fragment slot="lead">
-				<div class="flex space-x-3">
-					<Users />
-					<span class={visblity}>Communtiy</span>
-				</div>
-			</svelte:fragment>
-		</AppRailAnchor>
-		<AppRailAnchor
-			href="/auth/account"
-			title="Account"
-			selected={tag3}
-			on:click={() => {
-				change('tag3')
-			}}
-		>
-			<svelte:fragment slot="lead">
-				<div class="flex space-x-3">
-					<Settings />
-					<span class={visblity}>Account</span>
-				</div>
-			</svelte:fragment>
-		</AppRailAnchor>
-	</AppRail>
+		<a href="/canvas-test" class={url === '/canvas-test' ? 'lit' : ''}>
+			<Zap />
+			<h1 class={visblity}>Create</h1>
+		</a>
+
+		<a href="/community" class={$page.url.pathname === '/community' ? 'lit' : ''}>
+			<Users />
+			<h1 class={visblity}>Community</h1>
+		</a>
+
+		<a href="/auth/account" class={url === '/auth/account' ? 'lit' : ''}>
+			<Settings />
+			<h1 class={visblity}>Account</h1>
+		</a>
+	</div>
 </div>
+
+<style>
+	.lit {
+		@apply bg-blue-100 border-blue-500 border-2;
+	}
+
+	a {
+		@apply flex justify-center items-center gap-2 text-base p-7 m-2 border-b border-2 rounded-md font-normal shadow-blue-300 shadow-md active:translate-y-1 active:shadow-none;
+	}
+</style>

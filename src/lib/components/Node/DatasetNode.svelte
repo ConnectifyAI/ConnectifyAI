@@ -13,7 +13,11 @@
 		type: 'component',
 		component: 'datasetModal',
 
+<<<<<<< HEAD
 		backdropClasses: '!bg-slate-800/50',
+=======
+		backdropClasses: '!bg-slate-300 !bg',
+>>>>>>> 239fcb5fa2c0f4f0527e33a20f022f2cf7ea0b57
 		// modalClasses: '!bg-red-500',
 		response: (r) => console.log('response:', r)
 	}

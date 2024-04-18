@@ -1,12 +1,13 @@
 <script lang="ts">
 	import '../app.postcss'
-	import { Navbar, NewSidebar } from '$components/Navigation'
+	import { Navbar, Sidebar } from '$components/Navigation'
 	import { AppShell } from '@skeletonlabs/skeleton'
 
 	// MODAL
 	import { Modal, getModalStore, initializeStores } from '@skeletonlabs/skeleton'
 	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton'
 	import { ModelModal, DatasetModal } from '$components/Modal'
+	import Search from '$lib/components/Community/Search.svelte'
 
 	initializeStores()
 	const modalRegistry: Record<string, ModalComponent> = {
@@ -16,7 +17,7 @@
 	}
 </script>
 
-<Modal components={modalRegistry} background="bg-purple-500" />
+<Modal components={modalRegistry}/>
 
 <AppShell>
 	<svelte:fragment slot="header">
@@ -24,7 +25,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="sidebarLeft">
-		<NewSidebar />
+		<Sidebar />
 	</svelte:fragment>
 
 	<slot />

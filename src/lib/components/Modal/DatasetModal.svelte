@@ -1,9 +1,9 @@
 <script lang="ts">
 	import ResultCard from '$components/Modal/SubCompments/ResultCard.svelte'
+	import Search from '$components/Community/Search.svelte'
 
 	export let parent: any
 	console.log('parent', parent)
-
 	const type = 'dataset'
 
 	const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
@@ -21,7 +21,7 @@
 <div class="wrapper">
 	<!-- search bar goes here -->
 	<input type="text" class="w-96 rounded-md" />
-
+	<Search />
 	<section class="results">
 		{#each arr as _}
 			<ResultCard info={obj} />
