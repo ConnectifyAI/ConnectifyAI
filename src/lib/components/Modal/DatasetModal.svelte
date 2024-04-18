@@ -1,7 +1,9 @@
 <script lang="ts">
 	import ResultCard from '$components/Modal/SubCompments/ResultCard.svelte'
-	import Filter from '$components/Modal/SubCompments/Filter.svelte';
-	import Dropdown from '$components/Community/Dropdown.svelte';
+	import Filter from '$components/Modal/SubCompments/Filter.svelte'
+	import Dropdown from '$components/Community/Dropdown.svelte'
+	import type { RouterOutputs } from '$lib/trpc/router'
+	import { trpc } from '$lib/trpc/client'
 
 	export let parent: any
 	console.log('parent', parent)
@@ -10,8 +12,16 @@
 	let searchTerm = ''
 	let isSearching = false
 
-	function search(term: string) {
+	let results: RouterOutputs['node']['searchForDatasets'] = []
+
+	async function search(term: string) {
 		console.log('searching', term)
+		results = await trpc().node.searchForDatasets.query({
+			query: searchTerm,
+			take: 30
+		})
+
+		console.log(results)
 	}
 
 	const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
