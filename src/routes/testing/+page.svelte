@@ -5,30 +5,31 @@
 
 	export let data
 
-	let testLol: RouterOutputs['something'] = []
-	let lmfao: RouterOutputs['searchForDatasets'] = []
-	let newLol: RouterOutputs['lol']['newSomething'] = []
+	let query = ''
+
+	let testGraph: RouterOutputs['graph']['testGraph'] = []
+	let models: RouterOutputs['node']['searchForModels'] = []
 
 	const testTRPC = async () => {
 		console.log('running')
-		testLol = await trpc().something.query('hello')
-		console.log(testLol)
-		lmfao = await trpc().searchForDatasets.query({
-			query: 'bert',
-			take: 100
+		testGraph = await trpc().graph.testGraph.query()
+		console.log(testGraph)
+	}
+
+	const search = async () => {
+		console.log('running')
+		models = await trpc().node.searchForModels.query({
+			query
 		})
-
-		newLol = await trpc().lol.newSomething.query('bert')
-		console.log("new lol", newLol)
-
-		console.log(lmfao)
+		console.log(models)
 	}
 </script>
 
-<form method="POST" action="?/search">
+<form on:submit={search}>
 	<label>
 		query from db
-		<input name="query" />
+		<input type="checkbox" checked={false} />
+		<input name="query" bind:value={query} />
 	</label>
 	<button> send query </button>
 </form>

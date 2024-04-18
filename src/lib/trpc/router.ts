@@ -1,49 +1,79 @@
-import { fetchTestGraph } from '$lib/server/api/fetch';
+import { fetchGraphById, fetchTestGraph } from '$lib/server/api/fetch';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
-import { searchDatasets } from '$lib/server/api/search';
+import { searchDatasets, searchModels } from '$lib/server/api/search';
 import type { Context } from '$lib/trpc/context';
 import { initTRPC } from '@trpc/server';
 import delay from 'delay';
 import { z } from 'zod';
-import type { Graph as APIGraph, DatasetInfo } from '$lib/server/helpers/apiTypes';
+import type { Graph as APIGraph, DatasetInfo, ModelInfo } from '$lib/server/helpers/apiTypes';
+import { createEdge } from '$lib/server/api/upsert/edge';
 
 export const t = initTRPC.context<Context>().create();
 
-export const lol = t.router({
-  newSomething: t.procedure.
-    input(z.string()).query(async ({ input }) => {
-      await delay(500);
+export const graph = t.router({
+  testGraph: t.procedure
+    .query(async () => {
       let x: APIGraph = await fetchTestGraph()
 
+      return x
+    }),
+  graphById: t.procedure
+    .input(z.object({
+      graphId: z.string()
+    })).query(async ({ input }) => {
+      let x: APIGraph = await fetchGraphById(input.graphId)
+
+      return x
+
+    })
+  //new Graph
+})
+
+export const node = t.router({
+  searchForDatasets: t.procedure
+    .input(z.object({
+      query: z.string(),
+      take: z.number().optional().default(30)
+    })).query(async ({ input }) => {
+      let x: DatasetInfo[] = await searchDatasets(input.query, input.take)
+      return x
+    }),
+
+  searchForModels: t.procedure
+    .input(z.object({
+      query: z.string(),
+      take: z.number().optional().default(30)
+    })).query(async ({ input }) => {
+      let x: ModelInfo[] = await searchModels(input.query, input.take)
       return x
     }),
 })
 
+export const edge = t.router({
+  newEdge: t.procedure
+    .input(z.object({
+    //TODO: im way too lazy to zod type these, can just do this later
+      sourceNode: z.any(),
+      targetNode: z.any(),
+      sourceFeature: z.any(),
+      targetFeature: z.any(),
+      graphId: z.any()
+
+    })).mutation(async ({ input }) => {
+
+      let x = await createEdge(input.sourceNode, input.targetNode, input.sourceFeature, input.targetFeature, input.graphId)
+      
+      return x;
+    })
+})
+
+
+
 
 export const router = t.router({
-  greeting: t.procedure.query(async () => {
-    await delay(500); // 👈 simulate an expensive operation
-    return `Hello tRPC v11 @ ${new Date().toLocaleTimeString()}`;
-  }),
-  something: t.procedure.
-    input(z.string()).query(async ({ input }) => {
-      await delay(500);
-      let x: APIGraph = await fetchTestGraph()
 
-      return x
-    }),
-  searchForDatasets: t.procedure
-    .input(z.object({
-      query: z.string(),
-      take: z.number()
-    })).query(async ({ input }) => {
-      let x: DatasetInfo[] = await searchDatasets(input.query, input.take)
-
-      return x
-
-    }),
-  lol
-
+  graph,
+  node
 
 });
 
