@@ -1,7 +1,6 @@
 <script lang="ts">
 	// @ts-nocheck
-	import { Database, Plus } from 'lucide-svelte'
-	import { onMount } from 'svelte'
+	import { Database, Plus, Trash } from 'lucide-svelte'
 	import { Handle, Position } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
@@ -61,17 +60,25 @@
 		<Handle type="source" position={Position.Right} />
 	{/if}
 {:else}
-	<button
-		class="flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md"
-		on:click={openDatasetModal}
-	>
-		<Plus size={23} />
-		Add Dataset Here
-	</button>
+	<aside class="flex">
+		<button on:click={openDatasetModal}>
+			<Plus size={23} />
+			Add Dataset Here
+		</button>
+		<Trash
+			size={32}
+			class="bg-slate-50 p-1 rounded-md border-red-500 border-2"
+			on:click={() => console.log('delete this node')}
+		/>
+	</aside>
 {/if}
 
 <style>
 	.wrapper {
 		@apply bg-[#eee] p-5 rounded-md w-[26rem] min-h-20;
+	}
+
+	button {
+		@apply flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md border-green-500 border-2;
 	}
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	// @ts-nocheck
-	import { Boxes, Plus } from 'lucide-svelte'
+	import { Boxes, Plus, Trash } from 'lucide-svelte'
 	import Accordion from '$components/Node/Accordion.svelte'
 
 	import { Handle, Position, useNodesData } from '@xyflow/svelte'
@@ -50,32 +50,22 @@
 
 		<Accordion featuresType="Outputs" features={outFeatures} featuresLen={outFeaturesLen} />
 	</div>
-
-	<!-- {#if !inputsOpen}
-		<Handle
-			type="target"
-			position={Position.Left}
-			onconnect={(e) => {
-				console.log('.', e)
-			}}
-		/>
-	{/if}
-
-	{#if !outputsOpen}
-		<Handle type="source" position={Position.Right} />
-	{/if} -->
 {:else}
-	<button
-		class="flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md"
-		on:click={() => console.log('open modal')}
-	>
-		<Plus size={23} />
-		Add Model Here
-	</button>
+	<aside class="flex">
+		<button on:click={() => console.log('open modal')}>
+			<Plus size={23} />
+			Add Model Here
+		</button>
+		<Trash size={32} class="bg-slate-50 p-1 rounded-md border-red-500 border-2" />
+	</aside>
 {/if}
 
 <style>
 	.wrapper {
 		@apply bg-[#eee] p-5 rounded-md w-[26rem] min-h-20;
+	}
+
+	button {
+		@apply flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md border-blue-500 border-2;
 	}
 </style>
