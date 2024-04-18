@@ -58,7 +58,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="flex-col h-full border border-black">
+<div class="flex-col h-full border border-black overflow-hidden">
 	<div
 		class="w-28 h-full transition-width duration-300 hover:w-52 bg-slate-100"
 		on:mouseenter={maxmize}
