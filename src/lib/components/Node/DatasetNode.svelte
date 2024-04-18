@@ -1,12 +1,39 @@
 <script lang="ts">
 	// @ts-nocheck
-	import { Database, Plus } from 'lucide-svelte'
-	import { onMount } from 'svelte'
+	import { Database, Plus, Trash } from 'lucide-svelte'
+	import { Handle, Position, type Position } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
-	import { Handle, Position } from '@xyflow/svelte'
+	import { getModalStore } from '@skeletonlabs/skeleton'
+
+	import { deleteNode } from '$stores/graph'
+
+	const modalStore = getModalStore()
+
+	const modal: ModalSettings = {
+		type: 'component',
+		component: 'datasetModal',
+
+		backdropClasses: '!bg-slate-800/50',
+		// modalClasses: '!bg-red-500',
+		response: (r) => console.log('response:', r)
+	}
+
+	const openDatasetModal = () => {
+		modalStore.trigger(modal)
+	}
+
+	// const modal: ModalSettings = {
+	// 	// Provide arbitrary metadata to your modal instance:
+	// 	meta: { foo: 'bar', fizz: 'buzz', fn: myCustomFunction }
+	// }
 
 	export let data: DatasetNodeData
+	export let id: string
+	export let position: any
+	export let type: any
+	$: pos = position
+	console.log('DatasetNode', data, id, pos, type)
 
 	let outputsOpen = true
 	let repoName, author, outFeatures, outFeaturesLen, displayName
@@ -17,12 +44,6 @@
 		outFeatures = data?.outFeatures
 		outFeaturesLen = outFeatures ? outFeatures.length : 0
 	}
-
-	onMount(() => {
-		if (data) {
-			displayName = data.id
-		}
-	})
 </script>
 
 <!-- IF NODE INTIALIZED -->
@@ -46,17 +67,33 @@
 		<Handle type="source" position={Position.Right} />
 	{/if}
 {:else}
-	<button
-		class="flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md"
-		on:click={() => console.log('open modal')}
-	>
-		<Plus size={23} />
-		Add Dataset Here
-	</button>
+	<aside class="flex">
+		<button on:click={openDatasetModal}>
+			<Plus size={23} />
+			Add Dataset Here
+		</button>
+		<button on:click={() => deleteNode(id)} class="reset">
+			<Trash size={32} class="bg-slate-50 p-1 rounded-md border-red-500 border-2" />
+		</button>
+	</aside>
 {/if}
 
 <style>
 	.wrapper {
 		@apply bg-[#eee] p-5 rounded-md w-[26rem] min-h-20;
+	}
+
+	button {
+		@apply flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md border-green-500 border-2;
+	}
+
+	.reset {
+		background: none;
+		color: inherit;
+		border: none;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
+		outline: inherit;
 	}
 </style>

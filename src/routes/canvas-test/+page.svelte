@@ -1,6 +1,6 @@
 <script lang="ts">
 	// @ts-nocheck
-	import { writable } from 'svelte/store';
+	import { writable } from 'svelte/store'
 	import '@xyflow/svelte/dist/style.css'
 	import { SvelteFlow, Controls, Background, useSvelteFlow, Panel, type Node } from '@xyflow/svelte'
 	import Toolbar from '$components/Toolbar/Toolbar.svelte'
@@ -12,18 +12,18 @@
 		onDragOver,
 		bgColor
 	} from '$routes/canvas-test/Dataset'
+	import { nodes, edges } from '$stores/graph'
 
 	export let data
-	
-	const nodes = writable<Node[]>(data.graph.nodes)
-	const edges = writable<Edge[]>(data.graph.edges)
+
+	nodes.set(data.graph.nodes)
+	edges.set(data.graph.edges)
+
 	// $: console.log('data', data.graph.nodes)
-	$: console.log('edges', data.graph.edges)
+	// $: console.log('edges', data.graph.edges)
 
 	// export let form;
 	// $: console.log(form);
-
-	let nodeText = ''
 
 	// drag and drop functionality
 	const { screenToFlowPosition } = useSvelteFlow()
@@ -53,6 +53,13 @@
 		$nodes.push(newNode)
 		$nodes = $nodes
 	}
+
+	// // context menu, if needed
+	// on:nodecontextmenu={handleContextMenu}
+	// function handleContextMenu({ detail: { event, node } }) {
+	// 	event.preventDefault()
+	// 	console.log('main: node context menu', event)
+	// }
 </script>
 
 <SvelteFlow
@@ -74,7 +81,6 @@
 	</Panel>
 	<Controls />
 </SvelteFlow>
-
 
 <!-- <Panel>
 		<form

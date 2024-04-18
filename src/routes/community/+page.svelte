@@ -1,4 +1,3 @@
-<!-- Page where Communtiy is going for now -->
 <script lang="ts">
 	import { Card, DatasetCard, Dropdown } from '$components/Community';
 	import { ChevronDown } from 'lucide-svelte';
@@ -6,7 +5,7 @@
 </script>
 
 <div class="h-full w-full">
-	<div class="h-1/4 w-full border-b px-20 flex-col justify-center py-8">
+	<div class="h-1/4 w-full border-b px-10 flex-col justify-center py-8">
 		<div class="flex">
 			<div class="flex font-dmMono text-[27px]">
 				<h1>Discover</h1>
@@ -28,21 +27,7 @@
 		</div>
 	</div>
 	
-	<div class="h-3/4 w-full flex">
-		<div class="wrapper">
-			<Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
-			<Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
-			<Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
-		</div>
-		<div class="wrapper">
-			<DatasetCard author="albert" id="Chipolte" downloads="123" likes="123" />
-		</div>
-		<div class="wrapper">
-			<Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
-			<Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
-			<Card modelType="RAG" author="bert" name="cool AI model" in1="data" out="cool data" />
-		</div>
-	</div>
+
 </div>
 
 <style>

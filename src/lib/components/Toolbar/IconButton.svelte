@@ -20,7 +20,7 @@
 	draggable={true}
 	tabindex={0}
 >
-	<svelte:component this={icon} class="size-6" />
+	<svelte:component this={icon} class="size-7" />
 	<span>Add {type}</span>
 </button>
 

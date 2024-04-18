@@ -1,19 +1,11 @@
 <script lang="ts">
 	import { LucideGithub } from 'lucide-svelte'
 	import { ScrollText } from 'lucide-svelte'
-	import Login from '$lib/assets/Login.png'
+	import Login from '$lib/assets/new-login.png'
 </script>
 
-<!-- <div>
-	<button class="w-full">
-		<a href="/auth/login/github">
-			<LucideGithub />
-			Sign in with github
-		</a>
-	</button>
-</div> -->
 
-<div class="flex">
+<div class="flex" >
 	<div class="w-full flex-col">
 		<h1 class=" px-36 py-10 mt-48 text-8xl font-dmMono">
 			Welcome to <br />
@@ -41,6 +33,8 @@
 			</button>
 		</div>
 	</div>
-	<img src={Login} alt="plz work" class="border-white" />
+
+		<img src={Login} alt="plz work" />
+
 </div>
 
