@@ -2,31 +2,14 @@
 	// @ts-nocheck
 	import { slide } from 'svelte/transition'
 	import { ChevronDown, ChevronUp, MoveRight } from 'lucide-svelte'
-	import { nodes } from '$routes/canvas-test/Dataset'
-
 	import Feature from '$components/Node/Feature.svelte'
 
 	export let open = true
-	const handleClick = () => {
-		open = !open
-	}
+	const handleClick = () => (open = !open)
 
 	export let featuresType: 'Inputs' | 'Outputs'
 	export let features
 	export let featuresLen = 0
-
-	const toggleFeature = (e) => {
-		const c = e.detail.connection[0]
-		$nodes.forEach((node) => {
-			if (node.id === c.source) {
-				node.data.outFeatures.forEach((f) => {
-					if (f.label == c.sourceHandle) {
-						f.isSelected = e.detail.isSelected
-					}
-				})
-			}
-		})
-	}
 </script>
 
 <!-- TAKES INPUT / OUTPUT FEATURES -->
@@ -54,7 +37,6 @@
 						{feature}
 						relativePos={((index + 1) * 100) / (featuresLen + 1)}
 						featureType={featuresType === 'Inputs' ? 'Input' : 'Output'}
-						on:toggleFeature={toggleFeature}
 					/>
 				{/each}
 			{/if}
