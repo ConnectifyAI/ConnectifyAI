@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ResultCard from '$components/Modal/SubCompments/ResultCard.svelte'
-	import Search from '$components/Community/Search.svelte'
-	import { Dropdown } from '$components/Community'
+	import Filter from '$components/Modal/SubCompments/Filter.svelte';
+	import Dropdown from '$components/Community/Dropdown.svelte';
 
 	export let parent: any
 	console.log('parent', parent)
@@ -16,6 +16,7 @@
 
 	const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
+	// arr of obj, pass into result card
 	const obj = {
 		repoId: '123',
 		author: 'author',
@@ -45,10 +46,11 @@
 			disabled={isSearching}
 		/>
 
-		<Dropdown title="Input" contents={['asdfd', 'adfsdf']} />
-		<Dropdown title="Output" contents={['asdfd', 'adfsdf']} />
-		<Dropdown title="Function" contents={['asdfd', 'adfsdf']} />
-		<Dropdown title="Owner" contents={['asdfd', 'adfsdf']} />
+		<!-- <Filter /> -->
+		<Dropdown title="Input" contents={['opt 1', 'opt 2']} />
+		<Dropdown title="Output" contents={['opt 1', 'opt 2']} />
+		<Dropdown title="Function" contents={['opt 1', 'opt 2']} />
+		<Dropdown title="Owner" contents={['opt 1', 'opt 2']} />
 
 		<button type="submit"></button>
 	</form>

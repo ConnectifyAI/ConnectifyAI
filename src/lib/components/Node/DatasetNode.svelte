@@ -1,10 +1,12 @@
 <script lang="ts">
 	// @ts-nocheck
 	import { Database, Plus, Trash } from 'lucide-svelte'
-	import { Handle, Position } from '@xyflow/svelte'
+	import { Handle, Position, type Position } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
+
+	import { deleteNode } from '$stores/graph'
 
 	const modalStore = getModalStore()
 
@@ -27,6 +29,11 @@
 	// }
 
 	export let data: DatasetNodeData
+	export let id: string
+	export let position: any
+	export let type: any
+	$: pos = position
+	console.log('DatasetNode', data, id, pos, type)
 
 	let outputsOpen = true
 	let repoName, author, outFeatures, outFeaturesLen, displayName
@@ -65,11 +72,9 @@
 			<Plus size={23} />
 			Add Dataset Here
 		</button>
-		<Trash
-			size={32}
-			class="bg-slate-50 p-1 rounded-md border-red-500 border-2"
-			on:click={() => console.log('delete this node')}
-		/>
+		<button on:click={() => deleteNode(id)} class="reset">
+			<Trash size={32} class="bg-slate-50 p-1 rounded-md border-red-500 border-2" />
+		</button>
 	</aside>
 {/if}
 
@@ -80,5 +85,15 @@
 
 	button {
 		@apply flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md border-green-500 border-2;
+	}
+
+	.reset {
+		background: none;
+		color: inherit;
+		border: none;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
+		outline: inherit;
 	}
 </style>
