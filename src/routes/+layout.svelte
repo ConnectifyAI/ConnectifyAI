@@ -20,7 +20,7 @@
 	}
 </script>
 
-<Modal components={modalRegistry} />
+<Modal components={modalRegistry}/>
 
 <AppShell>
 	<svelte:fragment slot="header">
