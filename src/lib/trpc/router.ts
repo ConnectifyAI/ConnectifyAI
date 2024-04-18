@@ -98,7 +98,7 @@ export const edge = t.router({
 
     })).mutation(async ({ input }) => {
 
-      let x:APIEdge = await createEdge(input.sourceNode, input.targetNode, input.sourceFeature, input.targetFeature, input.graphId)
+      let x: APIEdge = await createEdge(input.sourceNode, input.targetNode, input.sourceFeature, input.targetFeature, input.graphId)
 
       return x;
 
