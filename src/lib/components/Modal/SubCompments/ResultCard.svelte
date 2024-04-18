@@ -7,24 +7,24 @@
 </script>
 
 <div class="wrapper">
-	<section class="flex max-w-[55rem] justify-between items-center">
-		<aside class="">
-			<h1 class="truncate text-sm max-w-80">{repoId}</h1>
-			<p class="opacity-30">by {author}</p>
+	<section class="flex gap-2 justify-between items-center h-fit py-2">
+		<aside class="overflow-auto overflow-x-scroll flex-1">
+			<h1>{repoId}</h1>
+			<p class="opacity-30 flex-auto">by {author ? author : 'unknown'}</p>
 		</aside>
 
-		<button class="btn-md variant-outline rounded-md border-2 border-blue-500">Add Dataset</button>
+		<button class="btn-md variant-outline rounded-md border-2 border-blue-500 h-12 w-40">Add Dataset</button>
 	</section>
-	<section class="flex gap-2 text-sm p-2 overflow-x-auto overflow-hidden">
+	<section class="flex gap-2 text-sm overflow-x-auto overflow-hidden">
 		{#each outputFeatures as feature}
-			<p class=" px-1 w-23 bg-slate-100 rounded-sm flex justify-center items-center text-[14px]">
-				{feature.label + ': ' + feature.dtype}
+			<p class="p-3 bg-slate-100 rounded-sm flex justify-center items-center text-sm">
+				{feature.label}
 			</p>
 		{/each}
 	</section>
 
 	<!-- stats -->
-	<section class="flex justify-between opacity-30">
+	<section class="flex justify-between opacity-30 py-2">
 		<aside class="flex justify-normal items-center gap-1">
 			<ThumbsUp size={20} />
 			{likes}
@@ -38,6 +38,6 @@
 
 <style>
 	.wrapper {
-		@apply w-full bg-slate-200 p-5 rounded-md flex flex-col justify-between;
+		@apply w-full h-44 bg-slate-200 px-5 py-2 rounded-md flex flex-col justify-between;
 	}
 </style>

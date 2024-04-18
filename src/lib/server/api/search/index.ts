@@ -26,16 +26,17 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
             continue
         }
 
+        //TODO: please fix man, its so sad
         try {
             for (const feature of features) {
                 if (feature.sequence && typeof feature.sequence !== 'string') {
                     throw new Error("yo this dataset is wack")
-                } else if(feature.sequence) {
+                } else if (feature.sequence) {
 
                     feature.dtype = feature.sequence
                     // feature.sequence = null
                 } else {
-                
+
                 }
 
                 if (feature.name) {
@@ -63,8 +64,8 @@ export async function searchDatasets(query: string, take: number): Promise<Datas
 
         if (cleanDataset.outputFeatures.length > 6) {
             continue
-            
-        } 
+
+        }
         cleaned.push(cleanDataset)
     }
 

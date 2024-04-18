@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Handle, Position, type Connection } from '@xyflow/svelte'
-	import { nodes } from '$routes/canvas-test/Dataset'
+	import { nodes } from '$routes/proc/canvas-test/Dataset'
 
 	export let feature: Feature
 	export let relativePos: number
