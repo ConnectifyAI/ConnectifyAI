@@ -22,6 +22,7 @@
 	edges.set(data.graph.edges)
 
 	// $: console.log('data', data.graph.nodes)
+
 	// $: console.log('edges', data.graph.edges)
 
 	// export let form;
@@ -50,7 +51,6 @@
 			data: { label: `${type} node` },
 			origin: [0.5, 0.0]
 		} satisfies Node
-		console.log(newNode)
 
 		$nodes.push(newNode)
 		$nodes = $nodes

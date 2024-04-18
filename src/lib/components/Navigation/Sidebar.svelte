@@ -22,12 +22,12 @@
 		on:mouseenter={maxmize}
 		on:mouseleave={minimize}
 	>
-		<a href="/canvas-test" class={url === '/canvas-test' ? 'lit' : ''}>
+		<a href="/proc/canvas-test" class={url === '/proc/canvas-test' ? 'lit' : ''}>
 			<Zap />
 			<h1 class={visblity}>Create</h1>
 		</a>
 
-		<a href="/community" class={$page.url.pathname === '/community' ? 'lit' : ''}>
+		<a href="/proc/community" class={$page.url.pathname === '/proc/community' ? 'lit' : ''}>
 			<Users />
 			<h1 class={visblity}>Community</h1>
 		</a>

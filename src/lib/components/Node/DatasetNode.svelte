@@ -10,19 +10,6 @@
 
 	const modalStore = getModalStore()
 
-	const modal: ModalSettings = {
-		type: 'component',
-		component: 'datasetModal',
-
-		backdropClasses: '!bg-slate-800/50',
-		// modalClasses: '!bg-red-500',
-		response: (r) => console.log('response:', r)
-	}
-
-	const openDatasetModal = () => {
-		modalStore.trigger(modal)
-	}
-
 	// const modal: ModalSettings = {
 	// 	// Provide arbitrary metadata to your modal instance:
 	// 	meta: { foo: 'bar', fizz: 'buzz', fn: myCustomFunction }
@@ -32,9 +19,31 @@
 	export let id: string
 	export let position: any
 	export let type: any
-	$: pos = position
-	console.log('DatasetNode', data, id, pos, type)
+	export let graphId: string;
 
+	$: pos = position
+
+	console.log('DatasetNode', data, id, pos, type)
+	console.log(pos)
+	console.log(position)
+
+	const modal: ModalSettings = {
+		type: 'component',
+		component: 'datasetModal',
+
+		backdropClasses: '!bg-slate-800/50',
+
+		meta: {
+			nodeId: id,
+			graphId: graphId
+		},
+		// modalClasses: '!bg-red-500',
+		response: (r) => console.log('response:', r)
+	}
+
+	const openDatasetModal = () => {
+		modalStore.trigger(modal)
+	}
 	let outputsOpen = true
 	let repoName, author, outFeatures, outFeaturesLen, displayName
 
