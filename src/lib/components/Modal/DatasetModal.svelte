@@ -13,11 +13,11 @@
 	let searchTerm = ''
 	let isSearching = false
 
-	let results: RouterOutputs['node']['searchForDatasets'] = []
+	let results: RouterOutputs['nodes']['searchForDatasets'] = []
 
 	async function search(term: string) {
 		console.log('searching', term)
-		results = await trpc().node.searchForDatasets.query({
+		results = await trpc().nodes.searchForDatasets.query({
 			query: searchTerm,
 			take: 100
 		})

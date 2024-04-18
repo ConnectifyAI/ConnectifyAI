@@ -21,7 +21,7 @@
 
 		if (nodeType === 'datasetNode') {
 			console.log()
-			let insertedNode = await trpc().node.newDatasetNode.mutate({
+			let insertedNode = await trpc().nodes.newDatasetNode.mutate({
 				position: position,
 				datasetInfo: info,
 				graphId: $graphId
