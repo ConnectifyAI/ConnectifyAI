@@ -2,6 +2,7 @@ export type NodeType = 'datasetNode' | 'modelNode'
 
 
 export interface Feature {
+    id: string,
     isSelected: boolean;
     label: string;
     dtype: string;
@@ -60,5 +61,18 @@ export type DatasetInfo = {
     repoId: string,
     downloads: number,
     likes: number,
-    features: Feature[]
+    outputFeatures: Feature[]
 }
+
+
+export type ModelInfo = {
+    repoId: string,
+    author: string,
+    inputFeatures: Feature[],
+    outputFeatures: Feature[],
+    pipeline_tag: string,
+    downloads: string,
+    likes: number,
+    createdAt: string
+}
+

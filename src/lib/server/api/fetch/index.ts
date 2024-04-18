@@ -1,15 +1,11 @@
 //NOTE: this file is to fetch info from database
-
 import { db } from "$lib/server/db"
 import { graph } from "$lib/server/db/schema"
 import { eq } from "drizzle-orm"
-import type { Graph as APIGraph, Node as APINode, Edge as APIEdge } from "../apiTypes"
-import type { Author } from "$lib/data/graph_types"
-
-
+import type { Graph as APIGraph } from "../apiTypes"
+import { convertGraph } from "$lib/server/helpers/convert"
 
 export const fetchTestGraph = async (): Promise<APIGraph> => {
-
     const testGraphId = "0d075d47-5720-479f-8c23-3087d9de6fa1"
 
     const testGraph = await db.query.graph.findFirst({
@@ -43,80 +39,39 @@ export const fetchTestGraph = async (): Promise<APIGraph> => {
     const convertedGraph = convertGraph(testGraph);
 
     return convertedGraph
-
 }
 
-// Function to convert original graph type to new graph type
-export function convertGraph(originalGraph: Graph): APIGraph {
-    const newNodes: APINode[] = originalGraph.nodes.map((node: Node) => {
-        const { id, type, posX, posY, displayName, repoId, inFeatures, outFeatures } = node;
-        return {
-            id,
-            type,
-            position: { x: posX, y: posY },
-            data: {
-                displayName,
-                repoId,
-                inFeatures,
-                outFeatures
+
+export async function fetchGraphById(graphId: string) {
+
+    const dbGraph = await db.query.graph.findFirst({
+
+        where: eq(graph.id, graphId),
+
+        with: {
+            author: true,
+            nodes: {
+                with: {
+                    inFeatures: true,
+                    outFeatures: true,
+                }
+            },
+            edges: {
+                with: {
+                    sourceFeature: true,
+                    targetFeature: true,
+                }
             }
-        };
-    });
+        }
 
-    const newEdges: APIEdge[] = originalGraph.edges.map((edge: Edge) => {
-        const { id, sourceNodeId, targetNodeId, sourceFeature, targetFeature } = edge;
-        return {
-            id,
-            source: sourceNodeId,
-            target: targetNodeId,
-            sourceHandle: sourceFeature.label,
-            targetHandle: targetFeature.label
-        };
-    });
+    })
 
-    return {
-        // id: originalGraph.id,
-        // authorId: originalGraph.authorId,
-        // likes: originalGraph.likes,
-        // forks: originalGraph.forks,
-        // name: originalGraph.name,
-        // author: originalGraph.author,
-        ...originalGraph,
-        nodes: newNodes,
-        edges: newEdges
-    };
+    if (!dbGraph) {
+        throw new Error("Invalid Id")
+    }
+
+    //@ts-ignore okay node is predifed, i think we need a new name later
+    const convertedGraph = convertGraph(dbGraph);
+
+    return convertedGraph
 }
-
-// export const graphById = async (id: string): Promise<Graph> => {
-//
-//     const dbGraph = await db.query.graph.findFirst({
-//         where: eq(graph.id, id),
-//         with: {
-//             author: true,
-//             nodes: {
-//                 with: {
-//                     outputs: {
-//                         with: {
-//                             edge: true
-//                         }
-//                     },
-//                     inputs: {
-//                         with: {
-//                             edge: true
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     })
-//
-//     if (!dbGraph) {
-//         throw new Error("deal with it later lmao")
-//     }
-//     return dbGraph as Graph
-// }
-
-// export const modelById = async (id: string): Promise<Node> => {
-//
-// }
-//

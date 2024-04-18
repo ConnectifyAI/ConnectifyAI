@@ -11,7 +11,7 @@ interface Author {
 }
 
 interface Feature {
-    id: string;
+    id?: string | undefined,
     parentNodeId: string;
     isSelected: boolean;
     label: string;
