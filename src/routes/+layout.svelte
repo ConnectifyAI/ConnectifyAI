@@ -8,7 +8,7 @@
 	// MODAL
 	import { Modal, getModalStore } from '@skeletonlabs/skeleton'
 	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton'
-	
+
 	import NewModel from '$components/Modal/NewModel.svelte'
 	import NewDataset from '$components/Modal/NewDataset.svelte'
 	initializeStores()

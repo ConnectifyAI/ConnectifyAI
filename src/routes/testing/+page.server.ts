@@ -1,23 +1,18 @@
+import { searchDatasets, searchModels } from '$lib/server/api/search';
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
 
-	// const datasetInfo = await getDatasetInfo('change later');
-	// const modelInfo = await getModelInfo('change later');
-	//
-	// return { datasetInfo, modelInfo };
-	//
 
-	// const dataset = await searchDatasets('bert', 100);
-	// console.log(dataset)
-	// const deepInfo = await getDatasetByRepoId(dataset[0].id)
-	//
-	// return {
-	// 	dataset,
-	// 	deepInfo
-	// }
-	//
+	let datasets = await searchDatasets("bert", 200)
+	let models = await searchModels("bert", 200)
+	
+	return {
+		datasets,
+		models
+	}
+
 
 
 }
