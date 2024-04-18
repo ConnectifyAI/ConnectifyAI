@@ -68,7 +68,7 @@
 		{:else}
 			<aside class="h-fit grid grid-cols-1 lg:grid-cols-2 gap-4">
 				{#each results as result}
-					<ResultCard info={result} graphId={graphId} {nodeId} nodeType="datasetNode" />
+					<ResultCard info={result} {graphId} {nodeId} nodeType="datasetNode" />
 				{/each}
 			</aside>
 		{/if}

@@ -5,13 +5,12 @@
 	// Model | Dataset
 	const { author, repoId, outputFeatures, downloads, likes, createdAt } = info
 	import { getModalStore } from '@skeletonlabs/skeleton'
-	import { nodes } from '$stores/graph'
+	import { nodes, graphId } from '$stores/graph'
 	import { trpc } from '$lib/trpc/client'
 
 	const modalStore = getModalStore()
 
 	export let nodeId: string
-	export let graphId: string
 	export let nodeType: 'datasetNode' | 'modelNode'
 
 	//handleSelect
@@ -21,22 +20,21 @@
 		})[0].position
 
 		if (nodeType === 'datasetNode') {
+			console.log()
 			let insertedNode = await trpc().node.newDatasetNode.mutate({
 				position: position,
 				datasetInfo: info,
-				graphId: graphId
+				graphId: $graphId
 			})
 
-			$nodes.push(insertedNode)
+			$nodes.splice($nodes.length - 1, 1, insertedNode)
+
 			$nodes = $nodes
 			// Further code using insertedNode...
 		} else {
-		//TODO do something 
+			//TODO do something
 		}
-
-
 		modalStore.close()
-
 	}
 </script>
 
@@ -47,7 +45,10 @@
 			<p class="opacity-30 flex-auto">by {author ? author : 'unknown'}</p>
 		</aside>
 
-		<button class="btn-md variant-outline rounded-md border-2 border-blue-500 h-12 w-40">
+		<button
+			on:click={handleClick}
+			class="btn-md variant-outline rounded-md border-2 border-blue-500 h-12 w-40"
+		>
 			Add Dataset
 		</button>
 	</section>
