@@ -1,6 +1,5 @@
-
 import { db } from "$lib/server/db";
-import { edge } from "$lib/server/db/schema";
+import { edge, inFeature, outFeature } from "$lib/server/db/schema";
 import type { UUID } from "crypto";
 import type { Node as APINode, Edge as APIEdge, Feature as APIFeature } from "$lib/server/helpers/apiTypes";
 import { time } from "console";
@@ -42,6 +41,14 @@ export async function createEdge(
     if (!dbEdge) {
         throw new Error("error with creating edge")
     }
+
+    const selectTarget = await db.update(inFeature).set({
+        isSelected: true
+    }).where(eq(inFeature.id, dbEdge.targetFeatureId))
+
+    const selectSource = await db.update(outFeature).set({
+        isSelected: true
+    }).where(eq(outFeature.id, dbEdge.sourceFeatureId))
 
     return convertEdge(dbEdge)
 
