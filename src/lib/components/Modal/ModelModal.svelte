@@ -16,7 +16,7 @@
 		console.log('searching', term)
 		results = await trpc().nodes.searchForModels.query({
 			query: searchTerm,
-			take: 100
+			take: 200
 		})
 
 		console.log(results)

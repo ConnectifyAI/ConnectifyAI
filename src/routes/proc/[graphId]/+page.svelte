@@ -158,6 +158,7 @@
 		await trpc().nodes.updatePosition.mutate(sent)
 	}
 
+
 	const handleDelete = async (params: { nodes: flowNode[]; edges: flowNode[] }) => {
 		params.nodes.forEach(async (node) => {
 			await trpc().nodes.deleteNode.mutate(node.id)

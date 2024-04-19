@@ -19,7 +19,7 @@
 		console.log('searching', term)
 		results = await trpc().nodes.searchForDatasets.query({
 			query: searchTerm,
-			take: 100
+			take: 200
 		})
 
 		console.log(results)

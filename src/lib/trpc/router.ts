@@ -10,7 +10,7 @@ import { createEdge } from '$lib/server/api/upsert/edge';
 import { createModelNode } from '$lib/server/api/upsert/model';
 import { createDatasetNode } from '$lib/server/api/upsert/dataset';
 import { db } from '$lib/server/db';
-import { edge, graph, node } from '$lib/server/db/schema';
+import { edge, graph, inFeature, node, outFeature } from '$lib/server/db/schema';
 import { and, eq } from 'drizzle-orm';
 
 export const t = initTRPC.context<Context>().create();
@@ -155,6 +155,16 @@ export const edges = t.router({
           eq(edge.sourceFeatureId, input.sourceFeatureId),
           eq(edge.targetFeatureId, input.targetFeatureId)
         ))
+
+      let y = await db.update(outFeature).set({
+
+        isSelected: false
+      }).where(eq(outFeature.id, input.sourceFeatureId))
+
+      let lol = await db.update(inFeature).set({
+        isSelected: false
+      }).where(eq(inFeature.id, input.targetFeatureId))
+
       return x
     }),
 })
