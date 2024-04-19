@@ -1,6 +1,6 @@
 //NOTE: this file is to fetch info from database
 import { db } from "$lib/server/db"
-import { graph } from "$lib/server/db/schema"
+import { graph, user } from "$lib/server/db/schema"
 import { eq } from "drizzle-orm"
 import type { Graph as APIGraph } from "../../helpers/apiTypes"
 import { convertGraph } from "$lib/server/helpers/convert"
@@ -41,6 +41,31 @@ export const fetchTestGraph = async (): Promise<APIGraph> => {
     return convertedGraph
 }
 
+export async function fetchGraphByUserId(userId: string) {
+    const dbGraphs = await db.query.user.findMany({
+        where: eq(user.id, userId),
+        with: {
+            graphs: {
+                with: {
+                    nodes: {
+                        with: {
+                            inFeatures: true,
+                            outFeatures: true
+                        }
+                    },
+                    edges: {
+                        with: {
+                            sourceFeature: true,
+                            targetFeature: true
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    return dbGraphs
+}
 
 export async function fetchGraphById(graphId: string) {
 
