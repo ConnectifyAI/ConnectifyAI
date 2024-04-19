@@ -12,9 +12,11 @@
 	export let data: DatasetNodeData | ModelNodeData
 	export let id: string
 
-
 	onDestroy(async () => {
-		await trpc().nodes.deleteNode.mutate(id)
+		if (data.repoId) {
+		console.log("destroying")
+			await trpc().nodes.deleteNode.mutate(id)
+		}
 	})
 
 	const modalStore = getModalStore()

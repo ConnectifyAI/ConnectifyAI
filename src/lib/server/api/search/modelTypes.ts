@@ -5,20 +5,20 @@ export const modelTypes = {
         inputs: [
             {
                 label: "audio.wav",
-                type: "audio",
+                dtype: "audio",
             },
         ],
         outputs: [
             {
                 //TODO: fix this later
                 label: "Up",
-                type: "number"
+                dtype: "number"
             },
             {
                 //TODO: fix this later {this is very wrong
                 //}
                 label: "Down",
-                type: "number"
+                dtype: "number"
             },
         ],
     },
@@ -26,17 +26,17 @@ export const modelTypes = {
         inputs: [
             {
                 label: "input.wav",
-                type: "audio",
+                dtype: "audio",
             },
         ],
         outputs: [
             {
                 label: "label-0.wav",
-                type: "audio",
+                dtype: "audio",
             },
             {
                 label: "label-1.wav",
-                type: "audio",
+                dtype: "audio",
             },
         ],
     },
@@ -45,13 +45,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "input.flac",
-                type: "audio",
+                dtype: "audio",
             },
         ],
         outputs: [
             {
                 label: "Transcript",
-                type: "text",
+                dtype: "string",
             },
         ],
     },
@@ -64,13 +64,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "depth-estimation-input.jpg",
-                type: "img",
+                dtype: "img",
             },
         ],
         outputs: [
             {
                 label: "depth-estimation-output.png",
-                type: "img",
+                dtype: "img",
             },
         ],
     },
@@ -78,18 +78,18 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Question",
-                type: "text",
+                dtype: "string",
             },
             {
                 label: "Input Image",
-                type: "img",
+                dtype: "img",
             },
         ],
         outputs: [
             {
                 label: "Answer",
                 content: "Balance cost efficiency with quality customer service",
-                type: "text",
+                dtype: "string",
             },
         ],
     },
@@ -99,7 +99,7 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "Input",
-    //             type: "text",
+    //             dtype: "string",
     //         },
     //     ],
     //     outputs: [
@@ -111,7 +111,7 @@ export const modelTypes = {
     //                 ["-0.7754912972450256", "-1.647324562072754", "-0.6113331913948059"],
     //                 ["0.07087723910808563", "1.5942802429199219", "1.4610432386398315"],
     //             ],
-    //             type: "tabular",
+    //             dtype: "tabular",
     //         },
     //     ],
     // },
@@ -121,12 +121,12 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "Input",
-    //             type: "text",
+    //             dtype: "string",
     //         },
     //     ],
     //     outputs: [
     //         {
-    //             type: "chart",
+    //             dtype: "chart",
     //             data: [
     //                 {
     //                     label: "wolf",
@@ -154,12 +154,12 @@ export const modelTypes = {
     //         {
     //             label: "Input",
     //             content: "The <mask> barked at me",
-    //             type: "text",
+    //             dtype: "string",
     //         },
     //     ],
     //     outputs: [
     //         {
-    //             type: "chart",
+    //             dtype: "chart",
     //             data: [
     //                 {
     //                     label: "wolf",
@@ -191,12 +191,12 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "image-classification-input.jpeg",
-    //             type: "img",
+    //             dtype: "img",
     //         },
     //     ],
     //     outputs: [
     //         {
-    //             type: "chart",
+    //             dtype: "chart",
     //             data: [
     //                 {
     //                     label: "Egyptian cat",
@@ -220,7 +220,7 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "mask-generation-input.png",
-    //             type: "img",
+    //             dtype: "img",
     //         },
     //     ],
     //     outputs: [
@@ -232,7 +232,7 @@ export const modelTypes = {
     //                 ["1.3103108406066895", "-0.2479034662246704", "-0.9107287526130676"],
     //                 ["1.8536205291748047", "-0.36419737339019775", "0.09717650711536407"],
     //             ],
-    //             type: "tabular",
+    //             dtype: "tabular",
     //         },
     //     ],
     // },
@@ -241,13 +241,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "image-segmentation-input.jpeg",
-                type: "img",
+                dtype: "img",
             },
         ],
         outputs: [
             {
                 label: "image-segmentation-output.png",
-                type: "img",
+                dtype: "img",
             },
         ],
     },
@@ -256,29 +256,29 @@ export const modelTypes = {
         inputs: [
             {
                 label: "image-to-image-input.jpeg",
-                type: "img",
+                dtype: "img",
             },
         ],
         outputs: [
             {
                 label: "image-to-image-output.png",
-                type: "img",
+                dtype: "img",
             },
         ],
     },
 
-    "image-to-text": {
+    "image-to-string": {
         inputs: [
             {
                 label: "Input Image",
-                type: "img",
+                dtype: "img",
             },
         ],
 
         outputs: [
             {
                 label: "Detailed description",
-                type: "text",
+                dtype: "string",
             },
         ],
     },
@@ -287,13 +287,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "mask-generation-input.png",
-                type: "img",
+                dtype: "img",
             },
         ],
         outputs: [
             {
                 label: "mask-generation-output.png",
-                type: "img",
+                dtype: "img",
             },
         ],
     },
@@ -302,13 +302,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "mask-generation-input.png",
-                type: "img",
+                dtype: "img",
             },
         ],
         outputs: [
             {
                 label: "mask-generation-output.png",
-                type: "img",
+                dtype: "img",
             },
         ],
     },
@@ -317,13 +317,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "object-detection-input.jpg",
-                type: "img",
+                dtype: "img",
             },
         ],
         outputs: [
             {
                 label: "object-detection-output.jpg",
-                type: "img",
+                dtype: "img",
             },
         ],
     },
@@ -331,17 +331,17 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Question",
-                type: "text",
+                dtype: "string",
             },
             {
                 label: "Context",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
                 label: "Answer",
-                type: "text",
+                dtype: "string",
             },
         ],
     },
@@ -349,43 +349,43 @@ export const modelTypes = {
         inputs: [
             {
                 label: "State",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
                 label: "Action",
-                type: "text",
+                dtype: "string",
             },
             {
                 label: "Next State",
-                type: "text",
+                dtype: "string",
             },
         ],
     },
-    //TODO: chart type again ( cringe! )
+    //TODO: chart dtype again ( cringe! )
     "sentence-similarity": {
         inputs: [
             {
                 label: "Source sentence",
-                type: "text",
+                dtype: "string",
             },
             {
                 label: "Sentences to compare to",
-                type: "text",
+                dtype: "string",
             },
             {
                 label: "",
-                type: "text",
+                dtype: "string",
             },
             {
                 label: "",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
-                type: "chart",
+                dtype: "chart",
                 data: [
                     {
                         label: "Deep learning is so straightforward.",
@@ -407,13 +407,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
                 label: "Output",
-                type: "text",
+                dtype: "string",
             },
         ],
     },
@@ -427,12 +427,12 @@ export const modelTypes = {
     //                 ["2", "Ric Flair", "8", "3103"],
     //                 ["3", "Harley Race", "7", "1799"],
     //             ],
-    //             type: "tabular",
+    //             dtype: "tabular",
     //         },
     //
-    //         { label: "Question", content: "What is the number of reigns for Harley Race?", type: "text" },
+    //         { label: "Question", content: "What is the number of reigns for Harley Race?", dtype: "string" },
     //     ],
-    //     outputs: [{ label: "Result", content: "7", type: "text" }],
+    //     outputs: [{ label: "Result", content: "7", dtype: "string" }],
     // },
     //
     // //TODO: weird tables again
@@ -445,13 +445,13 @@ export const modelTypes = {
     //                 ["150", "50", "30", "0", "35.1"],
     //                 ["141", "60", "29", "1", "39.2"],
     //             ],
-    //             type: "tabular",
+    //             dtype: "tabular",
     //         },
     //     ],
     //     outputs: [
     //         {
     //             table: [["Diabetes"], ["1"], ["1"], ["0"]],
-    //             type: "tabular",
+    //             dtype: "tabular",
     //         },
     //     ],
     // },
@@ -466,27 +466,27 @@ export const modelTypes = {
     //                 ["amc hornet", "97", "2,774"],
     //                 ["toyota corolla", "65", "1,773"],
     //             ],
-    //             type: "tabular",
+    //             dtype: "tabular",
     //         },
     //     ],
     //     outputs: [
     //         {
     //             table: [["MPG (miles per gallon)"], ["17"], ["18"], ["31"]],
-    //             type: "tabular",
+    //             dtype: "tabular",
     //         },
     //     ],
     // },
-    // //TODO: chart type again
+    // //TODO: chart dtype again
     // "text-classifiction": {
     //     inputs: [
     //         {
     //             label: "Input",
-    //             type: "text",
+    //             dtype: "string",
     //         },
     //     ],
     //     outputs: [
     //         {
-    //             type: "chart",
+    //             dtype: "chart",
     //             data: [
     //                 {
     //                     label: "POSITIVE",
@@ -508,13 +508,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
                 label: "Output",
-                type: "text",
+                dtype: "string",
             },
         ],
     },
@@ -522,13 +522,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "text"
+                dtype: "string"
             }
         ],
         outputs: [
             {
                 label: "Audio",
-                type: "audio"
+                dtype: "audio"
             }
         ]
     },
@@ -536,13 +536,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
                 label: "image.jpeg",
-                type: "img",
+                dtype: "img",
             },
         ],
     },
@@ -550,13 +550,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
                 label: "audio.wav",
-                type: "audio",
+                dtype: "audio",
             },
         ],
     },
@@ -564,13 +564,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
-                label: "text-to-video-output.gif",
-                type: "img",
+                label: "string-to-video-output.gif",
+                dtype: "img",
             },
         ],
     },
@@ -598,13 +598,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input Text",
-                type: "text"
+                dtype: "string"
             }
         ],
         outputs: [
             {
                 label: "Generated Text",
-                type: "text"
+                dtype: "string"
             }
         ]
     },
@@ -614,25 +614,25 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "Input",
-    //             type: "text",
+    //             dtype: "string",
     //         },
     //     ],
     //     outputs: [
     //         {
-    //             text: "My name is Omar and I live in Zürich.",
+    //             string: "My name is Omar and I live in Zürich.",
     //             tokens: [
     //                 {
-    //                     type: "PERSON",
+    //                     dtype: "PERSON",
     //                     start: 11,
     //                     end: 15,
     //                 },
     //                 {
-    //                     type: "GPE",
+    //                     dtype: "GPE",
     //                     start: 30,
     //                     end: 36,
     //                 },
     //             ],
-    //             type: "text-with-tokens",
+    //             dtype: "string-with-tokens",
     //         },
     //     ],
     // },
@@ -640,13 +640,13 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Input",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
                 label: "Output",
-                type: "text",
+                dtype: "string",
             },
         ],
     },
@@ -654,17 +654,17 @@ export const modelTypes = {
         inputs: [
             {
                 label: "Seed",
-                type: "text",
+                dtype: "string",
             },
             {
                 label: "Number of images to generate:",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
                 label: "unconditional-image-generation-output.jpeg",
-                type: "img",
+                dtype: "img",
             },
         ],
     },
@@ -673,12 +673,12 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "video-classification-input.gif",
-    //             type: "img",
+    //             dtype: "img",
     //         },
     //     ],
     //     outputs: [
     //         {
-    //             type: "chart",
+    //             dtype: "chart",
     //             data: [
     //                 {
     //                     label: "Playing Guitar",
@@ -701,16 +701,16 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "elephant.jpeg",
-    //             type: "img",
+    //             dtype: "img",
     //         },
     //         {
     //             label: "Question",
-    //             type: "text",
+    //             dtype: "string",
     //         },
     //     ],
     //     outputs: [
     //         {
-    //             type: "chart",
+    //             dtype: "chart",
     //             data: [
     //                 {
     //                     label: "elephant",
@@ -734,16 +734,16 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "Text Input",
-    //             type: "text",
+    //             dtype: "string",
     //         },
     //         {
     //             label: "Candidate Labels",
-    //             type: "text",
+    //             dtype: "string",
     //         },
     //     ],
     //     outputs: [
     //         {
-    //             type: "chart",
+    //             dtype: "chart",
     //             data: [
     //                 {
     //                     label: "CINEMA",
@@ -767,16 +767,16 @@ export const modelTypes = {
     //     inputs: [
     //         {
     //             label: "image-classification-input.jpeg",
-    //             type: "img",
+    //             dtype: "img",
     //         },
     //         {
     //             label: "Classes",
-    //             type: "text",
+    //             dtype: "string",
     //         },
     //     ],
     //     outputs: [
     //         {
-    //             type: "chart",
+    //             dtype: "chart",
     //             data: [
     //                 {
     //                     label: "Cat",
@@ -799,17 +799,17 @@ export const modelTypes = {
         inputs: [
             {
                 label: "zero-shot-object-detection-input.jpg",
-                type: "img",
+                dtype: "img",
             },
             {
                 label: "Classes",
-                type: "text",
+                dtype: "string",
             },
         ],
         outputs: [
             {
                 label: "zero-shot-object-detection-output.jpg",
-                type: "img",
+                dtype: "img",
             },
         ],
     }

@@ -17,6 +17,8 @@
 
 	export let data
 
+	console.log(data)
+
 	nodes.set(data.graph.nodes)
 	edges.set(data.graph.edges)
 	graphId.set(data.graph.id)

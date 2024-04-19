@@ -2,6 +2,7 @@ import { db } from "$lib/server/db";
 import { inFeature, node, outFeature } from "$lib/server/db/schema";
 import { eq } from "drizzle-orm";
 import type { Node as APINode, Feature as APIFeature, ModelInfo } from "../apiTypes";
+import { convertNode } from "$lib/server/helpers/convert";
 
 export async function createModelNode(modelInfo: ModelInfo, graphId: string, position: {
     x: number,
@@ -57,7 +58,7 @@ export async function createModelNode(modelInfo: ModelInfo, graphId: string, pos
         throw new Error("was not able to send node to db")
     }
 
-    //@ts-ignore WE NEED A NEW NAME OTHER THAN NODES BRO
+    // @ts-ignore WE NEED A NEW NAME OTHER THAN NODES BRO
     return convertNode(returnedNode);
 
 }
