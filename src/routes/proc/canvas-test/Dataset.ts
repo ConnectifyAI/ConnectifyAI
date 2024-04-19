@@ -1,69 +1,9 @@
 import { writable } from 'svelte/store'
-import { type Node, type Edge } from '@xyflow/svelte'
 import { DatasetNode, ModelNode } from '$components/Node'
 
 export const bgColor = writable('#1A192B')
 
 // INITIAL NODES AND EDGES
-export const nodes = writable<Node[]>([
-	{
-		id: 'dataset-1',
-		type: 'datasetNode',
-		data: {
-			repoId: 'testing dataset',
-			outFeatures: [
-				{ label: 'output-1', dtype: 'int', isSelected: true },
-				{ label: 'output-2', dtype: 'int', isSelected: false }
-			],
-			author: 'me'
-		},
-		position: { x: 0, y: 50 }
-	},
-	{
-		id: 'dataset-2',
-		type: 'datasetNode',
-		data: {
-			repoId: 'testing dataset 2',
-			outFeatures: [{ label: 'output-22', dtype: 'int', isSelected: false }],
-			author: 'me'
-		},
-		position: { x: 0, y: 350 }
-	},
-	{
-		id: 'model-1',
-		type: 'modelNode',
-		data: {
-			repoId: 'testing model',
-			outFeatures: [
-				{ label: 'output-1', dtype: 'string', isSelected: false },
-				{ label: 'output-2', dtype: 'int', isSelected: false }
-			],
-			inFeatures: [
-				{ label: 'input-1', dtype: 'string', isSelected: true },
-				{ label: 'input-2', dtype: 'string', isSelected: false },
-				{ label: 'input-3', dtype: 'string', isSelected: false }
-			],
-			author: 'me'
-		},
-		position: { x: 500, y: 50 }
-	}
-])
-
-export const edges = writable<Edge[]>([
-	{
-		id: 'e_d1-m1',
-		source: 'dataset-1',
-		sourceHandle: 'output-1',
-		target: 'model-1',
-		targetHandle: 'input-1',
-
-		type: 'smoothstep',
-		animated: true,
-		style: 'stroke: #fff;'
-	}
-])
-
-// DEFAULT CONFIG
 export const nodeTypes = {
 	datasetNode: DatasetNode,
 	modelNode: ModelNode
@@ -79,8 +19,9 @@ export const defaultNodeOptions = {
 
 export const defaultEdgeOptions = {
 	type: 'smoothstep',
-	animated: true,
-	interactionWidth: 50
+	animated: false,
+	interactionWidth: 20,
+	style: 'stroke-width: 3px; stroke: #eee'
 }
 
 // UTIL FUNCTIONS

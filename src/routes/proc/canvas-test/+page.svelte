@@ -8,7 +8,10 @@
 		useSvelteFlow,
 		Panel,
 		getOutgoers,
-		getIncomers
+		getIncomers,
+		updateEdge,
+		MarkerType,
+		addEdge
 	} from '@xyflow/svelte'
 	import type { IsValidConnection, Node } from '@xyflow/svelte'
 	import Toolbar from '$components/Toolbar/Toolbar.svelte'
@@ -107,6 +110,29 @@
 
 	const validateEdgePath = (e) => {
 		console.log('validateEdgePath', e)
+		$edges.forEach((edge) => {
+			if (edge.id == e.detail.edge.id) {
+				if (edge.markerEnd) {
+					// remove edge to path
+					// removeEdgeToPath(edge.id)
+					edge.markerEnd = null
+					edge.style = 'stroke-width: 3px; stroke: #eee'
+				} else {
+					// add edge to path
+					// addEdgeToPath(edge.id)
+					edge.markerEnd = {
+						type: MarkerType.ArrowClosed,
+						width: 10,
+						height: 10,
+						color: '#FF4000'
+					}
+					edge.style = 'stroke-width: 5px; stroke: #FF4000'
+				}
+			}
+			console.log('edge called', edge)
+		})
+		$edges = $edges
+		console.log('edges', $edges)
 	}
 
 	const updatePosition = (e) => {

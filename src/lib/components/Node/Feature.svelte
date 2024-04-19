@@ -10,6 +10,9 @@
 	export let featureType: 'Input' | 'Output'
 
 	let { label, dtype, isSelected } = feature
+	// $: {
+	// 	console.log('feature', feature)
+	// }
 
 	const toggleFeature = (e: any) => {
 		console.log('toggle', e)
@@ -104,13 +107,7 @@
 	}
 </script>
 
-<button
-	class={isSelected ? 'bg-[#d1eafb]' : 'bg-purple-300'}
-	on:click={(e) => {
-		e.stopPropagation()
-		toggleFeature(e)
-	}}
->
+<button class={isSelected ? 'bg-[#d1eafb]' : 'bg-purple-300'}>
 	<h1>{label}</h1>
 	<p class="text-sm text-left opacity-70">{dtype}</p>
 </button>
