@@ -1,7 +1,15 @@
 <script lang="ts">
 	// @ts-nocheck
 	import '@xyflow/svelte/dist/style.css'
-	import { SvelteFlow, Controls, Background, useSvelteFlow, Panel } from '@xyflow/svelte'
+	import {
+		SvelteFlow,
+		Controls,
+		Background,
+		useSvelteFlow,
+		Panel,
+		getOutgoers,
+		getIncomers
+	} from '@xyflow/svelte'
 	import type { IsValidConnection, Node } from '@xyflow/svelte'
 	import Toolbar from '$components/Toolbar/Toolbar.svelte'
 
@@ -73,15 +81,29 @@
 	}
 
 	const validateNodePath = (e) => {
-		const nodeId = e.detail.node.id
-		if ($nodePath.includes(nodeId)) {
-			$nodePath = $nodePath.slice(0, $nodePath.indexOf(nodeId))
+		const node = e.detail.node
+
+		// if node already in nodePath
+		if ($nodePath.includes(node.id)) {
+			$nodePath = $nodePath.slice(0, $nodePath.indexOf(node.id))
 			$nodePath = $nodePath
 		} else {
-			$nodePath.push(nodeId)
+			// if node not in nodePath
+			if ($nodePath.length == 0) {
+				$nodePath.push(node.id)
+			}
+
+			const incomers = getIncomers(node, $nodes, $edges)
+
+			incomers &&
+				incomers.forEach((incomer) => {
+					if (incomer.id == $nodePath[$nodePath.length - 1]) {
+						$nodePath.push(node.id)
+					}
+				})
 		}
 		$nodePath = $nodePath
-		console.log('validateNodePath', $nodePath)
+		console.log('hi')
 	}
 </script>
 
