@@ -6,7 +6,7 @@
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
-	import { deleteNode, pathMode, path, nodes, edges } from '$stores/graph'
+	import { deleteNode, pathMode, nodePath } from '$stores/graph'
 
 	const modalStore = getModalStore()
 
@@ -42,76 +42,15 @@
 		outFeaturesLen = outFeatures ? outFeatures.length : 0
 	}
 
-	const { getNode } = useSvelteFlow()
 	let nodeSelected = false
-
-	path.subscribe((value) => {
-		if (value == id) {
-			nodeSelected = true
-		}
-	})
-	const connectedEdges = getConnectedEdges($nodes, $edges)
-	$: console.log('connectedEdges', connectedEdges)
-
-	const selectNode = () => {
-		console.log('select node', id, $pathMode, nodeSelected)
-		if ($pathMode) {
-			if (nodeSelected) {
-				console.log('ID', id)
-				$path.forEach((nodeId, index) => {
-					// remove node from path
-					if (nodeId === id) {
-						if ((index = 0)) {
-							$path = []
-						} else {
-							$path = $path.slice(0, index)
-						}
-					}
-				})
-
-				console.log('node already selected, remove from path', $path)
-			} else {
-				console.log('here', id)
-				const last = $path.length - 1
-				let prevNodeData = getNode(last)
-				let currNodeData = getNode(id)
-
-				console.log('Sselect node')
+	nodePath.subscribe((arr) => {
+		console.log('nodePath', arr)
+		nodeSelected = false
+		arr.forEach((nodeId) => {
+			if (nodeId == id) {
+				nodeSelected = true
 			}
-
-			nodeSelected = !nodeSelected
-		}
-		// 	// uncheck node if already selected
-		// 	if (nodeSelected) {
-		// 		$path.forEach((nodeId, index) => {
-		// 			if (nodeId === id) {
-		// 				$path = $path.slice(0, index)
-		// 			}
-		// 		})
-		// 	} else {
-		// 		// node not selected
-		// 		const len = $path.length
-		// 		if (len == 0 && getNode(id).type == 'dataset') {
-		// 			$path.push(id)
-		// 		} else {
-		// 			let prevNodeData = getNode($path[len - 1])
-		// 			let currNodeData = getNode(id)
-		// 			const connectedEdges = getConnectedEdges([prevNodeData, currNodeData], $edges)
-		// 			console.log('prevNodeData:', prevNodeData, 'currNodeid', id)
-		// 			console.log('connectedEdges', connectedEdges)
-		// 			// if (prevNodeId !== id) {
-		// 			// 	$path.push(id)
-		// 			// 	nodeSelected = !nodeSelected
-		// 			// }
-		// 		}
-		// 	}
-		// }
-	}
-
-	pathMode.subscribe((value) => {
-		if (value) {
-			nodeSelected = false
-		}
+		})
 	})
 </script>
 
@@ -123,7 +62,6 @@
 		class="wrapper bg-[#eee] {$pathMode ? 'bg-blue-300' : ''} {nodeSelected
 			? 'bg-green-300 bg-opacity-100'
 			: ''}"
-		on:click={selectNode}
 	>
 		<!-- dataset/model display name -->
 		<section class="flex gap-1 py-1 items-center text-lg">

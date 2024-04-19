@@ -1,12 +1,12 @@
 <script lang="ts">
 	// @ts-nocheck
 	import { Boxes, Plus, Trash } from 'lucide-svelte'
-	import { Handle, Position, type Position, useSvelteFlow, getConnectedEdges } from '@xyflow/svelte'
+	import { type Position } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
-	import { deleteNode, pathMode, path, edges } from '$stores/graph'
+	import { deleteNode, pathMode, nodePath } from '$stores/graph'
 
 	const modalStore = getModalStore()
 
@@ -40,42 +40,15 @@
 		outFeaturesLen = outFeatures ? outFeatures.length : 0
 	}
 
-	const { getNode } = useSvelteFlow()
 	let nodeSelected = false
-
-	path.subscribe((value) => {
-		if (value == id) {
-			nodeSelected = true
-		}
-	})
-
-	const selectNode = () => {
-		// if ($pathMode) {
-		// 	if (nodeSelected)
-		// 	// before pushing, check if possible to connect node
-		// 	const len = $path.length
-		// 	if (len > 0) {
-		// 		let prevNodeData = getNode($path[len - 1])
-		// 		let currNodeData = getNode(id)
-		// 		const connectedEdges = getConnectedEdges([prevNodeData, currNodeData], $edges)
-		// 		// console.log('hi', prevNodeData, id)
-		// 		console.log('hi', connectedEdges)
-		// 		// if (prevNodeId !== id) {
-		// 		// 	$path.push(id)
-		// 		// 	nodeSelected = !nodeSelected
-		// 		// }
-		// 	} else {
-		// 		$path.push(id)
-		// 		nodeSelected = !nodeSelected
-		// 	}
-		// 	console.log('path', $path)
-		// }
-	}
-
-	pathMode.subscribe((value) => {
-		if (value) {
-			nodeSelected = false
-		}
+	nodePath.subscribe((arr) => {
+		console.log('nodePath', arr)
+		nodeSelected = false
+		arr.forEach((nodeId) => {
+			if (nodeId == id) {
+				nodeSelected = true
+			}
+		})
 	})
 </script>
 
@@ -87,7 +60,6 @@
 		class="wrapper bg-[#eee] {$pathMode ? 'bg-blue-300' : ''} {nodeSelected
 			? 'bg-green-300 bg-opacity-100'
 			: ''}"
-		on:click={selectNode}
 	>
 		<!-- dataset/model display name -->
 		<section class="flex gap-1 py-1 items-center text-lg">

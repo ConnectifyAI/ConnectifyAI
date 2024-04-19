@@ -14,7 +14,7 @@
 		bgColor
 	} from '$routes/proc/canvas-test/Dataset.js'
 
-	import { nodes, edges, graphId } from '$stores/graph'
+	import { nodes, edges, graphId, pathMode, nodePath } from '$stores/graph'
 
 	export let data
 
@@ -85,6 +85,18 @@
 	// 	event.preventDefault()
 	// 	console.log('main: node context menu', event)
 	// }
+
+	const validateNodePath = (e) => {
+		const nodeId = e.detail.node.id
+		if ($nodePath.includes(nodeId)) {
+			$nodePath = $nodePath.slice(0, $nodePath.indexOf(nodeId))
+			$nodePath = $nodePath
+		} else {
+			$nodePath.push(nodeId)
+		}
+		$nodePath = $nodePath
+		console.log('validateNodePath', $nodePath)
+	}
 </script>
 
 <SvelteFlow
@@ -98,6 +110,7 @@
 	fitView
 	on:dragover={onDragOver}
 	on:drop={onDrop}
+	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
 	on:edgeclick={(event) => console.log('main: edge click', event)}
 >
 	<Background />
