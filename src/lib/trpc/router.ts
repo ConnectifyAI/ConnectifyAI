@@ -95,7 +95,23 @@ export const nodes = t.router({
 
       if (x.length === 0) throw new Error("could not delete node")
       return x
+    }),
+  updatePosition: t.procedure
+    .input(z.object({
+      x: z.number(),
+      y: z.number(),
+      nodeId: z.string()
+    })).mutation(async ({ input }) => {
+
+      let x = await db.update(node).set({
+        posX: input.x,
+        posY: input.y
+      }).where(eq(node.id, input.nodeId))
+
+      return x
+
     })
+
 
 })
 
