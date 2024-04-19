@@ -1,0 +1,107 @@
+{
+  "event": {
+    "isTrusted": true
+  },
+  "targetNode": {
+    "id": "6d25ae5e-db7c-4950-8eab-d23a6e345134",
+    "type": "modelNode",
+    "position": {
+      "x": 1263.3423356099277,
+      "y": 1657.719431502409
+    },
+    "data": {
+      "displayName": "google-bert/bert-large-cased-whole-word-masking-finetuned-squad",
+      "repoId": "google-bert/bert-large-cased-whole-word-masking-finetuned-squad",
+      "inFeatures": [
+        {
+          "id": "bb8a5baa-c801-4f31-bfce-351912c997fc",
+          "parentNodeId": "6d25ae5e-db7c-4950-8eab-d23a6e345134",
+          "isSelected": false,
+          "label": "Question",
+          "dtype": "string",
+          "createdAt": "2024-04-19T08:10:28.585Z"
+        },
+        {
+          "id": "a40d16e2-70aa-4ad5-a2c2-6f3a2ac6a771",
+          "parentNodeId": "6d25ae5e-db7c-4950-8eab-d23a6e345134",
+          "isSelected": false,
+          "label": "Context",
+          "dtype": "string",
+          "createdAt": "2024-04-19T08:10:28.585Z"
+        }
+      ],
+      "outFeatures": [
+        {
+          "id": "193fb0ed-769f-48bd-9253-6d4320528b37",
+          "parentNodeId": "6d25ae5e-db7c-4950-8eab-d23a6e345134",
+          "isSelected": false,
+          "label": "Answer",
+          "dtype": "string",
+          "createdAt": "2024-04-19T08:10:28.555Z"
+        }
+      ]
+    },
+    "computed": {
+      "positionAbsolute": {
+        "x": 1263.3423356099277,
+        "y": 1657.719431502409
+      },
+      "width": 416,
+      "height": 391
+    },
+    "selected": true,
+    "dragging": false
+  },
+  "nodes": [
+    {
+      "id": "6d25ae5e-db7c-4950-8eab-d23a6e345134",
+      "type": "modelNode",
+      "position": {
+        "x": 1263.3423356099277,
+        "y": 1657.719431502409
+      },
+      "data": {
+        "displayName": "google-bert/bert-large-cased-whole-word-masking-finetuned-squad",
+        "repoId": "google-bert/bert-large-cased-whole-word-masking-finetuned-squad",
+        "inFeatures": [
+          {
+            "id": "bb8a5baa-c801-4f31-bfce-351912c997fc",
+            "parentNodeId": "6d25ae5e-db7c-4950-8eab-d23a6e345134",
+            "isSelected": false,
+            "label": "Question",
+            "dtype": "string",
+            "createdAt": "2024-04-19T08:10:28.585Z"
+          },
+          {
+            "id": "a40d16e2-70aa-4ad5-a2c2-6f3a2ac6a771",
+            "parentNodeId": "6d25ae5e-db7c-4950-8eab-d23a6e345134",
+            "isSelected": false,
+            "label": "Context",
+            "dtype": "string",
+            "createdAt": "2024-04-19T08:10:28.585Z"
+          }
+        ],
+        "outFeatures": [
+          {
+            "id": "193fb0ed-769f-48bd-9253-6d4320528b37",
+            "parentNodeId": "6d25ae5e-db7c-4950-8eab-d23a6e345134",
+            "isSelected": false,
+            "label": "Answer",
+            "dtype": "string",
+            "createdAt": "2024-04-19T08:10:28.555Z"
+          }
+        ]
+      },
+      "computed": {
+        "positionAbsolute": {
+          "x": 1263.3423356099277,
+          "y": 1657.719431502409
+        },
+        "width": 416,
+        "height": 391
+      },
+      "selected": true,
+      "dragging": false
+    }
+  ]
+}

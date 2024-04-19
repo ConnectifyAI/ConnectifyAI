@@ -22,6 +22,7 @@
 	} from '$routes/proc/canvas-test/Dataset'
 
 	import { nodes, edges, graphId, pathMode, nodePath } from '$stores/graph'
+	import { trpc } from '$lib/trpc/client.js'
 
 	export let data
 
@@ -106,8 +107,17 @@
 		console.log('hi')
 	}
 
-	const updatePosition = (e) => {
+	const updatePosition = async (e) => {
 		console.log(e.detail)
+
+		let sent = {
+			x: e.detail.targetNode.position.x,
+			y: e.detail.targetNode.position.y,
+			nodeId: e.detail.targetNode.id
+		}
+
+		console.log(sent)
+		await trpc().nodes.updatePosition.mutate(sent)
 	}
 </script>
 
