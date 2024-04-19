@@ -36,7 +36,7 @@
 
 	const createNewGraph = async () => {
 		//modalStore.trigger(modal)
-		//TODO: can only run this after resetting db
+		//TODO: can only run this after resetting dbmodalplz
 		let x = await trpc().graphs.newGraph.mutate({
 			authorId: data.user.id,
 			name: 'Undefined'
