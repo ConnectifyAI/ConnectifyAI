@@ -11,6 +11,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
     let allGraphs = await fetchAllGraphs()
 
     return {
-        userGraphs 
+        userGraphs,
+        allGraphs
     };
 };

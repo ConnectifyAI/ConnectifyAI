@@ -46,4 +46,4 @@ export const auth: Handle = async ({ event, resolve }) => {
 	return resolve(event)
 }
 
-export const handle = sequence(trpc)
+export const handle = sequence(auth, trpc)
