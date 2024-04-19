@@ -106,6 +106,7 @@ export async function searchModels(query: string, take: number) {
         }
         model.repoId = modelInfo.id
 
+
         cleaned.push(model)
     }
 
