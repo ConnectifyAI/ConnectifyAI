@@ -58,9 +58,11 @@ export async function fetchGraphByUserId(userId: string) {
                             sourceFeature: true,
                             targetFeature: true
                         }
-                    }
+                    },
+                    author: true
+
                 }
-            }
+            },
         }
     })
 
@@ -82,7 +84,9 @@ export async function fetchAllGraphs() {
                     sourceFeature: true,
                     targetFeature: true
                 }
-            }
+            },
+            author: true
+
         }
     })
 
