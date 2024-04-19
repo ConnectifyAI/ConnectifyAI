@@ -13,7 +13,6 @@
 	const toggleFeature = (e: any) => {
 		isSelected = !isSelected
 		const c = e[0]
-		console.log('toggleFeature', c)
 		$nodes.forEach((node) => {
 			if (node.id === c.source) {
 				;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {

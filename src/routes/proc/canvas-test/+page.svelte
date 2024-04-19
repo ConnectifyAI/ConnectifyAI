@@ -1,6 +1,5 @@
 <script lang="ts">
 	// @ts-nocheck
-	import { writable } from 'svelte/store'
 	import '@xyflow/svelte/dist/style.css'
 	import { SvelteFlow, Controls, Background, useSvelteFlow, Panel } from '@xyflow/svelte'
 	import type { IsValidConnection, Node } from '@xyflow/svelte'
@@ -12,7 +11,7 @@
 		defaultNodeOptions,
 		onDragOver,
 		bgColor
-	} from '$routes/proc/canvas-test/Dataset.js'
+	} from '$routes/proc/canvas-test/Dataset'
 
 	import { nodes, edges, graphId, pathMode, nodePath } from '$stores/graph'
 
@@ -21,13 +20,6 @@
 	nodes.set(data.graph.nodes)
 	edges.set(data.graph.edges)
 	graphId.set(data.graph.id)
-
-	// $: console.log('data', data.graph.nodes)
-
-	// $: console.log('edges', data.graph.edges)
-
-	// export let form;
-	// $: console.log(form);
 
 	// drag and drop functionality
 	const { screenToFlowPosition } = useSvelteFlow()
@@ -58,7 +50,6 @@
 	}
 
 	const isValidConnection: IsValidConnection = (c) => {
-		// console.log('valid?', c)
 		let sourceDtype = ''
 		let targetDtype = ''
 		$nodes.forEach((node) => {
@@ -78,13 +69,6 @@
 		})
 		return sourceDtype == targetDtype
 	}
-
-	// // context menu, if needed
-	// on:nodecontextmenu={handleContextMenu}
-	// function handleContextMenu({ detail: { event, node } }) {
-	// 	event.preventDefault()
-	// 	console.log('main: node context menu', event)
-	// }
 
 	const validateNodePath = (e) => {
 		const nodeId = e.detail.node.id
@@ -111,7 +95,6 @@
 	on:dragover={onDragOver}
 	on:drop={onDrop}
 	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
-	on:edgeclick={(event) => console.log('main: edge click', event)}
 >
 	<Background />
 
@@ -120,28 +103,3 @@
 	</Panel>
 	<Controls />
 </SvelteFlow>
-
-<!-- <Panel>
-		<form
-			on:submit={() => {
-				addNode(data)
-				nodeText = ''
-			}}
-			class="bg-slate-100 p-5"
-		>
-			<label class="label">
-				Test input
-				<input bind:value={nodeText} class="input" type="text" placeholder="Node Text Here!" />
-			</label>
-			<button type="submit" class="btn variant-filled">
-				<span>(icon)</span>
-				<span>Add Node</span>
-			</button>
-		</form>
-
-		<form method="POST" action="?/searchForDataset">
-			<label class="bg-slate-300">
-				<input name="query" type="search" />
-			</label>
-		</form>
-	</Panel> -->

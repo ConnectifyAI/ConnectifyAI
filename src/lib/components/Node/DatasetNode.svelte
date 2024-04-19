@@ -1,7 +1,6 @@
 <script lang="ts">
 	// @ts-nocheck
 	import { Database, Plus, Trash } from 'lucide-svelte'
-	import { Handle, Position, type Position, useSvelteFlow, getConnectedEdges } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
@@ -29,14 +28,6 @@
 		modalStore.trigger(modal)
 	}
 
-	// const modal: ModalSettings = {
-	// 	// Provide arbitrary metadata to your modal instance:
-	// 	meta: { foo: 'bar', fizz: 'buzz', fn: myCustomFunction }
-	// }
-
-	// export let type: any
-	// console.log('DatasetNode', data, id, type)
-
 	let repoName, author, outFeatures, outFeaturesLen, displayName
 
 	$: {
@@ -60,8 +51,6 @@
 
 <!-- IF NODE INTIALIZED -->
 {#if repoName}
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		class="wrapper bg-[#eee] {$pathMode ? 'bg-blue-300' : ''} {nodeSelected
 			? 'bg-green-300 bg-opacity-100'
