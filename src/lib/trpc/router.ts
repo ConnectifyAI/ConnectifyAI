@@ -10,7 +10,8 @@ import { createEdge } from '$lib/server/api/upsert/edge';
 import { createModelNode } from '$lib/server/api/upsert/model';
 import { createDatasetNode } from '$lib/server/api/upsert/dataset';
 import { db } from '$lib/server/db';
-import { node } from '$lib/server/db/schema';
+import { edge, node } from '$lib/server/db/schema';
+import { and, eq } from 'drizzle-orm';
 
 export const t = initTRPC.context<Context>().create();
 
@@ -111,8 +112,18 @@ export const edges = t.router({
       return x;
 
     }),
-  // deleteEdge: t.procedure
-  //   .input(z.string())
+  deleteEdge: t.procedure
+    .input(z.object({
+      sourceFeatureId: z.string(),
+      targetFeatureId: z.string(),
+    })).mutation(async ({ input }) => {
+      let x = await db.delete(edge).where(
+        and(
+          eq(edge.sourceFeatureId, input.sourceFeatureId),
+          eq(edge.targetFeatureId, input.targetFeatureId)
+        ))
+      return x
+    })
 })
 
 

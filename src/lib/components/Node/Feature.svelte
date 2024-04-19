@@ -35,7 +35,6 @@
 			if (node.id === c.source) {
 				;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
 					if (f.label === c.sourceHandle) {
-						console.log('found source id', f)
 						sourceFeatureId = f.id!
 					}
 				})
@@ -58,7 +57,35 @@
 			sourceFeatureId
 		})
 	}
-	const delEdgeFromDb = async (e: Connection[]) => {}
+	const delEdgeFromDb = async (e: Connection[]) => {
+		const c = e[0]
+
+		let sourceFeatureId: string = ''
+		let targetFeatureId: string = ''
+
+		$nodes.forEach((node) => {
+			if (node.id === c.source) {
+				;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
+					if (f.label === c.sourceHandle) {
+						sourceFeatureId = f.id!
+					}
+				})
+			}
+
+			if (node.id === c.target) {
+				;(node.data.inFeatures as Feature[]).forEach((f: Feature) => {
+					if (f.label === c.targetHandle) {
+						targetFeatureId = f.id!
+					}
+				})
+			}
+		})
+
+		let x = await trpc().edges.deleteEdge.mutate({
+			targetFeatureId,
+			sourceFeatureId
+		})
+	}
 </script>
 
 <aside class="my-2 bg-[#d1eafb]">
@@ -73,10 +100,13 @@
 	style="top: {relativePos}%; background: #d1eafb; width: 16px; height: 16px; border: 2px solid black"
 	onconnect={(e) => {
 		toggleFeature(e)
-		console.log('ran')
 		addEdgeToDb(e)
 	}}
-	ondisconnect={(e) => toggleFeature(e)}
+	ondisconnect={(e) => {
+		toggleFeature(e)
+	console.log('deleting')
+		delEdgeFromDb(e)
+	}}
 />
 
 <style>
