@@ -14,6 +14,7 @@
 	export let id: string
 
 	onDestroy(async () => {
+		console.log(id)
 		await trpc().nodes.deleteNode.mutate(id)
 	})
 
