@@ -104,6 +104,7 @@ export async function searchModels(query: string, take: number) {
             inputFeatures: io['inputs'],
             outputFeatures: io['outputs'],
         }
+        model.repoId = modelInfo.id
 
         cleaned.push(model)
     }
