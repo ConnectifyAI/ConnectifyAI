@@ -24,6 +24,7 @@
 		valueAttr: { type: 'text', required: true },
 		// Returns the updated response value
 		response: (r: string) => console.log('response:', r)
+        
 	}
 
 	function modalplz() {
