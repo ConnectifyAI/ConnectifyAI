@@ -61,41 +61,6 @@
 			sourceFeatureId
 		})
 	}
-	const delEdgeFromDb = async (e: Connection[]) => {
-		const c = e[0]
-
-		let sourceFeatureId: string = ''
-		let targetFeatureId: string = ''
-
-		$nodes.forEach((node) => {
-			if (node.id === c.source) {
-				;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
-					if (f.label === c.sourceHandle) {
-						sourceFeatureId = f.id!
-					}
-				})
-			}
-
-			if (node.id === c.target) {
-				;(node.data.inFeatures as Feature[]).forEach((f: Feature) => {
-					if (f.label === c.targetHandle) {
-						targetFeatureId = f.id!
-					}
-				})
-			}
-		})
-
-		// that means one of the nodes got deleted, which means we casade that node
-		// delete to edges
-		if (!sourceFeatureId || !targetFeatureId) {
-			return
-		}
-
-		let x = await trpc().edges.deleteEdge.mutate({
-			targetFeatureId,
-			sourceFeatureId
-		})
-	}
 
 	if (featureType == 'Input') {
 		// if (nodeId == target)
@@ -123,8 +88,6 @@
 	}}
 	ondisconnect={(e) => {
 		toggleFeature(e)
-		console.log('deleting')
-		delEdgeFromDb(e)
 	}}
 />
 

@@ -13,6 +13,7 @@
 		MarkerType,
 		addEdge
 	} from '@xyflow/svelte'
+	import type { Node as flowNode } from '@xyflow/svelte'
 	import type { IsValidConnection, Node } from '@xyflow/svelte'
 	import Toolbar from '$components/Toolbar/Toolbar.svelte'
 
@@ -149,6 +150,48 @@
 		console.log(sent)
 		await trpc().nodes.updatePosition.mutate(sent)
 	}
+
+	const handleDelete = async (params: { nodes: flowNode[]; edges: flowNode[] }) => {
+		params.nodes.forEach(async (node) => {
+			await trpc().nodes.deleteNode.mutate(node.id)
+		})
+
+		params.edges.forEach(async (edge) => {
+			console.log('delete this edge', edge)
+
+			let sourceFeatureId: string = ''
+			let targetFeatureId: string = ''
+
+			$nodes.forEach((node) => {
+				if (node.id === edge.source) {
+					;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
+						if (f.label === edge.sourceHandle) {
+							sourceFeatureId = f.id!
+						}
+					})
+				}
+
+				if (node.id === edge.target) {
+					;(node.data.inFeatures as Feature[]).forEach((f: Feature) => {
+						if (f.label === edge.targetHandle) {
+							targetFeatureId = f.id!
+						}
+					})
+				}
+			})
+
+			// that means one of the nodes got deleted, which means we casade that node
+			// delete to edges
+			if (!sourceFeatureId || !targetFeatureId) {
+				return
+			}
+
+			let x = await trpc().edges.deleteEdge.mutate({
+				targetFeatureId,
+				sourceFeatureId
+			})
+		})
+	}
 </script>
 
 <SvelteFlow
@@ -167,6 +210,7 @@
 	nodesDraggable={data.isAuthor}
 	nodesConnectable={data.isAuthor}
 	elementsSelectable={data.isAuthor}
+	ondelete={handleDelete}
 >
 	<Background />
 
