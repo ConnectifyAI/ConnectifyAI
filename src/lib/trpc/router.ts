@@ -35,7 +35,7 @@ export const graphs = t.router({
     .input(z.object({
       authorId: z.string(),
       name: z.string()
-    })).query(async ({ input }) => {
+    })).mutation(async ({ input }) => {
       let x = await db.insert(graph).values({
         authorId: input.authorId,
         name: input.name

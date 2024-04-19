@@ -4,6 +4,7 @@
 	import { getModalStore } from '@skeletonlabs/skeleton'
 	import { Modal } from '@skeletonlabs/skeleton'
 	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton'
+	import { trpc } from '$lib/trpc/client.js'
 	const modalStore = getModalStore()
 
 	export let data
@@ -20,7 +21,9 @@
 		value: 'Skeleton',
 		valueAttr: { type: 'text', minlength: 3, maxlength: 10, required: true },
 		// Returns the updated response value
-		response: (r: string) => console.log('response:', r)
+		response: async(r: string) => {
+			await trpc().graphs.newGraph.
+		}
 	}
 
 	function modalplz() {
