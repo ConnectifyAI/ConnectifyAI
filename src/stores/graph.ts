@@ -7,6 +7,7 @@ export const graphId = writable<string>()
 
 export const pathMode = writable(false)
 export const nodePath = writable<string[]>([])
+export const edgePath = writable<string[]>([])
 
 export const selectedNode = writable<string | null>(null)
 
