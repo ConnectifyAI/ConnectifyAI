@@ -1,12 +1,12 @@
 <script lang="ts">
 	// @ts-nocheck
 	import { Boxes, Plus, Trash } from 'lucide-svelte'
-	import { Handle, Position, type Position, useSvelteFlow, getConnectedEdges } from '@xyflow/svelte'
+	import { type Position } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
-	import { deleteNode, pathMode, path, edges } from '$stores/graph'
+	import { deleteNode, pathMode, nodePath } from '$stores/graph'
 
 	const modalStore = getModalStore()
 
@@ -40,55 +40,15 @@
 		outFeaturesLen = outFeatures ? outFeatures.length : 0
 	}
 
-	const { getNode } = useSvelteFlow()
 	let nodeSelected = false
-
-	// path.subscribe((value) => {
-	// 	if (value == id) {
-	// 		nodeSelected = true
-	// 	} else {
-	// 		nodeSelected = false
-		
-	// 	}
-	// })
-
-	const selectNode = () => {
-		console.log('select node', id, $pathMode, nodeSelected)
-
-		if ($pathMode) {
-			if (nodeSelected) {
-				$path.forEach((nodeId, index) => {
-					// remove node from path
-					if (nodeId == id) {
-						if (index == 0) {
-							$path = []
-						} else {
-							console.log('before', index, $path)
-							$path = $path.slice(0, index)
-							console.log('after', index, $path)
-						}
-					}
-				})
-
-				console.log('node already selected, remove from path', $path)
-			} else {
-				console.log('here', id)
-				// const last = $path.length - 1
-				// let prevNodeData = getNode(last)
-				// let currNodeData = getNode(id)
-				$path.push(id)
-
-				console.log('Sselect node', $path)
+	nodePath.subscribe((arr) => {
+		console.log('nodePath', arr)
+		nodeSelected = false
+		arr.forEach((nodeId) => {
+			if (nodeId == id) {
+				nodeSelected = true
 			}
-
-			nodeSelected = !nodeSelected
-		}
-	}
-
-	pathMode.subscribe((value) => {
-		if (value) {
-			nodeSelected = false
-		}
+		})
 	})
 </script>
 
@@ -100,7 +60,6 @@
 		class="wrapper bg-[#eee] {$pathMode ? 'bg-blue-300' : ''} {nodeSelected
 			? 'bg-green-300 bg-opacity-100'
 			: ''}"
-		on:click={selectNode}
 	>
 		<!-- dataset/model display name -->
 		<section class="flex gap-1 py-1 items-center text-lg">
