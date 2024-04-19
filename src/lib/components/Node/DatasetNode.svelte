@@ -48,7 +48,6 @@
 
 	let nodeSelected = false
 	nodePath.subscribe((arr) => {
-		console.log('nodePath', arr)
 		nodeSelected = false
 		arr.forEach((nodeId) => {
 			if (nodeId == id) {
