@@ -92,7 +92,16 @@ export const nodes = t.router({
     .input(z.string())
     .mutation(async ({ input }) => {
       await db.delete(node)
+    }),
+  deleteModelNode: t.procedure
+    .input(z.string())
+    .mutation(async ({ input }) => {
+      let x = await db.delete(node).where(eq(node.id, input)).returning()
+
+      if (x.length === 0) throw new Error("could not delete node")
+      return x
     })
+
 })
 
 export const edges = t.router({
@@ -130,7 +139,6 @@ export const edges = t.router({
 
 
 export const router = t.router({
-
   graphs,
   nodes,
   edges

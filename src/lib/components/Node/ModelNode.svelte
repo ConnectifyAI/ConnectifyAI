@@ -7,6 +7,13 @@
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
 	import { deleteNode, pathMode, nodePath } from '$stores/graph'
+	import { onDestroy } from 'svelte'
+
+	onDestroy(() => {
+		console.log('hello')
+		await 
+		
+	})
 
 	export let data: ModelNodeData | DatasetNodeData
 	export let id: string
