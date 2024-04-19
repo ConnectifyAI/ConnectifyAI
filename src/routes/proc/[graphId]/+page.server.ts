@@ -12,9 +12,10 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	try {
 		const graph: Graph = await fetchGraphById(graphId)
-		const isUser = graph.authorId === locals.user?.id
+		const isAuthor = graph.authorId === locals.user?.id
+		console.log(isAuthor)
 
-		return { graph, isUser }
+		return { graph, isAuthor }
 
 	} catch (e) {
 		error(404, "not found")
