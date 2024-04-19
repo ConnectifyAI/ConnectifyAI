@@ -10,6 +10,7 @@
 
 	let userGraphList = data.userGraphs
 	let overallGraphList = data.allGraphs
+
 	const modal: ModalSettings = {
 		type: 'prompt',
         backdropClasses: '!bg-slate-800/70',
@@ -34,20 +35,22 @@
 	<h1 class="heading">Your Graphs</h1>
 	<!-- Personal Graph Section -->
 	<section>
-		<a class="wrapper"  on:click={modalplz}>
+		<button class="wrapper" on:click={modalplz}>
 			<aside class="opgg">
 				Create New
 				<CirclePlus />
 			</aside>
-		</a>
+		</button>
 		{#if userGraphList}
 			{#each userGraphList as graph}
-				<GraphCard
-					name={graph.name}
-					author={graph.authorId}
-					likes={graph.likes}
-					forks={graph.forks}
-				/>
+				<a href={`/proc/${graph.id}`}>
+					<GraphCard
+						name={graph.name}
+						author={graph.author.firstName}
+						likes={graph.likes}
+						forks={graph.forks}
+					/>
+				</a>
 			{/each}
 		{/if}
 	</section>
@@ -55,12 +58,14 @@
 	<h1 class="heading">Community Graphs</h1>
 	<section>
 		{#each overallGraphList as graph}
-			<GraphCard
-				name={graph.name}
-				author={graph.authorId}
-				likes={graph.likes}
-				forks={graph.forks}
-			/>
+			<a href={`/proc/${graph.id}`}>
+				<GraphCard
+					name={graph.name}
+					author={graph.author.firstName}
+					likes={graph.likes}
+					forks={graph.forks}
+				/>
+			</a>
 		{/each}
 	</section>
 </div>

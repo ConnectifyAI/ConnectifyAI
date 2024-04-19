@@ -10,7 +10,7 @@ import { createEdge } from '$lib/server/api/upsert/edge';
 import { createModelNode } from '$lib/server/api/upsert/model';
 import { createDatasetNode } from '$lib/server/api/upsert/dataset';
 import { db } from '$lib/server/db';
-import { edge, node } from '$lib/server/db/schema';
+import { edge, graph, node } from '$lib/server/db/schema';
 import { and, eq } from 'drizzle-orm';
 
 export const t = initTRPC.context<Context>().create();
@@ -30,6 +30,18 @@ export const graphs = t.router({
 
       return x
 
+    }),
+  newGraph: t.procedure
+    .input(z.object({
+      authorId: z.string(),
+      name: z.string()
+    })).query(async ({ input }) => {
+      let x = await db.insert(graph).values({
+        authorId: input.authorId,
+        name: input.name
+      })
+
+      return x
     })
   //new Graph
 })
@@ -128,7 +140,7 @@ export const edges = t.router({
     })).mutation(async ({ input }) => {
 
       let x: APIEdge = await createEdge(input.sourceNodeId, input.targetNodeId, input.sourceFeatureId, input.targetFeatureId, input.graphId)
-      
+
 
       return x;
 
