@@ -8,7 +8,9 @@ export const providerEnum = pgEnum('provider', ['google', 'github']);
 
 export const user = pgTable('user', {
 
-    //just to make relations easier id: text('id').notNull().unique(), provider: providerEnum('provider').notNull(),
+    //just to make relations easier 
+    id: text('id').notNull().unique(), 
+    provider: providerEnum('provider').notNull(),
     providerId: text('provider_id').notNull(),
     firstName: text('first_name').notNull(),
     lastName: text('last_name').notNull(),
