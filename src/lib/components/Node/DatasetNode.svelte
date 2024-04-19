@@ -1,48 +1,38 @@
 <script lang="ts">
 	// @ts-nocheck
 	import { Database, Plus, Trash } from 'lucide-svelte'
-	import { Handle, Position, type Position } from '@xyflow/svelte'
+	import { Handle, Position, type Position, useSvelteFlow, getConnectedEdges } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
-	import { deleteNode } from '$stores/graph'
+	import { deleteNode, pathMode, path, nodes, edges } from '$stores/graph'
 
 	const modalStore = getModalStore()
-
-	// const modal: ModalSettings = {
-	// 	// Provide arbitrary metadata to your modal instance:
-	// 	meta: { foo: 'bar', fizz: 'buzz', fn: myCustomFunction }
-	// }
-
-	export let data: DatasetNodeData
-	export let id: string
-	export let position: any
-	export let type: any
-
-	$: pos = position
-
-	console.log('DatasetNode', data, id, pos, type)
-	console.log(pos)
-	console.log(position)
 
 	const modal: ModalSettings = {
 		type: 'component',
 		component: 'datasetModal',
 
 		backdropClasses: '!bg-slate-800/50',
-
-		meta: {
-			nodeId: id,
-		},
 		// modalClasses: '!bg-red-500',
 		response: (r) => console.log('response:', r)
 	}
 
-	const openDatasetModal = () => {
+	const openModal = () => {
 		modalStore.trigger(modal)
 	}
-	let outputsOpen = true
+
+	// const modal: ModalSettings = {
+	// 	// Provide arbitrary metadata to your modal instance:
+	// 	meta: { foo: 'bar', fizz: 'buzz', fn: myCustomFunction }
+	// }
+
+	export let data: DatasetNodeData | ModelNodeData
+	export let id: string
+	// export let type: any
+	// console.log('DatasetNode', data, id, type)
+
 	let repoName, author, outFeatures, outFeaturesLen, displayName
 
 	$: {
@@ -51,11 +41,68 @@
 		outFeatures = data?.outFeatures
 		outFeaturesLen = outFeatures ? outFeatures.length : 0
 	}
+
+	const { getNode } = useSvelteFlow()
+	let nodeSelected = false
+
+	// path.subscribe((value) => {
+	// 	if (value == id) {
+	// 		nodeSelected = true
+	// 	}
+	// })
+	const connectedEdges = getConnectedEdges($nodes, $edges)
+	$: console.log('connectedEdges', connectedEdges)
+
+	const selectNode = () => {
+		console.log('select node', id, $pathMode, nodeSelected)
+
+		if ($pathMode) {
+			if (nodeSelected) {
+				$path.forEach((nodeId, index) => {
+					// remove node from path
+					if (nodeId == id) {
+						if (index == 0) {
+							$path = []
+						} else {
+							console.log('before', index, $path)
+							$path = $path.slice(0, index)
+							console.log('after', index, $path)
+						}
+					}
+				})
+
+				console.log('node already selected, remove from path', $path)
+			} else {
+				console.log('here', id)
+				// const last = $path.length - 1
+				// let prevNodeData = getNode(last)
+				// let currNodeData = getNode(id)
+				$path.push(id)
+
+				console.log('Sselect node', $path)
+			}
+
+			nodeSelected = !nodeSelected
+		}
+	}
+
+	pathMode.subscribe((value) => {
+		if (value) {
+			nodeSelected = false
+		}
+	})
 </script>
 
 <!-- IF NODE INTIALIZED -->
 {#if repoName}
-	<div class="wrapper">
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<div
+		class="wrapper bg-[#eee] {$pathMode ? 'bg-blue-300' : ''} {nodeSelected
+			? 'bg-green-300 bg-opacity-100'
+			: ''}"
+		on:click={selectNode}
+	>
 		<!-- dataset/model display name -->
 		<section class="flex gap-1 py-1 items-center text-lg">
 			<Database size={23} />
@@ -69,13 +116,9 @@
 
 		<Accordion featuresType="Outputs" features={outFeatures} featuresLen={outFeaturesLen} />
 	</div>
-
-	{#if !outputsOpen}
-		<Handle type="source" position={Position.Right} />
-	{/if}
 {:else}
 	<aside class="flex">
-		<button on:click={openDatasetModal}>
+		<button on:click={openModal}>
 			<Plus size={23} />
 			Add Dataset Here
 		</button>
@@ -87,10 +130,10 @@
 
 <style>
 	.wrapper {
-		@apply bg-[#eee] p-5 rounded-md w-[26rem] min-h-20;
+		@apply p-5 rounded-md w-[26rem] min-h-20;
 	}
 
-	button {
+	aside > button {
 		@apply flex flex-col justify-between items-center gap-2 bg-slate-100 py-5 px-16 rounded-md border-green-500 border-2;
 	}
 

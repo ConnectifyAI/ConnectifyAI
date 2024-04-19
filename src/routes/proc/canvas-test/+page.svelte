@@ -58,7 +58,7 @@
 	}
 
 	const isValidConnection: IsValidConnection = (c) => {
-		console.log('valid?', c)
+		// console.log('valid?', c)
 		let sourceDtype = ''
 		let targetDtype = ''
 		$nodes.forEach((node) => {

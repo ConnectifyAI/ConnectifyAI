@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Icon } from 'lucide-svelte'
 	import type { ComponentType } from 'svelte'
+	import { pathMode } from '$stores/graph'
 
 	export let icon: ComponentType<Icon>
 	export let type: 'Model' | 'Dataset' | 'Path'
@@ -23,11 +24,15 @@
 	{draggable}
 	on:click={() => {
 		if (draggable) return
-		console.log('clicked')
+		$pathMode = !$pathMode
 	}}
 >
-	<svelte:component this={icon} class="size-7" />
-	<span>Add {type}</span>
+	{#if $pathMode && type === 'Path'}
+		path mode...
+	{:else}
+		<svelte:component this={icon} class="size-7" />
+		<span>Add {type}</span>
+	{/if}
 </button>
 
 <style>
