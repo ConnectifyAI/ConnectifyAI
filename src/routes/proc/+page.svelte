@@ -5,6 +5,7 @@
 	import { Modal } from '@skeletonlabs/skeleton'
 	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton'
 	import { trpc } from '$lib/trpc/client.js'
+	import { goto } from '$app/navigation'
 	const modalStore = getModalStore()
 
 	export let data
@@ -12,25 +13,35 @@
 	let userGraphList = data.userGraphs
 	let overallGraphList = data.allGraphs
 
-	const modal: ModalSettings = {
-		type: 'prompt',
-        backdropClasses: '!bg-slate-800/70',
-        modalClasses: '!bg-slate-500',
+	//const modal: ModalSettings = {
+	//type: 'prompt',
+	//backdropClasses: '!bg-slate-800/70',
+	//modalClasses: '!bg-slate-500',
+	//
+	// Data
+	//title: 'Create New',
+	//body: 'Provide your name in the field below.',
+	// Populates the input value and attributes
+	//value: '',
+	//valueAttr: { type: 'text', required: true },
+	// Returns the updated response value
+	//response: async (r: string) => {
+	//let x = await trpc().graphs.newGraph.mutate({
+	//authorId: data.user.id,
+	//name: r
+	//})
 
-		// Data
-		title: 'Create New',
-		body: 'Provide your name in the field below.',
-		// Populates the input value and attributes
-		value: 'type here',
-		valueAttr: { type: 'text', required: true },
-		// Returns the updated response value
-		response: async(r: string) => {
-			await trpc().graphs.newGraph.
-		}
-	}
+	//}
+	//}
 
-	function modalplz() {
-		modalStore.trigger(modal)
+	const createNewGraph = async () => {
+		//modalStore.trigger(modal)
+		//TODO: can only run this after resetting db
+		let x = await trpc().graphs.newGraph.mutate({
+			authorId: data.user.id,
+			name: 'Undefined'
+		})
+		goto(`/proc/${x.id}`)
 	}
 </script>
 
@@ -38,7 +49,7 @@
 	<h1 class="heading">Your Graphs</h1>
 	<!-- Personal Graph Section -->
 	<section>
-		<button class="wrapper" on:click={modalplz}>
+		<button class="wrapper" on:click={createNewGraph}>
 			<aside class="opgg">
 				Create New
 				<CirclePlus />

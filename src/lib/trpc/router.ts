@@ -36,10 +36,10 @@ export const graphs = t.router({
       authorId: z.string(),
       name: z.string()
     })).mutation(async ({ input }) => {
-      let x = await db.insert(graph).values({
+      let x = (await db.insert(graph).values({
         authorId: input.authorId,
         name: input.name
-      })
+      }).returning())[0]
 
       return x
     })
