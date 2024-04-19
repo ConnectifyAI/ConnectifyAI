@@ -89,20 +89,21 @@
 			$nodePath = $nodePath
 		} else {
 			// if node not in nodePath
+			if ($nodePath.length == 0) {
+				$nodePath.push(node.id)
+			}
 
-			console.log('id', node.id)
 			const incomers = getIncomers(node, $nodes, $edges)
 
-			console.log('here', incomers[0], $nodePath[$nodePath.length - 1])
-			if (incomers[0]) {
-				if (incomers[0].id == $nodePath[$nodePath.length - 1]) {
-				}
-			}
-			$nodePath.push(node.id)
-			console.log('nodePath', $nodePath)
+			incomers &&
+				incomers.forEach((incomer) => {
+					if (incomer.id == $nodePath[$nodePath.length - 1]) {
+						console.log('valid')
+						$nodePath.push(node.id)
+					}
+				})
 		}
 		$nodePath = $nodePath
-		// console.log('validateNodePath', $nodePath)
 	}
 </script>
 
