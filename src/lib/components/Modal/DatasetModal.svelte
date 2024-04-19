@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { nodes, edges } from '$stores/graph'
-	import ResultCard from '$components/Modal/SubCompments/ResultCard.svelte'
+	import ResultCard from '$components/Modal/SubCompments/ResultCardForDataset.svelte'
 	import Filter from '$components/Modal/SubCompments/Filter.svelte'
 	import Dropdown from '$components/Community/Dropdown.svelte'
 	import type { RouterOutputs } from '$lib/trpc/router'

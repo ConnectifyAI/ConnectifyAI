@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { nodes, edges } from '$stores/graph'
-	import ResultCard from '$components/Modal/SubCompments/ResultCard.svelte'
+	import ResultCard from '$components/Modal/SubCompments/ResultCardForDataset.svelte'
 	import Filter from '$components/Modal/SubCompments/Filter.svelte'
 	import Dropdown from '$components/Community/Dropdown.svelte'
 	import type { RouterOutputs } from '$lib/trpc/router'
 	import { trpc } from '$lib/trpc/client'
 	import { getModalStore } from '@skeletonlabs/skeleton'
-	import ResultCardv2 from './SubCompments/ResultCardv2.svelte'
-
+	import ResultCardv2 from './SubCompments/ResultCardForModel.svelte'
 	export let parent: any
 	console.log('parent', parent)
 

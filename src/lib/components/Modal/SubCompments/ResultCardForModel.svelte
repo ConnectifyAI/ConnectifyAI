@@ -42,7 +42,7 @@
 <div class="wrapper">
 	<section class="flex gap-2 justify-between items-center h-fit py-2">
 		<aside class="overflow-hidden flex-1">
-			<h1 class="truncate">{repoId}</h1>
+			<h1 class="truncate ">{repoId}</h1>
 			<p class="opacity-30 flex-auto">by {author ? author : 'unknown'}</p>
 		</aside>
 
