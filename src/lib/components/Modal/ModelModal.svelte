@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { nodes, edges } from '$stores/graph'
-	import Filter from '$components/Modal/SubCompments/Filter.svelte'
 	import Dropdown from '$components/Community/Dropdown.svelte'
 	import type { RouterOutputs } from '$lib/trpc/router'
 	import { trpc } from '$lib/trpc/client'
@@ -18,7 +16,7 @@
 		console.log('searching', term)
 		results = await trpc().nodes.searchForModels.query({
 			query: searchTerm,
-			take: 100
+			take: 200
 		})
 
 		console.log(results)

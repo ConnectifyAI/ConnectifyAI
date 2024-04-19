@@ -1,27 +1,14 @@
 <script lang="ts">
 	// @ts-nocheck
 	import { Boxes, Plus, Trash } from 'lucide-svelte'
-	import { type Position } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
 	import { deleteNode, pathMode, nodePath } from '$stores/graph'
-	import { onDestroy } from 'svelte'
-	import { trpc } from '$lib/trpc/client'
 
 	export let data: ModelNodeData | DatasetNodeData
 	export let id: string
-
-	onDestroy(async () => {
-		if (data.repoId) {
-			console.log('destroying')
-			//await trpc().nodes.deleteNode.mutate(id)
-		}
-	})
-
-	// export let type: any
-	// console.log('DatasetNode', data, id, type)
 
 	const modalStore = getModalStore()
 

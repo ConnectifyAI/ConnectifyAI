@@ -3,7 +3,9 @@ import { writable } from 'svelte/store'
 
 export const nodes = writable<Node[]>([])
 export const edges = writable<Edge[]>([])
+
 export const graphId = writable<string>()
+export const graphName = writable<string>()
 
 export const pathMode = writable(false)
 export const nodePath = writable<string[]>([])
