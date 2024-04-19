@@ -21,7 +21,7 @@
 		on:mouseenter={maxmize}
 		on:mouseleave={minimize}
 	>
-		<a href="/proc/canvas-test" class={url === '/proc/canvas-test' ? 'lit' : ''}>
+		<a href="/proc/" class={url === '/proc' ? 'lit' : ''}>
 			<Zap />
 			<h1 class={visblity}>Create</h1>
 		</a>
@@ -31,7 +31,7 @@
 			<h1 class={visblity}>Community</h1>
 		</a>
 
-		<a href="/auth/account" class={url === '/auth/account' ? 'lit' : ''}>
+		<a href="/proc/account" class={url === '/proc/account' ? 'lit' : ''}>
 			<Settings />
 			<h1 class={visblity}>Account</h1>
 		</a>

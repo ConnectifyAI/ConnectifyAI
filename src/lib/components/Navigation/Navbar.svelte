@@ -24,7 +24,9 @@
 		</svelte:fragment>
 
 		<div class="font-dmMono text-3xl">
-			{$graphName}
+
+			<!--TODO fix this later -->
+			<!-- {$graphName} -->
 		</div>
 
 		<svelte:fragment slot="trail">
