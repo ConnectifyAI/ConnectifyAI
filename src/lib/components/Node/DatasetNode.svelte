@@ -7,9 +7,16 @@
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
 	import { deleteNode, pathMode, nodePath } from '$stores/graph'
+	import { onDestroy } from 'svelte'
+	import { trpc } from '$lib/trpc/client'
 
 	export let data: DatasetNodeData | ModelNodeData
 	export let id: string
+
+
+	onDestroy(async () => {
+		await trpc().nodes.deleteNode.mutate(id)
+	})
 
 	const modalStore = getModalStore()
 

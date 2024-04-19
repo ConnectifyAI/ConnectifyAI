@@ -88,12 +88,7 @@ export const nodes = t.router({
       return x
     }),
 
-  deleteDatasetNode: t.procedure
-    .input(z.string())
-    .mutation(async ({ input }) => {
-      await db.delete(node)
-    }),
-  deleteModelNode: t.procedure
+  deleteNode: t.procedure
     .input(z.string())
     .mutation(async ({ input }) => {
       let x = await db.delete(node).where(eq(node.id, input)).returning()

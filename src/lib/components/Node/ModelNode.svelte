@@ -8,15 +8,15 @@
 
 	import { deleteNode, pathMode, nodePath } from '$stores/graph'
 	import { onDestroy } from 'svelte'
-
-	onDestroy(() => {
-		console.log('hello')
-		await 
-		
-	})
+	import { trpc } from '$lib/trpc/client'
 
 	export let data: ModelNodeData | DatasetNodeData
 	export let id: string
+
+	onDestroy(async () => {
+		await trpc().nodes.deleteNode.mutate(id)
+	})
+
 	// export let type: any
 	// console.log('DatasetNode', data, id, type)
 
