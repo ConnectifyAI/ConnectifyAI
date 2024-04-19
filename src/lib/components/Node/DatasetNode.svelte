@@ -14,7 +14,7 @@
 
 	onDestroy(async () => {
 		if (data.repoId) {
-		console.log("destroying")
+			console.log('destroying')
 			//TODO: rework
 			//await trpc().nodes.deleteNode.mutate(id)
 		}
@@ -61,7 +61,7 @@
 <!-- IF NODE INTIALIZED -->
 {#if repoName}
 	<div
-		class="wrapper bg-[#eee] {$pathMode ? 'bg-blue-300' : ''} {nodeSelected
+		class="wrapper bg-[#eee] {$pathMode ? 'bg-blue-300' : ''} {$pathMode && nodeSelected
 			? 'bg-green-300 bg-opacity-100'
 			: ''}"
 	>
