@@ -8,6 +8,11 @@
 
 	import { deleteNode, pathMode, nodePath } from '$stores/graph'
 
+	export let data: ModelNodeData | DatasetNodeData
+	export let id: string
+	// export let type: any
+	// console.log('DatasetNode', data, id, type)
+
 	const modalStore = getModalStore()
 
 	const modal: ModalSettings = {
@@ -16,17 +21,15 @@
 
 		backdropClasses: '!bg-slate-800/50',
 		// modalClasses: '!bg-red-500',
-		response: (r) => console.log('response:', r)
+		response: (r) => console.log('response:', r),
+		meta: {
+			nodeId: id
+		}
 	}
 
 	const openModal = () => {
 		modalStore.trigger(modal)
 	}
-
-	export let data: ModelNodeData | DatasetNodeData
-	export let id: string
-	// export let type: any
-	// console.log('DatasetNode', data, id, type)
 
 	let repoName, author, outFeatures, inFeatures, inFeaturesLen, outFeaturesLen, displayName
 

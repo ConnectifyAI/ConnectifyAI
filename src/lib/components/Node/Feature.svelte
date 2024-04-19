@@ -81,6 +81,12 @@
 			}
 		})
 
+		// that means one of the nodes got deleted, which means we casade that node
+		// delete to edges
+		if (!sourceFeatureId || !targetFeatureId) {
+			return
+		}
+
 		let x = await trpc().edges.deleteEdge.mutate({
 			targetFeatureId,
 			sourceFeatureId
@@ -104,7 +110,7 @@
 	}}
 	ondisconnect={(e) => {
 		toggleFeature(e)
-	console.log('deleting')
+		console.log('deleting')
 		delEdgeFromDb(e)
 	}}
 />
