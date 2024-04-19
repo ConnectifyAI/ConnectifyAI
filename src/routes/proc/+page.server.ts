@@ -1,4 +1,4 @@
-import { fetchGraphByUserId } from "$lib/server/api/fetch";
+import { fetchAllGraphs, fetchGraphByUserId } from "$lib/server/api/fetch";
 import type { PageServerLoad } from "./canvas-test/$types";
 
 export const load: PageServerLoad = async ({ params, locals }) => {
@@ -7,9 +7,10 @@ export const load: PageServerLoad = async ({ params, locals }) => {
        throw new Error("no user on load xd") 
     }
 
-    let graphs = await fetchGraphByUserId(locals.user.id)
+    let userGraphs = await fetchGraphByUserId(locals.user.id)
+    let allGraphs = await fetchAllGraphs()
 
     return {
-        graphs 
+        userGraphs 
     };
 };

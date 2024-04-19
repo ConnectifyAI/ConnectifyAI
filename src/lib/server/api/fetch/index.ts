@@ -67,6 +67,28 @@ export async function fetchGraphByUserId(userId: string) {
     return dbGraphs
 }
 
+export async function fetchAllGraphs() {
+
+    const dbGraphs = await db.query.graph.findMany({
+        with: {
+            nodes: {
+                with: {
+                    inFeatures: true,
+                    outFeatures: true
+                }
+            },
+            edges: {
+                with: {
+                    sourceFeature: true,
+                    targetFeature: true
+                }
+            }
+        }
+    })
+
+    return dbGraphs
+}
+
 export async function fetchGraphById(graphId: string) {
 
     const dbGraph = await db.query.graph.findFirst({
