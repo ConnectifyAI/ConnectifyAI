@@ -19,6 +19,10 @@ export const auth: Handle = async ({ event, resolve }) => {
 			throw redirect(303, '/auth/login')
 		}
 
+		if (event.url.pathname === "/") {
+			throw redirect(303, '/auth/login')
+		}
+
 		return resolve(event)
 	}
 
@@ -43,7 +47,11 @@ export const auth: Handle = async ({ event, resolve }) => {
 	event.locals.user = user
 	event.locals.session = session
 
+	if (event.url.pathname === "/") {
+		throw redirect(303, '/proc/')
+	}
+
 	return resolve(event)
 }
 
-export const handle = sequence(trpc)
+export const handle = sequence(auth, trpc)

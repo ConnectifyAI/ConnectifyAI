@@ -1,14 +1,11 @@
 <script lang="ts">
 	// @ts-nocheck
 	import { Boxes, Plus, Trash } from 'lucide-svelte'
-	import { type Position } from '@xyflow/svelte'
 
 	import Accordion from '$components/Node/Accordion.svelte'
 	import { getModalStore } from '@skeletonlabs/skeleton'
 
 	import { deleteNode, pathMode, nodePath } from '$stores/graph'
-	import { onDestroy } from 'svelte'
-	import { trpc } from '$lib/trpc/client'
 
 	export let data: ModelNodeData | DatasetNodeData
 	export let id: string

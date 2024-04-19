@@ -25,11 +25,18 @@
 		bgColor
 	} from '$routes/proc/[graphId]/Dataset.ts'
 
-	import { nodes, edges, graphId, pathMode, nodePath } from '$stores/graph'
+	import { nodes, edges, graphId, pathMode, nodePath, graphName } from '$stores/graph'
 	import { trpc } from '$lib/trpc/client.js'
 	import CollabTool from '$components/CollabTools/CollabTool.svelte'
 
 	export let data
+
+	$graphId = data.graph.id
+	$graphId = $graphId
+
+	$graphName = data.graph.name
+	$graphName = $graphName
+
 
 	console.log(data)
 

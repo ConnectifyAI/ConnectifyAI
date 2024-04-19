@@ -1,22 +1,10 @@
 <script lang="ts">
+	import { graphName } from '$stores/graph'
 	import { AppBar } from '@skeletonlabs/skeleton'
 	import { SendToBack } from 'lucide-svelte'
 	import { SquareUserRound } from 'lucide-svelte'
 	import { Download } from 'lucide-svelte'
-
 </script>
-
-<style>
-	.heading {
-  color: black;
-  font-family: Poppins;
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 29px;
-  letter-spacing: 0em;
-  text-align: left;
-}
-</style>
 
 <div class="">
 	<AppBar
@@ -28,10 +16,17 @@
 	>
 		<svelte:fragment slot="lead">
 			<div class="flex items-center px-10 py-2 h-13">
-				<a class="bg-blue-700 px-2 py-2 rounded-xl" href="/proc/"><SendToBack size="30" color="white" /></a>
+				<a class="bg-blue-700 px-2 py-2 rounded-xl" href="/proc/"
+					><SendToBack size="30" color="white" /></a
+				>
 				<h3 class="heading ml-5">ConnectifyAI</h3>
 			</div>
 		</svelte:fragment>
+
+		<div class="font-dmMono text-3xl">
+			{$graphName}
+		</div>
+
 		<svelte:fragment slot="trail">
 			<div class="flex space-x-5">
 				<div class="flex justify-between">
@@ -46,3 +41,15 @@
 		</svelte:fragment>
 	</AppBar>
 </div>
+
+<style>
+	.heading {
+		color: black;
+		font-family: Poppins;
+		font-size: 24px;
+		font-weight: 600;
+		line-height: 29px;
+		letter-spacing: 0em;
+		text-align: left;
+	}
+</style>
