@@ -7,10 +7,11 @@ import { time } from "console";
 import { convertEdge } from "$lib/server/helpers/convert";
 import { eq } from "drizzle-orm";
 
-export async function createEdge(sourceNode: APINode,
-    targetNode: APINode,
-    sourceFeature: APIFeature,
-    targetFeature: APIFeature,
+export async function createEdge(
+    sourceNodeId: string,
+    targetNodeId: string,
+    sourceFeatureId: string,
+    targetFeatureId: string,
     graphId: UUID
 ): Promise<APIEdge> {
 
@@ -19,11 +20,11 @@ export async function createEdge(sourceNode: APINode,
 
         parentGraphId: graphId,
 
-        sourceNodeId: sourceNode.id,
-        targetNodeId: targetNode.id,
+        sourceNodeId,
+        targetNodeId,
 
-        sourceFeatureId: sourceFeature.id!,
-        targetFeatureId: targetFeature.id!
+        sourceFeatureId,
+        targetFeatureId
 
     }
 

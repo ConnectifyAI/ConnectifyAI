@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Handle, Position, type Connection } from '@xyflow/svelte'
 	import { nodes } from '$routes/proc/canvas-test/Dataset'
+	import { trpc } from '$lib/trpc/client'
+	import { graphId } from '$stores/graph'
 
 	export let feature: Feature
 	export let relativePos: number
@@ -8,7 +10,7 @@
 
 	let { label, dtype, isSelected } = feature
 
-	const toggleFeature = (e: any) => {
+	const toggleFeature = (e: Connection[]) => {
 		isSelected = !isSelected
 		const c = e[0]
 		console.log('toggleFeature', c)
@@ -22,6 +24,41 @@
 			}
 		})
 	}
+
+	const addEdgeToDb = async (e: Connection[]) => {
+		const c = e[0]
+		let sourceFeatureId: string = ''
+		let targetFeatureId: string = ''
+
+		$nodes.forEach((node) => {
+			if (node.id === c.source) {
+				;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
+					console.log("looking at ", f)
+					if (f.label === c.sourceHandle) {
+						console.log("Found!!", f)
+						sourceFeatureId = f.id!
+					}
+				})
+			}
+			if (node.id === c.target) {
+				;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
+					if (f.label === c.targetHandle) {
+						targetFeatureId = f.id!
+					}
+				})
+			}
+		})
+
+		let x = await trpc().edges.newEdge.mutate({
+			graphId: $graphId,
+			sourceNodeId: c.source,
+			targetNodeId: c.target,
+			targetFeatureId,
+			sourceFeatureId
+		})
+		console.log(x)
+	}
+	const delEdgeFromDb = async (e: Connection[]) => {}
 </script>
 
 <aside
@@ -39,7 +76,11 @@
 	style="top: {relativePos}%; background: {isSelected
 		? '#30a0ef'
 		: '#d1eafb'}; width: 16px; height: 16px; border: 2px solid black"
-	onconnect={(e) => toggleFeature(e)}
+	onconnect={(e) => {
+		toggleFeature(e)
+		console.log('ran')
+		addEdgeToDb(e)
+	}}
 	ondisconnect={(e) => toggleFeature(e)}
 />
 

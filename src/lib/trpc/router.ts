@@ -88,29 +88,31 @@ export const nodes = t.router({
     }),
 
   deleteDatasetNode: t.procedure
-  .input(z.string())
-  .mutation(async ({ input }) => {
-    await db.delete(node)
-  })
+    .input(z.string())
+    .mutation(async ({ input }) => {
+      await db.delete(node)
+    })
 })
 
-export const edge = t.router({
+export const edges = t.router({
   newEdge: t.procedure
     .input(z.object({
       //TODO: im way too lazy to zod type these, can just do this later
-      sourceNode: z.any(),
-      targetNode: z.any(),
-      sourceFeature: z.any(),
-      targetFeature: z.any(),
-      graphId: z.any()
+      sourceNodeId: z.string(),
+      targetNodeId: z.string(),
+      sourceFeatureId: z.string(),
+      targetFeatureId: z.string(),
+      graphId: z.string()
 
     })).mutation(async ({ input }) => {
 
-      let x: APIEdge = await createEdge(input.sourceNode, input.targetNode, input.sourceFeature, input.targetFeature, input.graphId)
+      let x: APIEdge = await createEdge(input.sourceNodeId, input.targetNodeId, input.sourceFeatureId, input.targetFeatureId, input.graphId)
 
       return x;
 
-    })
+    }),
+  // deleteEdge: t.procedure
+  //   .input(z.string())
 })
 
 
@@ -119,7 +121,8 @@ export const edge = t.router({
 export const router = t.router({
 
   graphs,
-  nodes
+  nodes,
+  edges
 
 });
 
