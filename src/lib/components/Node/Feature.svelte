@@ -83,11 +83,15 @@
 	position={featureType == 'Input' ? Position.Left : Position.Right}
 	style="top: {relativePos}%; background: #d1eafb; width: 16px; height: 16px; border: 2px solid black"
 	onconnect={(e) => {
-		toggleFeature(e)
-		addEdgeToDb(e)
+		if (featureType == 'Input') {
+			toggleFeature(e)
+			addEdgeToDb(e)
+		}
 	}}
 	ondisconnect={(e) => {
-		toggleFeature(e)
+		if (featureType == 'Input') {
+			toggleFeature(e)
+		}
 	}}
 />
 
