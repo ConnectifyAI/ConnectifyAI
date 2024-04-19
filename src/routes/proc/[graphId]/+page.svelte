@@ -11,7 +11,7 @@
 		defaultNodeOptions,
 		onDragOver,
 		bgColor
-	} from '$routes/proc/canvas-test/Dataset'
+	} from '$routes/proc/[graphId]/Dataset.ts'
 
 	import { nodes, edges, graphId, pathMode, nodePath } from '$stores/graph'
 
@@ -97,6 +97,8 @@
 	on:dragover={onDragOver}
 	on:drop={onDrop}
 	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
+	nodesDraggable={data.isUser}
+	nodesConnectable={data.isUser}
 >
 	<Background />
 
