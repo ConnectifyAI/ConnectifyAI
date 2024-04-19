@@ -103,7 +103,10 @@
 				})
 		}
 		$nodePath = $nodePath
-		console.log('hi')
+	}
+
+	const validateEdgePath = (e) => {
+		console.log('validateEdgePath', e)
 	}
 
 	const updatePosition = (e) => {
@@ -124,6 +127,7 @@
 	on:dragover={onDragOver}
 	on:drop={onDrop}
 	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
+	on:edgeclick={(e) => $pathMode && validateEdgePath(e)}
 >
 	<Background />
 
