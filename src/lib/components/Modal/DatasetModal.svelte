@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { nodes, edges } from '$stores/graph'
-	import ResultCard from '$components/Modal/SubCompments/ResultCardForDataset.svelte'
+	import ResultCardForDataset from '$components/Modal/SubCompments/ResultCardForDataset.svelte'
 	import Filter from '$components/Modal/SubCompments/Filter.svelte'
 	import Dropdown from '$components/Community/Dropdown.svelte'
 	import type { RouterOutputs } from '$lib/trpc/router'
@@ -67,7 +67,7 @@
 		{:else}
 			<aside class="h-fit grid grid-cols-1 lg:grid-cols-2 gap-4">
 				{#each results as result}
-					<ResultCard info={result} {nodeId} nodeType="datasetNode" />
+					<ResultCardForDataset info={result} {nodeId} nodeType="datasetNode" />
 				{/each}
 			</aside>
 		{/if}

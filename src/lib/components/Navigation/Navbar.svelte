@@ -28,7 +28,7 @@
 	>
 		<svelte:fragment slot="lead">
 			<div class="flex items-center px-10 py-2 h-13">
-				<div class="bg-blue-700 px-2 py-2 rounded-xl"><SendToBack size="30" color="white" /></div>
+				<a class="bg-blue-700 px-2 py-2 rounded-xl" href="/proc/"><SendToBack size="30" color="white" /></a>
 				<h3 class="heading ml-5">ConnectifyAI</h3>
 			</div>
 		</svelte:fragment>

@@ -105,7 +105,10 @@
 				})
 		}
 		$nodePath = $nodePath
-		console.log('hi')
+	}
+
+	const validateEdgePath = (e) => {
+		console.log('validateEdgePath', e)
 	}
 
 	const updatePosition = async (e) => {
@@ -137,7 +140,7 @@
 	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
 	nodesDraggable={data.isAuthor}
 	nodesConnectable={data.isAuthor}
- elementsSelectable={data.isAuthor}
+	elementsSelectable={data.isAuthor}
 >
 	<Background />
 
@@ -147,7 +150,6 @@
 			<Toolbar />
 		</Panel>
 	{:else}
-
 		<Panel position="top-right">
 			<CollabTool />
 		</Panel>
