@@ -4,24 +4,26 @@
 	import { trpc } from '$lib/trpc/client'
 	import { graphId } from '$stores/graph'
 
+	export let nodeId: string
 	export let feature: Feature
-	export let relativePos: number
+	export let relativePos: number // Handle offset
 	export let featureType: 'Input' | 'Output'
 
 	let { label, dtype, isSelected } = feature
 
 	const toggleFeature = (e: any) => {
+		console.log('toggle', e)
 		isSelected = !isSelected
-		const c = e[0]
-		$nodes.forEach((node) => {
-			if (node.id === c.source) {
-				;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
-					if (f.label == c.sourceHandle) {
-						f.isSelected = isSelected
-					}
-				})
-			}
-		})
+		// const c = e[0]
+		// $nodes.forEach((node) => {
+		// 	if (node.id === c.source) {
+		// 		;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
+		// 			if (f.label == c.sourceHandle) {
+		// 				f.isSelected = isSelected
+		// 			}
+		// 		})
+		// 	}
+		// })
 	}
 
 	const addEdgeToDb = async (e: Connection[]) => {
@@ -91,12 +93,27 @@
 			sourceFeatureId
 		})
 	}
+
+	if (featureType == 'Input') {
+		// if (nodeId == target)
+		// target: '6d25ae5e-db7c-4950-8eab-d23a6e345134'
+		// targetHandle: 'Question'
+	} else if (featureType == 'Output') {
+		// source: '6d25ae5e-db7c-4950-8eab-d23a6e345134'
+		// sourceHandle: 'Question'
+	}
 </script>
 
-<aside class="my-2 bg-[#d1eafb]">
+<button
+	class={isSelected ? 'bg-[#d1eafb]' : 'bg-purple-300'}
+	on:click={(e) => {
+		e.stopPropagation()
+		toggleFeature(e)
+	}}
+>
 	<h1>{label}</h1>
-	<p class="text-sm text-left opacity-70">{dtype} • etc</p>
-</aside>
+	<p class="text-sm text-left opacity-70">{dtype}</p>
+</button>
 
 <Handle
 	id={label}
@@ -115,7 +132,7 @@
 />
 
 <style>
-	aside {
-		@apply flex-col border rounded-md border-[#bbb] items-start p-4;
+	button {
+		@apply flex-col border rounded-md border-[#bbb] items-start p-3 px-5 my-2;
 	}
 </style>

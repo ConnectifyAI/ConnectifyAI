@@ -112,6 +112,7 @@ export const edges = t.router({
     })).mutation(async ({ input }) => {
 
       let x: APIEdge = await createEdge(input.sourceNodeId, input.targetNodeId, input.sourceFeatureId, input.targetFeatureId, input.graphId)
+      
 
       return x;
 
@@ -127,8 +128,10 @@ export const edges = t.router({
           eq(edge.targetFeatureId, input.targetFeatureId)
         ))
       return x
-    })
+    }),
 })
+
+
 
 
 

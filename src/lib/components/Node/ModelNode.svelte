@@ -84,9 +84,19 @@
 		<!-- repoName -->
 		<section class="py-2">{repoName}</section>
 
-		<Accordion featuresType="Inputs" features={inFeatures} featuresLen={inFeaturesLen} />
+		<Accordion
+			featuresType="Inputs"
+			features={inFeatures}
+			featuresLen={inFeaturesLen}
+			nodeId={id}
+		/>
 
-		<Accordion featuresType="Outputs" features={outFeatures} featuresLen={outFeaturesLen} />
+		<Accordion
+			featuresType="Outputs"
+			features={outFeatures}
+			featuresLen={outFeaturesLen}
+			nodeId={id}
+		/>
 	</div>
 {:else}
 	<aside class="flex">
@@ -102,7 +112,7 @@
 
 <style>
 	.wrapper {
-		@apply p-5 rounded-md w-[26rem] min-h-20;
+		@apply p-5 px-7 rounded-md w-[26rem] min-h-20;
 	}
 
 	aside > button {

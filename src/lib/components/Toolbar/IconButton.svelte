@@ -27,8 +27,6 @@
 		$pathMode = !$pathMode
 		if (!$pathMode) {
 			$nodePath = []
-			console.log('path mode off', $nodePath)
-			$nodePath = $nodePath
 		}
 	}}
 >
