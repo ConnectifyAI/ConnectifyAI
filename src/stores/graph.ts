@@ -15,3 +15,7 @@ export const deleteNode = (id: string) => {
 	nodes.update((nodes) => nodes.filter((node) => node.id !== id))
 	edges.update((edges) => edges.filter((edge) => edge.source !== id && edge.target !== id))
 }
+
+export const removeEdgeToPath = (edgeId: string) => {
+	edgePath.update((path) => path.filter((id) => id !== edgeId))
+}

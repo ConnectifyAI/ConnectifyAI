@@ -24,7 +24,7 @@
 		bgColor
 	} from '$routes/proc/[graphId]/Dataset.ts'
 
-	import { nodes, edges, graphId, pathMode, nodePath } from '$stores/graph'
+	import { nodes, edges, graphId, pathMode, nodePath, edgePath } from '$stores/graph'
 	import { trpc } from '$lib/trpc/client.js'
 	import CollabTool from '$components/CollabTools/CollabTool.svelte'
 
@@ -91,48 +91,48 @@
 		// if node already in nodePath
 		if ($nodePath.includes(node.id)) {
 			$nodePath = $nodePath.slice(0, $nodePath.indexOf(node.id))
-			$nodePath = $nodePath
 		} else {
 			// if node not in nodePath
 			if ($nodePath.length == 0) {
 				$nodePath.push(node.id)
 			}
 
-			const incomers = getIncomers(node, $nodes, $edges)
-
-			incomers &&
-				incomers.forEach((incomer) => {
-					if (incomer.id == $nodePath[$nodePath.length - 1]) {
-						$nodePath.push(node.id)
-					}
-				})
+			getIncomers(node, $nodes, $edges).forEach((incomer) => {
+				if (incomer.id == $nodePath[$nodePath.length - 1]) {
+					$nodePath.push(node.id)
+				}
+			})
 		}
 		$nodePath = $nodePath
 	}
 
 	const validateEdgePath = (e) => {
+		const edge = e.detail.edge
 		console.log('validateEdgePath', e)
-		$edges.forEach((edge) => {
-			if (edge.id == e.detail.edge.id) {
-				if (edge.markerEnd) {
-					// remove edge to path
-					// removeEdgeToPath(edge.id)
-					edge.markerEnd = null
-					edge.style = 'stroke-width: 3px; stroke: #eee'
-				} else {
-					// add edge to path
-					// addEdgeToPath(edge.id)
-					edge.markerEnd = {
-						type: MarkerType.ArrowClosed,
-						width: 10,
-						height: 10,
-						color: '#FF4000'
-					}
-					edge.style = 'stroke-width: 5px; stroke: #FF4000'
+
+		if ($edges.includes(edge.id)) {
+			$edgePath = $edgePath.slice(0, $edgePath.indexOf(edge.id))
+
+			edge.markerEnd = null
+			edge.style = 'stroke-width: 3px; stroke: #eee'
+		} else {
+			// if edge not in edgePath
+			console.log(edge.source, edge.target)
+			if (
+				$edgePath.length == 0 ||
+				($nodePath.includes(edge.source) && $nodePath.includes(edge.target))
+			) {
+				$edgePath.push(edge.id)
+
+				edge.markerEnd = {
+					type: MarkerType.ArrowClosed,
+					width: 10,
+					height: 10,
+					color: '#FF4000'
 				}
+				edge.style = 'stroke-width: 5px; stroke: #FF4000'
 			}
-			console.log('edge called', edge)
-		})
+		}
 		$edges = $edges
 		console.log('edges', $edges)
 	}
@@ -164,6 +164,7 @@
 	on:dragover={onDragOver}
 	on:drop={onDrop}
 	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
+	on:edgeclick={(e) => $pathMode && validateEdgePath(e)}
 	nodesDraggable={data.isAuthor}
 	nodesConnectable={data.isAuthor}
 	elementsSelectable={data.isAuthor}
