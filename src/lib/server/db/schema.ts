@@ -28,7 +28,9 @@ export const user = pgTable('user', {
 )
 
 export const userRelations = relations(user, ({ many }) => ({
-    sessions: many(session)
+    sessions: many(session),
+
+    graphs: many(graph)
 
 }))
 
