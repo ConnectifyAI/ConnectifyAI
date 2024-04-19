@@ -12,29 +12,27 @@
 	const modalStore = getModalStore()
 
 	export let nodeId: string
-	export let nodeType: 'datasetNode' | 'modelNode'
+	export let nodeType: 'datasetNode'
 
 	//handleSelect
-	const handleClick = async () => {
+	const addModel = async () => {
+
 		let position = $nodes.filter((node) => {
 			return node.id === nodeId
 		})[0].position
 
-		if (nodeType === 'datasetNode') {
-			console.log()
-			let insertedNode = await trpc().nodes.newDatasetNode.mutate({
-				position: position,
-				datasetInfo: info,
-				graphId: $graphId
-			})
+		console.log(info)
 
-			$nodes.splice($nodes.length - 1, 1, insertedNode)
+		let insertedNode = await trpc().nodes.newModelNode.mutate({
+			position: position,
+			modelInfo: info,
+			graphId: $graphId
+		})
 
-			$nodes = $nodes
-			// Further code using insertedNode...
-		} else {
-			//TODO do something
-		}
+		$nodes.splice($nodes.length - 1, 1, insertedNode)
+
+		$nodes = $nodes
+		// Further code using insertedNode...
 		modalStore.close()
 	}
 </script>
@@ -42,12 +40,12 @@
 <div class="wrapper">
 	<section class="flex gap-2 justify-between items-center h-fit py-2">
 		<aside class="overflow-hidden flex-1">
-			<h1 class="truncate ">{repoId}</h1>
+			<h1 class="truncate">{repoId}</h1>
 			<p class="opacity-30 flex-auto">by {author ? author : 'unknown'}</p>
 		</aside>
 
 		<button
-			on:click={handleClick}
+			on:click={addModel}
 			class="btn-md variant-outline rounded-md border-2 border-blue-500 h-12 w-40"
 		>
 			Add Model
@@ -55,7 +53,7 @@
 	</section>
 	<section>
 		<p class="labels">
-			{"Inputs:"}
+			{'Inputs:'}
 		</p>
 		{#each outputFeatures as feature}
 			<p class="blocks">
@@ -65,12 +63,12 @@
 	</section>
 	<section>
 		<p class="labels">
-			{"Outputs:"}
+			{'Outputs:'}
 		</p>
 		{#each inputfeatures as feature}
-		<p class="blocks">
-			{feature.label}
-		</p>
+			<p class="blocks">
+				{feature.label}
+			</p>
 		{/each}
 	</section>
 
@@ -93,12 +91,12 @@
 	}
 
 	.blocks {
-		@apply p-3 bg-slate-100 rounded-lg flex justify-center items-center text-sm
+		@apply p-3 bg-slate-100 rounded-lg flex justify-center items-center text-sm;
 	}
-	section{
-		@apply flex gap-2 text-sm overflow-x-auto overflow-hidden py-2
+	section {
+		@apply flex gap-2 text-sm overflow-x-auto overflow-hidden py-2;
 	}
-	.labels{
-		@apply p-3 bg-transparent w-24  rounded-lg flex justify-center items-center text-sm
+	.labels {
+		@apply p-3 bg-transparent w-24  rounded-lg flex justify-center items-center text-sm;
 	}
 </style>

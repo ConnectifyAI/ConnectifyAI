@@ -14,8 +14,10 @@
 	export let id: string
 
 	onDestroy(async () => {
-		console.log(id)
-		await trpc().nodes.deleteNode.mutate(id)
+		if (data.repoId) {
+			console.log('destroying')
+			await trpc().nodes.deleteNode.mutate(id)
+		}
 	})
 
 	// export let type: any

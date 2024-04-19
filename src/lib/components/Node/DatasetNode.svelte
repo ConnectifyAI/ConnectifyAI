@@ -13,7 +13,8 @@
 	export let id: string
 
 	onDestroy(async () => {
-		if (data.author) {
+		if (data.repoId) {
+		console.log("destroying")
 			await trpc().nodes.deleteNode.mutate(id)
 		}
 	})
