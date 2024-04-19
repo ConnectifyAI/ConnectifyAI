@@ -1,18 +1,37 @@
 <script lang="ts">
 	import GraphCard from '$components/LandingPage/GraphCard.svelte'
 	import { CirclePlus } from 'lucide-svelte'
+	import { getModalStore } from '@skeletonlabs/skeleton'
+	import { Modal } from '@skeletonlabs/skeleton'
+	import type { ModalSettings, ModalComponent, ModalStore } from '@skeletonlabs/skeleton'
+	const modalStore = getModalStore()
 
-    export let data
+	export let data
 
 	let userGraphList = data.userGraphs
 	let overallGraphList = data.allGraphs
+	const modal: ModalSettings = {
+		type: 'prompt',
+		// Data
+		title: 'Create New',
+		body: 'Provide your name in the field below.',
+		// Populates the input value and attributes
+		value: 'Skeleton',
+		valueAttr: { type: 'text', minlength: 3, maxlength: 10, required: true },
+		// Returns the updated response value
+		response: (r: string) => console.log('response:', r)
+	}
+
+	function modalplz() {
+		modalStore.trigger(modal)
+	}
 </script>
 
 <div class="p-10 flex-col space-y-5">
 	<h1 class="heading">Your Graphs</h1>
 	<!-- Personal Graph Section -->
-    <section>
-		<a class="wrapper" href="/proc/canvas-test">
+	<section>
+		<a class="wrapper"  on:click={modalplz}>
 			<aside class="opgg">
 				Create New
 				<CirclePlus />
@@ -29,7 +48,7 @@
 			{/each}
 		{/if}
 	</section>
-    <!-- Community Graphs Sections -->
+	<!-- Community Graphs Sections -->
 	<h1 class="heading">Community Graphs</h1>
 	<section>
 		{#each overallGraphList as graph}
