@@ -42,7 +42,7 @@ export const fetchTestGraph = async (): Promise<APIGraph> => {
 }
 
 export async function fetchGraphByUserId(userId: string) {
-    const dbGraphs = await db.query.user.findMany({
+    const dbGraphs = await db.query.user.findFirst({
         where: eq(user.id, userId),
         with: {
             graphs: {
@@ -64,7 +64,7 @@ export async function fetchGraphByUserId(userId: string) {
         }
     })
 
-    return dbGraphs
+    return dbGraphs?.graphs
 }
 
 export async function fetchAllGraphs() {
