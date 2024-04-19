@@ -14,12 +14,15 @@
 
 	const modal: ModalSettings = {
 		type: 'prompt',
+        backdropClasses: '!bg-slate-800/70',
+        modalClasses: '!bg-slate-500',
+
 		// Data
 		title: 'Create New',
 		body: 'Provide your name in the field below.',
 		// Populates the input value and attributes
-		value: 'Skeleton',
-		valueAttr: { type: 'text', minlength: 3, maxlength: 10, required: true },
+		value: 'type here',
+		valueAttr: { type: 'text', required: true },
 		// Returns the updated response value
 		response: async(r: string) => {
 			await trpc().graphs.newGraph.
