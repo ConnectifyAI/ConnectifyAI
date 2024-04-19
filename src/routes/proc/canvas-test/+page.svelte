@@ -105,6 +105,10 @@
 		$nodePath = $nodePath
 		console.log('hi')
 	}
+
+	const updatePosition = (e) => {
+		console.log(e.detail)
+	}
 </script>
 
 <SvelteFlow
@@ -116,7 +120,7 @@
 	{isValidConnection}
 	style="background: {$bgColor}"
 	fitView
-	on:nodedrag={(e) => console.log('drag', e)}
+	on:nodedrag={(e) => updatePosition(e)}
 	on:dragover={onDragOver}
 	on:drop={onDrop}
 	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
