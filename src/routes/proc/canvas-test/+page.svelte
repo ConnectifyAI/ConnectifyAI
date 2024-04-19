@@ -116,6 +116,7 @@
 	{isValidConnection}
 	style="background: {$bgColor}"
 	fitView
+	on:nodedrag={(e) => console.log('drag', e)}
 	on:dragover={onDragOver}
 	on:drop={onDrop}
 	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
