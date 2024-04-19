@@ -10,6 +10,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
     let userGraphs = await fetchGraphByUserId(locals.user.id)
     let allGraphs = await fetchAllGraphs()
 
+
     return {
         userGraphs,
         allGraphs,
