@@ -6,6 +6,7 @@
 	import type { RouterOutputs } from '$lib/trpc/router'
 	import { trpc } from '$lib/trpc/client'
 	import { getModalStore } from '@skeletonlabs/skeleton'
+	import ResultCardv2 from './SubCompments/ResultCardv2.svelte'
 
 	export let parent: any
 	console.log('parent', parent)
@@ -66,7 +67,7 @@
 		{:else}
 			<aside class="h-fit grid grid-cols-1 lg:grid-cols-2 gap-4">
 				{#each results as result}
-					<ResultCard info={result} {nodeId} nodeType="modelNode" />
+					<ResultCardv2 info={result} {nodeId} nodeType="modelNode" inputfeatures={result.inputFeatures} />
 				{/each}
 			</aside>
 		{/if}
