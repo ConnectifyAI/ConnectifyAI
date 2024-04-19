@@ -22,9 +22,11 @@
 		defaultNodeOptions,
 		onDragOver,
 		bgColor
-	} from '$routes/proc/canvas-test/Dataset'
+	} from '$routes/proc/[graphId]/Dataset.ts'
 
 	import { nodes, edges, graphId, pathMode, nodePath } from '$stores/graph'
+	import { trpc } from '$lib/trpc/client.js'
+	import CollabTool from '$components/CollabTools/CollabTool.svelte'
 
 	export let data
 
@@ -135,8 +137,17 @@
 		console.log('edges', $edges)
 	}
 
-	const updatePosition = (e) => {
+	const updatePosition = async (e) => {
 		console.log(e.detail)
+
+		let sent = {
+			x: e.detail.targetNode.position.x,
+			y: e.detail.targetNode.position.y,
+			nodeId: e.detail.targetNode.id
+		}
+
+		console.log(sent)
+		await trpc().nodes.updatePosition.mutate(sent)
 	}
 </script>
 
@@ -153,12 +164,23 @@
 	on:dragover={onDragOver}
 	on:drop={onDrop}
 	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
-	on:edgeclick={(e) => $pathMode && validateEdgePath(e)}
+	nodesDraggable={data.isAuthor}
+	nodesConnectable={data.isAuthor}
+	elementsSelectable={data.isAuthor}
 >
 	<Background />
 
-	<Panel position="top-left">
-		<Toolbar />
-	</Panel>
+	{#if data.isAuthor}
+		<!-- content here -->
+		<Panel position="top-left">
+			<Toolbar />
+		</Panel>
+	{:else}
+		<Panel position="top-right">
+			<CollabTool />
+		</Panel>
+		<!-- else content here -->
+	{/if}
+
 	<Controls />
 </SvelteFlow>

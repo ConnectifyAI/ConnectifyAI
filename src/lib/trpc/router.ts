@@ -10,7 +10,7 @@ import { createEdge } from '$lib/server/api/upsert/edge';
 import { createModelNode } from '$lib/server/api/upsert/model';
 import { createDatasetNode } from '$lib/server/api/upsert/dataset';
 import { db } from '$lib/server/db';
-import { edge, node } from '$lib/server/db/schema';
+import { edge, graph, node } from '$lib/server/db/schema';
 import { and, eq } from 'drizzle-orm';
 
 export const t = initTRPC.context<Context>().create();
@@ -30,6 +30,18 @@ export const graphs = t.router({
 
       return x
 
+    }),
+  newGraph: t.procedure
+    .input(z.object({
+      authorId: z.string(),
+      name: z.string()
+    })).query(async ({ input }) => {
+      let x = await db.insert(graph).values({
+        authorId: input.authorId,
+        name: input.name
+      })
+
+      return x
     })
   //new Graph
 })
@@ -95,7 +107,23 @@ export const nodes = t.router({
 
       if (x.length === 0) throw new Error("could not delete node")
       return x
+    }),
+  updatePosition: t.procedure
+    .input(z.object({
+      x: z.number(),
+      y: z.number(),
+      nodeId: z.string()
+    })).mutation(async ({ input }) => {
+
+      let x = await db.update(node).set({
+        posX: input.x,
+        posY: input.y
+      }).where(eq(node.id, input.nodeId))
+
+      return x
+
     })
+
 
 })
 
@@ -113,6 +141,7 @@ export const edges = t.router({
 
       let x: APIEdge = await createEdge(input.sourceNodeId, input.targetNodeId, input.sourceFeatureId, input.targetFeatureId, input.graphId)
 
+
       return x;
 
     }),
@@ -127,8 +156,10 @@ export const edges = t.router({
           eq(edge.targetFeatureId, input.targetFeatureId)
         ))
       return x
-    })
+    }),
 })
+
+
 
 
 

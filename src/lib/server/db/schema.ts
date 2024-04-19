@@ -1,5 +1,4 @@
 import { relations } from "drizzle-orm";
-import { datetime } from "drizzle-orm/mysql-core";
 import { pgEnum, pgTable, uuid, text, boolean, primaryKey, timestamp, integer, doublePrecision } from "drizzle-orm/pg-core";
 
 //TODO: everything else lmfao
@@ -9,7 +8,7 @@ export const providerEnum = pgEnum('provider', ['google', 'github']);
 
 export const user = pgTable('user', {
 
-    //just to make relations easier
+    //just to make relations easier 
     id: text('id').notNull().unique(),
     provider: providerEnum('provider').notNull(),
     providerId: text('provider_id').notNull(),
@@ -59,8 +58,8 @@ export const sessionRelations = relations(session, ({ one }) => ({
 export const graph = pgTable('graph', {
     id: uuid('id').defaultRandom().primaryKey().notNull().unique(),
     authorId: text('author_id').notNull().references(() => user.id, { onDelete: "cascade" }),
-    likes: integer('likes').notNull(),
-    forks: integer('forks').notNull(),
+    likes: integer('likes').notNull().default(0),
+    forks: integer('forks').notNull().default(0),
     name: text('name').notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
 })

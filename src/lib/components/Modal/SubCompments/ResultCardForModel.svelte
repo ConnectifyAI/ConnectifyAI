@@ -3,7 +3,6 @@
 	import type { DatasetInfo, ModelInfo } from '$lib/server/helpers/apiTypes'
 	export let info: DatasetInfo | ModelInfo
 	export let inputfeatures: any
-	// Model | Dataset
 	const { author, repoId, outputFeatures, downloads, likes, createdAt } = info
 	import { getModalStore } from '@skeletonlabs/skeleton'
 	import { nodes, graphId } from '$stores/graph'
