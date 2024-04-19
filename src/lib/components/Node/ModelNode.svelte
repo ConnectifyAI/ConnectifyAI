@@ -16,7 +16,7 @@
 	onDestroy(async () => {
 		if (data.repoId) {
 			console.log('destroying')
-			await trpc().nodes.deleteNode.mutate(id)
+			//await trpc().nodes.deleteNode.mutate(id)
 		}
 	})
 
