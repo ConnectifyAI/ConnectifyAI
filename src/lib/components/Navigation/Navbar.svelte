@@ -24,7 +24,6 @@
 		</svelte:fragment>
 
 		<div class="font-dmMono text-3xl">
-
 			<!--TODO fix this later -->
 			<!-- {$graphName} -->
 		</div>

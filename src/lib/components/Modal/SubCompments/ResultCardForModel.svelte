@@ -15,7 +15,6 @@
 
 	//handleSelect
 	const addModel = async () => {
-
 		let position = $nodes.filter((node) => {
 			return node.id === nodeId
 		})[0].position

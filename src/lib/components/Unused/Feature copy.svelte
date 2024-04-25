@@ -33,9 +33,9 @@
 		$nodes.forEach((node) => {
 			if (node.id === c.source) {
 				;(node.data.outFeatures as Feature[]).forEach((f: Feature) => {
-					console.log("looking at ", f)
+					console.log('looking at ', f)
 					if (f.label === c.sourceHandle) {
-						console.log("Found!!", f)
+						console.log('Found!!', f)
 						sourceFeatureId = f.id!
 					}
 				})

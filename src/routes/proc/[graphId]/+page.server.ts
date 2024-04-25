@@ -10,18 +10,15 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	const graphId = params.graphId
 
-	let graph: Graph;
-	let isAuthor: boolean;
+	let graph: Graph
+	let isAuthor: boolean
 	try {
 		graph = await fetchGraphById(graphId)
 		isAuthor = graph.authorId === locals.user?.id
-
 	} catch (e) {
-		error(404, "not found")
+		error(404, 'not found')
 	}
 	console.log(isAuthor)
 
 	return { graph, isAuthor }
-
 }
-

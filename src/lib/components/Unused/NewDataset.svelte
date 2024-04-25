@@ -6,9 +6,9 @@
 </script>
 
 <div class="flex h-52 w-[100] z-50">
-<Stepper active="bg-blu" border="border-t border-black" badge="bg-gris">
-	<StepOne />
-    <StepTwo />
-	<StepThree />
-</Stepper>
-</div>	
+	<Stepper active="bg-blu" border="border-t border-black" badge="bg-gris">
+		<StepOne />
+		<StepTwo />
+		<StepThree />
+	</Stepper>
+</div>

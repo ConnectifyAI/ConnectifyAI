@@ -1,9 +1,9 @@
-import type { RequestEvent } from '@sveltejs/kit';
+import type { RequestEvent } from '@sveltejs/kit'
 
 export async function createContext(event: RequestEvent) {
-  return {
-    event // 👈 `event` is now available in your context
-  };
+	return {
+		event // 👈 `event` is now available in your context
+	}
 }
 
-export type Context = Awaited<ReturnType<typeof createContext>>;
+export type Context = Awaited<ReturnType<typeof createContext>>

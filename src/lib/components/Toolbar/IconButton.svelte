@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Icon } from 'lucide-svelte'
 	import type { ComponentType } from 'svelte'
-	import { pathMode, nodePath } from '$stores/graph'
+	import { pathMode, nodePath, edgePath, edges } from '$stores/graph'
+	import { defaultEdgeOptions } from '$routes/proc/testing/Dataset'
 
 	export let icon: ComponentType<Icon>
 	export let type: 'Model' | 'Dataset' | 'Path'
@@ -16,6 +17,14 @@
 		event.dataTransfer.setData('application/svelteflow', nodeType)
 		event.dataTransfer.effectAllowed = 'move'
 	}
+
+	const resetPath = () => {
+		;($nodePath = []), ($edgePath = [])
+		$edges.forEach((edge) => {
+			edge.style = defaultEdgeOptions.style
+		})
+		$edges = $edges
+	}
 </script>
 
 <button
@@ -26,7 +35,7 @@
 		if (draggable) return
 		$pathMode = !$pathMode
 		if (!$pathMode) {
-			$nodePath = []
+			resetPath()
 		}
 	}}
 >

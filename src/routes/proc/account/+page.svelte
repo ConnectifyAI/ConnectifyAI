@@ -1,6 +1,1 @@
-
-<h1>
-
-	settings page
-
-	</h1>
+<h1>settings page</h1>

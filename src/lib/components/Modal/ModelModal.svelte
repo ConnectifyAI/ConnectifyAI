@@ -26,7 +26,6 @@
 
 	let modalStore = getModalStore()
 	const nodeId = $modalStore[0].meta.nodeId
-
 </script>
 
 <div class="wrapper">
@@ -63,7 +62,12 @@
 		{:else}
 			<aside class="h-fit grid grid-cols-1 lg:grid-cols-2 gap-4">
 				{#each results as result}
-					<ResultCard info={result} {nodeId} nodeType="modelNode" inputfeatures={result.inputFeatures} />
+					<ResultCard
+						info={result}
+						{nodeId}
+						nodeType="modelNode"
+						inputfeatures={result.inputFeatures}
+					/>
 				{/each}
 			</aside>
 		{/if}

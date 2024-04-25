@@ -4,19 +4,7 @@
 	import Login from '$lib/assets/new-login.png'
 </script>
 
-<style>
-	.app-preview-icon {
-		width: 55%;
-		height: auto;
-	}
-	@media (max-width: 690px) {
-		.app-preview-icon {
-			display: none;
-		}
-	}
-</style>
-
-<div class="flex" >
+<div class="flex">
 	<div class="w-full flex-col">
 		<h1 class=" px-36 py-10 mt-48 text-8xl font-dmMono">
 			Welcome to <br />
@@ -37,17 +25,27 @@
 				</button>
 			</a>
 			<a href="https://connectify-ai.mintlify.app/">
-			<button
-				class=" bg-blue-500 text-white flex justify-center items-center rounded-xl px-5 py-3 border border-blu"
-			>
-				<ScrollText />
-				<h1 class="ml-4">About Us</h1>
-			</button>
-		</a>
+				<button
+					class=" bg-blue-500 text-white flex justify-center items-center rounded-xl px-5 py-3 border border-blu"
+				>
+					<ScrollText />
+					<h1 class="ml-4">About Us</h1>
+				</button>
+			</a>
 		</div>
 	</div>
 
-		<img class="app-preview-icon" src={Login} alt="welcome app preview" />
-
+	<img class="app-preview-icon" src={Login} alt="welcome app preview" />
 </div>
 
+<style>
+	.app-preview-icon {
+		width: 55%;
+		height: auto;
+	}
+	@media (max-width: 690px) {
+		.app-preview-icon {
+			display: none;
+		}
+	}
+</style>

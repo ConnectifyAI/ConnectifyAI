@@ -1,5 +1,5 @@
 <script>
-	import { SvelteFlowProvider } from '@xyflow/svelte';
+	import { SvelteFlowProvider } from '@xyflow/svelte'
 </script>
 
 <div class="h-full">

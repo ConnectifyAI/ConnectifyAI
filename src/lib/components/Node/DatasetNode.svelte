@@ -38,6 +38,8 @@
 	}
 
 	let nodeSelected = false
+
+	// check if node is selected
 	nodePath.subscribe((arr) => {
 		nodeSelected = false
 		arr.forEach((nodeId) => {

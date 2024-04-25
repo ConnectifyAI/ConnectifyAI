@@ -19,8 +19,8 @@ export const defaultNodeOptions = {
 
 export const defaultEdgeOptions = {
 	type: 'smoothstep',
-	animated: false,
-	interactionWidth: 20,
+	animated: true,
+	interactionWidth: 10,
 	style: 'stroke-width: 3px; stroke: #eee'
 }
 

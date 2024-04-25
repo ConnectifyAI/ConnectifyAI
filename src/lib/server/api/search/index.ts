@@ -1,117 +1,104 @@
-import { HF_TOKEN } from "$env/static/private";
-import type { DatasetInfo, ModelInfo } from "$lib/server/helpers/apiTypes";
-import { modelTypes } from "./modelTypes";
+import { HF_TOKEN } from '$env/static/private'
+import type { DatasetInfo, ModelInfo } from '$lib/server/helpers/apiTypes'
+import { modelTypes } from './modelTypes'
 
 export async function searchDatasets(query: string, take: number): Promise<DatasetInfo[]> {
+	const response = await fetch(
+		`https://huggingface.co/api/datasets?search=${query}&limit=${take}&full=full&config=true`,
+		{
+			method: 'GET',
+			headers: { Authorization: `Bearer ${HF_TOKEN}` }
+		}
+	)
 
-    const response = await fetch(
-        `https://huggingface.co/api/datasets?search=${query}&limit=${take}&full=full&config=true`, {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${HF_TOKEN}` }
-    })
+	let datasets = (await response.json()) as Array<any>
 
-    let datasets = await response.json() as Array<any>
+	let filtered = datasets.filter((dataset) => dataset?.cardData?.dataset_info?.features)
 
-    let filtered = datasets.filter((dataset) => dataset?.cardData?.dataset_info?.features)
+	var cleaned: DatasetInfo[] = []
+	for (const dataset of filtered) {
+		dataset.repoId = dataset.id
 
-    var cleaned: DatasetInfo[] = [];
-    for (const dataset of filtered) {
+		const features = dataset.cardData.dataset_info.features
 
-        dataset.repoId = dataset.id
+		// continue if feature doesnt exist
+		if (!features) {
+			continue
+		}
 
-        const features = dataset.cardData.dataset_info.features;
+		//TODO: please fix man, its so sad
+		try {
+			for (const feature of features) {
+				if (feature.sequence && typeof feature.sequence !== 'string') {
+					throw new Error('yo this dataset is wack')
+				} else if (feature.sequence) {
+					feature.dtype = feature.sequence
+					// feature.sequence = null
+				} else {
+				}
 
-        // continue if feature doesnt exist
-        if (!features) {
-            continue
-        }
+				if (feature.name) {
+					feature.label = feature.name
+				}
 
-        //TODO: please fix man, its so sad
-        try {
-            for (const feature of features) {
-                if (feature.sequence && typeof feature.sequence !== 'string') {
-                    throw new Error("yo this dataset is wack")
-                } else if (feature.sequence) {
+				if (!feature.dtype) {
+					// feature.dtype = "string"
+					console.log(feature)
+				}
 
-                    feature.dtype = feature.sequence
-                    // feature.sequence = null
-                } else {
+				if (feature?.dtype?.class_label) {
+					feature.dtype = 'string'
+				}
+			}
+		} catch (e) {
+			continue
+		}
 
-                }
+		const cleanDataset: DatasetInfo = {
+			outputFeatures: dataset.cardData.dataset_info.features,
+			...dataset
+		}
 
-                if (feature.name) {
-                    feature.label = feature.name
-                }
+		if (cleanDataset.outputFeatures.length > 6) {
+			continue
+		}
+		cleaned.push(cleanDataset)
+	}
 
-                if (!feature.dtype) {
-                    // feature.dtype = "string"
-                    console.log(feature)
-                }
-
-                if (feature?.dtype?.class_label) {
-                    feature.dtype = "string"
-                }
-
-            }
-        } catch (e) {
-            continue
-        }
-
-        const cleanDataset: DatasetInfo = {
-            outputFeatures: dataset.cardData.dataset_info.features,
-            ...dataset
-        }
-
-        if (cleanDataset.outputFeatures.length > 6) {
-            continue
-
-        }
-        cleaned.push(cleanDataset)
-    }
-
-
-    return cleaned
-
+	return cleaned
 }
-
 
 export async function searchModels(query: string, take: number) {
+	const response = await fetch(
+		`https://huggingface.co/api/models?search=${query}&limit=${take}&full=true&config=true`,
+		{
+			method: 'GET',
+			headers: { Authorization: `Bearer ${HF_TOKEN}` }
+		}
+	)
 
-    const response = await fetch(
-        `https://huggingface.co/api/models?search=${query}&limit=${take}&full=true&config=true`,
-        {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${HF_TOKEN}` }
-        }
-    )
+	let modelInfos = await response.json()
 
-    let modelInfos = await response.json()
+	let cleaned: ModelInfo[] = []
 
-    let cleaned: ModelInfo[] = []
+	for (const modelInfo of modelInfos) {
+		//@ts-ignore, im not strictly typing modelinfo bro
+		let io = modelTypes[modelInfo.pipeline_tag]
 
-    for (const modelInfo of modelInfos) {
+		// Meaning it isnt supported
+		if (!io) {
+			continue
+		}
 
-        //@ts-ignore, im not strictly typing modelinfo bro
-        let io = modelTypes[modelInfo.pipeline_tag]
+		const model: ModelInfo = {
+			...modelInfo,
+			inputFeatures: io['inputs'],
+			outputFeatures: io['outputs']
+		}
+		model.repoId = modelInfo.id
 
-        // Meaning it isnt supported
-        if (!io) {
-            continue
-        }
+		cleaned.push(model)
+	}
 
-        const model: ModelInfo = {
-            ...modelInfo,
-            inputFeatures: io['inputs'],
-            outputFeatures: io['outputs'],
-        }
-        model.repoId = modelInfo.id
-
-
-        cleaned.push(model)
-    }
-
-
-    return cleaned
-
+	return cleaned
 }
-

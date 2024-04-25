@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { FileBox, Codepen } from 'lucide-svelte';
-	export let modelType: string, author: string, name: string, in1: string, out: string;
+	import { FileBox, Codepen } from 'lucide-svelte'
+	export let modelType: string, author: string, name: string, in1: string, out: string
 	// export let viewCount: number;
 	// export let downloadCount: number;
 </script>

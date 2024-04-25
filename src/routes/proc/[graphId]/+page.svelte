@@ -37,7 +37,6 @@
 	$graphName = data.graph.name
 	$graphName = $graphName
 
-
 	console.log(data)
 
 	nodes.set(data.graph.nodes)
@@ -118,33 +117,6 @@
 		$nodePath = $nodePath
 	}
 
-	const validateEdgePath = (e) => {
-		console.log('validateEdgePath', e)
-		$edges.forEach((edge) => {
-			if (edge.id == e.detail.edge.id) {
-				if (edge.markerEnd) {
-					// remove edge to path
-					// removeEdgeToPath(edge.id)
-					edge.markerEnd = null
-					edge.style = 'stroke-width: 3px; stroke: #eee'
-				} else {
-					// add edge to path
-					// addEdgeToPath(edge.id)
-					edge.markerEnd = {
-						type: MarkerType.ArrowClosed,
-						width: 10,
-						height: 10,
-						color: '#FF4000'
-					}
-					edge.style = 'stroke-width: 5px; stroke: #FF4000'
-				}
-			}
-			console.log('edge called', edge)
-		})
-		$edges = $edges
-		console.log('edges', $edges)
-	}
-
 	const updatePosition = async (e) => {
 		console.log(e.detail)
 
@@ -157,7 +129,6 @@
 		console.log(sent)
 		await trpc().nodes.updatePosition.mutate(sent)
 	}
-
 
 	const handleDelete = async (params: { nodes: flowNode[]; edges: flowNode[] }) => {
 		params.nodes.forEach(async (node) => {

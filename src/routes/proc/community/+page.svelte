@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Card, DatasetCard, Dropdown } from '$components/Community';
-	import { ChevronDown } from 'lucide-svelte';
-	import Searchbar from '$components/Navigation/Searchbar.svelte';
+	import { Card, DatasetCard, Dropdown } from '$components/Community'
+	import { ChevronDown } from 'lucide-svelte'
+	import Searchbar from '$components/Navigation/Searchbar.svelte'
 </script>
 
 <div class="h-full w-full">
@@ -26,8 +26,6 @@
 			<Dropdown title="Upload Date" contents={['asdfd', 'adfsdf']} />
 		</div>
 	</div>
-	
-
 </div>
 
 <style>

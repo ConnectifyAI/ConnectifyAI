@@ -22,18 +22,26 @@
 		defaultNodeOptions,
 		onDragOver,
 		bgColor
-	} from '$routes/proc/[graphId]/Dataset.ts'
+	} from '$routes/proc/testing/Dataset.ts'
 
-	import { nodes, edges, graphId, pathMode, nodePath, edgePath } from '$stores/graph'
+	import {
+		nodes,
+		edges,
+		graphId,
+		pathMode,
+		nodePath,
+		edgePath,
+		updateEdgePath
+	} from '$stores/graph'
 	import { trpc } from '$lib/trpc/client.js'
 	import CollabTool from '$components/CollabTools/CollabTool.svelte'
 
 	export let data
 
-	console.log(data)
+	$: console.log('data', data)
 
-	nodes.set(data.graph.nodes)
-	edges.set(data.graph.edges)
+	// nodes.set(data.graph.nodes)
+	// edges.set(data.graph.edges)
 	graphId.set(data.graph.id)
 
 	// drag and drop functionality
@@ -86,11 +94,15 @@
 	}
 
 	const validateNodePath = (e) => {
+		console.log(e.detail)
 		const node = e.detail.node
 
 		// if node already in nodePath
 		if ($nodePath.includes(node.id)) {
 			$nodePath = $nodePath.slice(0, $nodePath.indexOf(node.id))
+
+			// check for invalid edges, updateEdgePath
+			updateEdgePath()
 		} else {
 			// if node not in nodePath
 			if ($nodePath.length == 0) {
@@ -106,35 +118,51 @@
 		$nodePath = $nodePath
 	}
 
-	const validateEdgePath = (e) => {
+	// const updateEdgePath = () => {
+	// 	// updates edgePath and edge(s) styling
+	// 	let resetStyle = false
+	// 	$edges.forEach((edge) => {
+	// 		if ($edgePath.includes(edge.id)) {
+	// 			const { id, target } = edge
+	// 			// if edge's target no longer in nodePath, remove edge from edgePath
+	// 			if (!$nodePath.includes(target)) {
+	// 				$edgePath = $edgePath.slice(0, $edgePath.indexOf(id))
+	// 				resetStyle = true
+	// 			}
+	// 		}
+
+	// 		if (resetStyle) {
+	// 			edge.style = defaultEdgeOptions.style
+	// 		}
+	// 	})
+	// 	$edges = $edges
+	// }
+
+	const validateEdgePath = (e): string[] => {
+		// updates edgePath and edge(s) styling
+		console.log(e)
 		const edge = e.detail.edge
-		console.log('validateEdgePath', e)
+		const { id, source, target } = edge
+		const index = $edges.findIndex((edge) => edge.id === e.detail.edge.id)
 
-		if ($edges.includes(edge.id)) {
-			$edgePath = $edgePath.slice(0, $edgePath.indexOf(edge.id))
+		if ($edgePath.includes(id)) {
+			$edgePath = $edgePath.slice(0, $edgePath.indexOf(id))
 
-			edge.markerEnd = null
-			edge.style = 'stroke-width: 3px; stroke: #eee'
+			$edges[index].style = defaultEdgeOptions.style
+			console.log('already selected, deselecting', $edgePath)
+		} else if ($nodePath.includes(source) && $nodePath.includes(target)) {
+			$edgePath.push(id)
+
+			$edges[index].style = 'stroke-width: 7px; stroke: #f0f'
+			console.log('selected success!', $edgePath)
 		} else {
-			// if edge not in edgePath
-			console.log(edge.source, edge.target)
-			if (
-				$edgePath.length == 0 ||
-				($nodePath.includes(edge.source) && $nodePath.includes(edge.target))
-			) {
-				$edgePath.push(edge.id)
-
-				edge.markerEnd = {
-					type: MarkerType.ArrowClosed,
-					width: 10,
-					height: 10,
-					color: '#FF4000'
-				}
-				edge.style = 'stroke-width: 5px; stroke: #FF4000'
-			}
+			console.log('edge not valid')
 		}
-		$edges = $edges
-		console.log('edges', $edges)
+
+		// $edges[index].style =
+		// 	$edges[index].style == defaultEdgeOptions.style
+		// 		? 'stroke-width: 7px; stroke: #f0f'
+		// 		: defaultEdgeOptions.style
 	}
 
 	const updatePosition = async (e) => {
@@ -199,19 +227,22 @@
 	{nodeTypes}
 	{defaultEdgeOptions}
 	{defaultNodeOptions}
+	connectionLineType="smoothstep"
 	{isValidConnection}
 	style="background: {$bgColor}"
 	fitView
-	on:nodedragstop={(e) => updatePosition(e)}
 	on:dragover={onDragOver}
 	on:drop={onDrop}
-	on:nodeclick={(e) => $pathMode && validateNodePath(e)}
+	on:nodeclick={(e) => console.log('node clicked') || ($pathMode && validateNodePath(e))}
 	on:edgeclick={(e) => $pathMode && validateEdgePath(e)}
 	nodesDraggable={data.isAuthor}
 	nodesConnectable={data.isAuthor}
 	elementsSelectable={data.isAuthor}
 	ondelete={handleDelete}
+	zoomOnDoubleClick={false}
+	connectionRadius={30}
 >
+	<!-- on:nodedragstop={(e) => updatePosition(e)} -->
 	<Background />
 
 	{#if data.isAuthor}

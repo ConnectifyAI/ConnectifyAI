@@ -1,4 +1,3 @@
-
 <script lang="ts">
 	import { Zap, Users, Settings } from 'lucide-svelte'
 	import { page } from '$app/stores'
@@ -11,7 +10,6 @@
 	function maxmize() {
 		visblity = 'block'
 	}
-
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
